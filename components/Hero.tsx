@@ -1,6 +1,6 @@
 import { CARS } from "@/data/cars";
 
-const bestSeller = CARS.find((c) => c.id === 12)!;
+const bestSeller = CARS.find((c) => c.id === 6)!;
 
 export default function Hero() {
   return (
@@ -31,13 +31,13 @@ export default function Hero() {
               <span className="hbs-badge">🏆 Best Seller</span>
               <span className="hbs-year-tag">2026</span>
             </div>
-            <div className="hbs-model">Jetour <strong>X70 Plus</strong></div>
-            <div className="hbs-sub">SUV Familial · 7 Places · Neuf 0 km · Direct Usine</div>
-            <div className="hbs-price">13 935 000 <sup>FCFA</sup></div>
+            <div className="hbs-model">Changan <strong>X5 Plus</strong></div>
+            <div className="hbs-sub">SUV Compact · 5 Places · Neuf 0 km · Direct Usine</div>
+            <div className="hbs-price">8 976 150 <sup>FCFA</sup></div>
             <div className="hbs-ports">📦 Même prix CIF — Cotonou · Lomé · Abidjan · Dakar</div>
             <div className="hbs-divider-line" />
             <div className="hbs-highlights">
-              <div className="hbs-hl"><span className="hbs-hl-icon">👨‍👩‍👧‍👦</span><span className="hbs-hl-label">7 Places</span></div>
+              <div className="hbs-hl"><span className="hbs-hl-icon">👨‍👩‍👧‍👦</span><span className="hbs-hl-label">5 Places</span></div>
               <div className="hbs-hl"><span className="hbs-hl-icon">⛽</span><span className="hbs-hl-label">Essence</span></div>
               <div className="hbs-hl"><span className="hbs-hl-icon">🔑</span><span className="hbs-hl-label">Direct usine</span></div>
               <div className="hbs-hl"><span className="hbs-hl-icon">✅</span><span className="hbs-hl-label">Neuf 0 km</span></div>
