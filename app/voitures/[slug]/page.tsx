@@ -152,27 +152,23 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
             </div>
 
             <div className="car-info-block" style={{ flex: "1 1 280px" }}>
-              <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "rgba(255,255,255,0.35)", marginBottom: 6, textTransform: "uppercase" }}>
-                {car!.brand} · {car!.year} · Neuf 0km
+              <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "rgba(255,255,255,0.3)", marginBottom: 8, textTransform: "uppercase" }}>
+                {car!.brand} · {car!.year}
               </div>
-              <h1 style={{ fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 900, lineHeight: 1.05, marginBottom: 8 }}>
+              <h1 style={{ fontSize: "clamp(30px, 5vw, 48px)", fontWeight: 900, lineHeight: 1.05, marginBottom: 20 }}>
                 {car!.model.split(" ").map((w, i) =>
                   i === 0
                     ? <span key={i}>{w} </span>
                     : <em key={i} style={{ color: "var(--red, #A01414)" }}>{w} </em>
                 )}
               </h1>
-              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", marginBottom: 28, letterSpacing: "0.06em" }}>
-                CIF · Livré à votre port · Tous pays
-              </div>
 
-              <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: 20, marginBottom: 20 }}>
-                <div style={{ fontSize: 11, letterSpacing: "0.14em", color: "rgba(255,255,255,0.35)", marginBottom: 6, textTransform: "uppercase" }}>Prix CIF livré</div>
-                <div style={{ fontSize: "clamp(28px,5vw,40px)", fontWeight: 900, letterSpacing: "-0.01em", lineHeight: 1 }}>
-                  {car!.price} <span style={{ fontSize: 15, fontWeight: 400, opacity: 0.45 }}>FCFA</span>
+              <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 16, marginBottom: 20 }}>
+                <div style={{ fontSize: "clamp(26px,5vw,38px)", fontWeight: 900, letterSpacing: "-0.01em", lineHeight: 1 }}>
+                  {car!.price} <span style={{ fontSize: 14, fontWeight: 400, opacity: 0.4 }}>FCFA</span>
                 </div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.28)", marginTop: 8 }}>
-                  Coût · Assurance · Fret inclus · 🇧🇯 🇹🇬 🇨🇮 🇸🇳
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.25)", marginTop: 6 }}>
+                  CIF · Coût + Assurance + Fret inclus
                 </div>
               </div>
 
@@ -184,10 +180,10 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
                   className="modal-cta-primary car-cta-wa"
                   style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none" }}
                 >
-                  📱 Commander sur WhatsApp
+                  Commander sur WhatsApp
                 </a>
-                <Link href="/catalogue" className="modal-cta-secondary car-cta-back" style={{ textDecoration: "none" }}>
-                  ← Catalogue
+                <Link href="/catalogue" className="car-cta-back" style={{ textDecoration: "none", fontSize: 12, color: "rgba(255,255,255,0.3)", textAlign: "center", display: "block", paddingTop: 4 }}>
+                  ← retour
                 </Link>
               </div>
             </div>
