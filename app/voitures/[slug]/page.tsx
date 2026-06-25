@@ -157,7 +157,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
             </div>
 
             <div className="car-info-block" style={{ flex: "1 1 280px" }}>
-              <div style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(28px,6vw,52px)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.05, marginBottom: 20, color: "#fff", fontStyle: "italic", whiteSpace: "nowrap" }}>
+              <div style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(28px,6vw,52px)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.05, marginBottom: 20, color: "#fff", fontStyle: "italic" }}>
                 {car!.brand} {car!.model}
               </div>
               <div style={{ fontFamily: "DM Sans, sans-serif", fontSize: "clamp(22px,4vw,32px)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 4, fontVariantNumeric: "tabular-nums lining-nums" }}>
