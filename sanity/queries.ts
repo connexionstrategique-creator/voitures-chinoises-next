@@ -88,7 +88,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     heroLine1:       raw?.heroLine1       ?? "Voitures chinoises.",
     heroLine2:       raw?.heroLine2       ?? "Neuves.",
     heroLine3:       raw?.heroLine3       ?? "Direct Chine.",
-    heroSubtitle:    raw?.heroSubtitle    ?? "Une voiture neuve au prix d'une occasion. Nous achetons directement en usine en Chine — vous choisissez, vous personnalisez, nous livrons CIF jusqu'à votre port. Zéro intermédiaire. Zéro mauvaise surprise.",
+    heroSubtitle:    raw?.heroSubtitle    ?? "Une commande. Un suivi. Un véhicule neuf livré CIF à votre port — jusqu'au dédouanement et à l'immatriculation. Pas de compromis, pas d'approximation — juste le travail bien fait.",
     whatsappNumber:  raw?.whatsappNumber  ?? "8619587439774",
     phoneDisplay:    raw?.phoneDisplay    ?? "+229 01 41 76 53 41",
     phoneCN:         raw?.phoneCN         ?? "+86 195 8743 9774",
