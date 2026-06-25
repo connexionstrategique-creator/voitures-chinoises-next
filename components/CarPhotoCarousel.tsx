@@ -90,11 +90,11 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
             <>
               <button
                 onClick={(e) => { e.stopPropagation(); setPhotoIdx((photoIdx - 1 + photos.length) % photos.length); }}
-                style={{ position: "absolute", left: 20, background: "rgba(255,255,255,0.1)", border: "none", color: "#fff", fontSize: 40, width: 56, height: 56, borderRadius: "50%", cursor: "pointer" }}
+                style={{ position: "absolute", left: 16, background: "rgba(255,255,255,0.18)", border: "1px solid rgba(255,255,255,0.35)", color: "#fff", fontSize: 36, width: 52, height: 52, borderRadius: "50%", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
               >‹</button>
               <button
                 onClick={(e) => { e.stopPropagation(); setPhotoIdx((photoIdx + 1) % photos.length); }}
-                style={{ position: "absolute", right: 20, background: "rgba(255,255,255,0.1)", border: "none", color: "#fff", fontSize: 40, width: 56, height: 56, borderRadius: "50%", cursor: "pointer" }}
+                style={{ position: "absolute", right: 16, background: "rgba(255,255,255,0.18)", border: "1px solid rgba(255,255,255,0.35)", color: "#fff", fontSize: 36, width: 52, height: 52, borderRadius: "50%", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
               >›</button>
             </>
           )}
