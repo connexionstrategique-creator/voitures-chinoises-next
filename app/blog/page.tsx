@@ -76,7 +76,7 @@ export default async function BlogPage({
       />
 
       {/* Hero */}
-      <section style={{ background: "#0D0D0D", padding: "40px 60px 32px", color: "#fff" }}>
+      <section className="blog-page-hero">
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ fontSize: 11, letterSpacing: "0.22em", color: "rgba(255,255,255,0.4)", marginBottom: 16, textTransform: "uppercase" }}>
             Voitures Chinoises · Blog
@@ -92,7 +92,7 @@ export default async function BlogPage({
       </section>
 
       <main style={{ background: "#F5F5F5", minHeight: "60vh" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "56px 60px 80px" }}>
+        <div className="blog-page-inner">
 
           {allPosts.length === 0 ? (
             <div style={{ textAlign: "center", padding: "80px 0", color: "#888", fontFamily: "DM Sans, sans-serif" }}>
@@ -105,7 +105,7 @@ export default async function BlogPage({
                 <Link href={`/blog/${featured.slug}`} style={{ textDecoration: "none", display: "block", marginBottom: 32 }}>
                   <article
                     className="blog-gallery-hero"
-                    style={{ position: "relative", height: 520, borderRadius: 16, overflow: "hidden", background: "#111" }}
+                    style={{ position: "relative", height: 360, borderRadius: 16, overflow: "hidden", background: "#111" }}
                   >
                     {featured.imageUrl && (
                       <Image
@@ -114,14 +114,13 @@ export default async function BlogPage({
                         fill
                         style={{ objectFit: "cover", transition: "transform .5s ease" }}
                         className="blog-gallery-hero-img"
-                        unoptimized
                       />
                     )}
                     <div style={{
                       position: "absolute", inset: 0,
                       background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.05) 100%)",
                     }} />
-                    <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "40px 48px" }}>
+                    <div className="blog-hero-overlay-text">
                       <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 16 }}>
                         <span style={{
                           background: "#A01414", color: "#fff",
@@ -175,7 +174,6 @@ export default async function BlogPage({
                               fill
                               style={{ objectFit: "cover", transition: "transform .5s ease" }}
                               className="blog-gallery-card-photo"
-                              unoptimized
                             />
                           ) : (
                             <div style={{ background: "#111", width: "100%", height: "100%" }} />

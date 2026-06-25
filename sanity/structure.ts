@@ -23,6 +23,8 @@ export const structure: StructureWithOrderable = (S, context, orderableDocumentL
       // Marques
       S.documentTypeListItem('brand').title('🏷️ Marques'),
       S.divider(),
-      // Blog
-      S.documentTypeListItem('post').title('📝 Articles Blog'),
+      // Blog — drag & drop
+      orderableDocumentListDeskItem
+        ? orderableDocumentListDeskItem({type: 'post', title: '📝 Articles Blog', S, context})
+        : S.documentTypeListItem('post').title('📝 Articles Blog'),
     ])

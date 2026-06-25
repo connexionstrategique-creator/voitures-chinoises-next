@@ -21,7 +21,7 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
 
   if (photos.length === 0) {
     return (
-      <div style={{ height: 400, display: "flex", alignItems: "center", justifyContent: "center", background: "#1a1a1a", borderRadius: 16 }}>
+      <div style={{ height: 400, display: "flex", alignItems: "center", justifyContent: "center", background: "#1a1a1a", borderRadius: 20, border: "1px solid rgba(255,255,255,0.06)" }}>
         <CarSVG color={color} />
       </div>
     );
@@ -30,7 +30,7 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
   return (
     <>
       {/* Carousel */}
-      <div style={{ position: "relative", background: "#111", borderRadius: 16, overflow: "hidden" }}>
+      <div style={{ position: "relative", background: "#111", borderRadius: 20, overflow: "hidden", border: "1px solid rgba(255,255,255,0.06)" }}>
         <div style={{ display: "flex", transition: "transform .35s ease", transform: `translateX(-${photoIdx * 100}%)` }}>
           {photos.map((p, i) => (
             <div

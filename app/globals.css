@@ -2199,6 +2199,12 @@ html, body { overflow-x:hidden; max-width:100%; }
 /* ── RESPONSIVE ── */
 
   /* TABLET ≤960px */
+  @media(max-width:600px){
+    .marquee-name { font-size: 16px; letter-spacing: 0.08em; }
+    .marquee-dot { font-size: 10px; margin: 0 2px; }
+    .marquee-track { padding: 14px 0; }
+  }
+
   @media(max-width:960px){
     nav { padding:0 24px; height:60px; }
     .nav-logo img { height:40px; }
@@ -2239,15 +2245,34 @@ html, body { overflow-x:hidden; max-width:100%; }
     body { overflow-x:hidden; }
 
     /* NAV */
-    nav { padding:0 16px; height:56px; }
-    .nav-logo img { height:34px; }
-    .nav-links { top:56px; }
+    nav { padding:0 16px; height:52px; }
+    .nav-logo img { height:26px !important; width:auto !important; }
+    .nav-links { top:52px; }
     .nav-cta { display:none; }
 
     /* HERO */
-    .hero { padding:40px 16px 0; }
-    .hero-title { font-size:clamp(26px,8vw,40px); line-height:1.1; }
-    .hero-sub { font-size:14px; }
+    .hero { padding:24px 16px 28px; min-height:auto; align-items:flex-start; }
+    .hero-inner { text-align:left; }
+    .hero-eyebrow { display:none; }
+    .hero-title { font-size:clamp(22px,6.5vw,28px); line-height:1.25; margin-bottom:12px; letter-spacing:0; }
+    .hero-line-1, .hero-title em, .hero-title strong { animation:none !important; opacity:1 !important; transform:none !important; display:block !important; }
+    .hero-line-1::after { content:''; }
+    .hero-title em::after { content:''; }
+    .hero-sub { font-size:12px; line-height:1.6; margin-bottom:0; max-width:100%; margin-left:0; margin-right:0; }
+    .hero-cta-wrap { display:none; }
+    .hero-to-catalogue { height:60px; }
+
+    /* CAROUSEL — masqué sur mobile */
+    .fdm-section { display:none !important; }
+
+    /* TYPOGRAPHIE GLOBALE MOBILE */
+    .h2 { font-size:clamp(22px,6vw,32px) !important; }
+    .section-sub { font-size:13px; }
+    .section { padding:36px 16px; }
+    .filter-label { font-size:10px; }
+    section.catalogue-section { padding-top:28px !important; }
+    .catalogue-header { margin-bottom:20px; }
+    .catalogue-controls { gap:12px; margin-bottom:20px; }
     .hero-cta-wrap { flex-direction:column; gap:10px; }
     .btn-red, .btn-outline { width:100%; text-align:center; padding:14px 20px; }
     .hero-bestseller-wrap { padding:0; width:100%; }
@@ -3030,7 +3055,7 @@ html, body { overflow-x:hidden; max-width:100%; }
   }
   @media (max-width: 560px) {
     .blog-gallery-grid { grid-template-columns: 1fr; }
-    .blog-gallery-hero { height: 320px !important; }
+    .blog-gallery-hero { height: 240px !important; }
   }
 
   /* ── FOOTER UTILITY ── */
@@ -3071,3 +3096,154 @@ html, body { overflow-x:hidden; max-width:100%; }
     animation:fadeUp .3s ease;
   }
 
+
+/* ── Carousel (FeaturedCarousel) ────────────────────────── */
+.fdm-progress-track {
+  height: 2px;
+  background: #E0E0E0;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+.fdm-progress-bar {
+  height: 100%;
+  background: #A01414;
+  transition: width 0.05s linear;
+}
+.fdm-topbar-right-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.fdm-carousel-arrows {
+  display: flex;
+  gap: 4px;
+}
+.fdm-arrow {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #D0D0D0;
+  border-radius: 50%;
+  background: transparent;
+  color: #0D0D0D;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1;
+}
+.fdm-arrow:hover {
+  background: #0D0D0D;
+  border-color: #0D0D0D;
+  color: #fff;
+}
+.fdm-dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 28px;
+}
+.fdm-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #D0D0D0;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s, transform 0.2s;
+}
+.fdm-dot-active {
+  background: #A01414;
+  transform: scale(1.4);
+}
+.fdm-carousel-slide {
+  animation: fdmSlideInRight 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.fdm-slide-out-left {
+  animation: fdmSlideOutLeft 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.fdm-slide-out-right {
+  animation: fdmSlideOutRight 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.fdm-slide-in-right {
+  animation: fdmSlideInRight 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.fdm-slide-in-left {
+  animation: fdmSlideInLeft 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes fdmSlideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fdmSlideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fdmSlideOutLeft {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(-40px); }
+}
+@keyframes fdmSlideOutRight {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(40px); }
+}
+
+/* ── Featured car photo animation (Ken Burns) ───────────── */
+.fdm-car-photo-anim {
+  animation: fdmKenBurns 6s ease-out both;
+  transform-origin: center bottom;
+}
+@keyframes fdmKenBurns {
+  0%   { transform: scale(0.92) translateX(10px); opacity: 0; }
+  8%   { opacity: 1; }
+  100% { transform: scale(1.04) translateX(-4px); opacity: 1; }
+}
+
+/* ── Blog related cards ─────────────────────────────────── */
+.blog-related-card:hover {
+  box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+  transform: translateY(-2px);
+}
+
+/* ── BLOG PAGE RESPONSIVE ───────────────────────────────── */
+.blog-page-hero { background: #0D0D0D; padding: 40px 60px 32px; color: #fff; }
+.blog-page-inner { max-width: 1100px; margin: 0 auto; padding: 56px 60px 80px; }
+.blog-hero-overlay-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 48px; }
+
+/* ── ARTICLE PAGE RESPONSIVE ────────────────────────────── */
+.article-hero-inner { position: relative; z-index: 1; max-width: 820px; margin: 0 auto; width: 100%; padding: 0 40px 56px; }
+.article-body-section { background: #fff; padding: 48px 40px 80px; }
+.article-next-card {
+  border: 1px solid #E0E0E0; border-radius: 12px; overflow: hidden;
+  display: grid; grid-template-columns: 160px 1fr; transition: box-shadow .2s;
+}
+.article-next-card--no-img { grid-template-columns: 1fr; }
+
+@media (max-width: 768px) {
+  .blog-page-hero { padding: 28px 20px 20px; }
+  .blog-page-inner { padding: 28px 16px 60px; }
+  .blog-hero-overlay-text { padding: 20px 20px; }
+  .blog-gallery-hero { height: 260px !important; }
+  .article-hero-inner { padding: 0 16px 32px; }
+  .article-body-section { padding: 28px 16px 60px; }
+  .article-next-card { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 560px) {
+  /* Blog */
+  .blog-page-hero { padding: 24px 16px 16px; }
+  .blog-page-inner { padding: 20px 12px 48px; }
+  .blog-hero-overlay-text { padding: 16px; }
+  .blog-gallery-hero { height: 200px !important; }
+  /* Carousel */
+  .fdm-section { padding: 0 16px 36px !important; }
+  .fdm-photo-box { min-height: 220px !important; }
+  .fdm-car-model { font-size: 36px !important; line-height: 1.0 !important; margin-bottom: 16px !important; }
+  .fdm-price-amount { font-size: 36px !important; margin-bottom: 20px !important; }
+  .fdm-actions { flex-direction: column; }
+  .fdm-btn-wa, .fdm-btn-fiche { min-width: 0 !important; width: 100%; justify-content: center; }
+  .fdm-specs-row { margin-bottom: 20px; }
+  .fdm-spec-val { font-size: 22px; }
+}

@@ -136,10 +136,10 @@ export async function getPosts(category?: string): Promise<BlogPost[]> {
     ? `_type == "post" && category == "${category}"`
     : `_type == "post"`;
   const raw = await sanityClient.fetch(
-    `*[${filter}] | order(publishedAt desc) {
+    `*[${filter}] | order(orderRank asc, publishedAt desc) {
       _id, title,
       "slug": slug.current,
-      "imageUrl": mainImage.asset->url,
+      "imageUrl": mainImage.asset->url + "?w=900&auto=format&q=78",
       "imageAlt": mainImage.alt,
       publishedAt, category, excerpt
     }`,
@@ -154,7 +154,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     `*[_type == "post" && slug.current == $slug][0] {
       _id, title,
       "slug": slug.current,
-      "imageUrl": mainImage.asset->url,
+      "imageUrl": mainImage.asset->url + "?w=1200&auto=format&q=80",
       "imageAlt": mainImage.alt,
       publishedAt, category, excerpt, seoTitle, seoDescription,
       body[] {

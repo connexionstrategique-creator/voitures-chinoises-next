@@ -4,6 +4,7 @@ import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
+import {table} from '@sanity/table'
 
 import {apiVersion, dataset, projectId} from './sanity/env'
 import {schema} from './sanity/schemaTypes'
@@ -20,5 +21,6 @@ export default defineConfig({
       structure: ((S: any, context: any) => structure(S, context, orderableDocumentListDeskItem)) as any,
     }),
     visionTool({defaultApiVersion: apiVersion}),
+    table(),
   ],
 })

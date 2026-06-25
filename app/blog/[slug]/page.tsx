@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { getPosts, getPostBySlug } from "@/sanity/queries";
 import { PortableText } from "@portabletext/react";
 import type { Metadata } from "next";
+import PostViewCounter from "@/components/PostViewCounter";
 
 export const revalidate = 60;
 
@@ -89,6 +90,49 @@ const ptComponents = {
         )}
       </figure>
     ) : null,
+    table: ({ value }: any) => {
+      if (!value?.rows?.length) return null;
+      const [headerRow, ...bodyRows] = value.rows;
+      return (
+        <div style={{ overflowX: "auto", margin: "36px 0" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: "DM Sans, sans-serif", fontSize: 14 }}>
+            {headerRow?.cells?.length > 0 && (
+              <thead>
+                <tr>
+                  {headerRow.cells.map((cell: string, i: number) => (
+                    <th key={i} style={{
+                      background: "#0D0D0D", color: "#fff",
+                      padding: "12px 16px", textAlign: "left",
+                      fontWeight: 700, fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase",
+                      borderBottom: "2px solid #A01414",
+                      whiteSpace: "nowrap",
+                    }}>
+                      {cell}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+            )}
+            <tbody>
+              {bodyRows.map((row: any, ri: number) => (
+                <tr key={ri} style={{ background: ri % 2 === 0 ? "#fff" : "#F5F5F5" }}>
+                  {row.cells?.map((cell: string, ci: number) => (
+                    <td key={ci} style={{
+                      padding: "11px 16px", color: "#333",
+                      borderBottom: "1px solid #E0E0E0",
+                      lineHeight: 1.5,
+                      fontWeight: ci === 0 ? 600 : 400,
+                    }}>
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    },
   },
   list: {
     bullet: ({ children }: any) => <ul style={{ paddingLeft: 24, marginBottom: 20 }}>{children}</ul>,
@@ -111,6 +155,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const readTime = estimateReadTime(post!.body || []);
   const currentIndex = allPosts.findIndex((p) => p.slug === slug);
   const nextPost = currentIndex >= 0 && currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+
+  // Related articles: same category first, then others — max 3, exclude current
+  const others = allPosts.filter((p) => p.slug !== slug);
+  const sameCategory = others.filter((p) => p.category === post!.category);
+  const different = others.filter((p) => p.category !== post!.category);
+  const related = [...sameCategory, ...different].slice(0, 3);
 
   return (
     <>
@@ -158,9 +208,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         {/* Hero */}
         <section style={{ position: "relative", minHeight: 420, background: "#0D0D0D", display: "flex", alignItems: "flex-end" }}>
           {post!.imageUrl && (
-            <Image src={post!.imageUrl} alt={post!.imageAlt || post!.title} fill style={{ objectFit: "cover", opacity: 0.35 }} unoptimized />
+            <Image src={post!.imageUrl} alt={post!.imageAlt || post!.title} fill style={{ objectFit: "cover", opacity: 0.35 }} />
           )}
-          <div style={{ position: "relative", zIndex: 1, maxWidth: 820, margin: "0 auto", width: "100%", padding: "0 40px 56px" }}>
+          <div className="article-hero-inner">
             {/* Breadcrumb */}
             <div style={{ fontFamily: "DM Sans, sans-serif", fontSize: 12, color: "rgba(255,255,255,0.4)", marginBottom: 20, letterSpacing: "0.08em" }}>
               <Link href="/" style={{ color: "inherit", textDecoration: "none" }}>Accueil</Link>
@@ -183,6 +233,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <span style={{ fontFamily: "DM Sans, sans-serif", fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
                 {readTime} min de lecture
               </span>
+              <PostViewCounter slug={slug} />
             </div>
             <h1 style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(28px,4vw,52px)", fontWeight: 700, color: "#fff", lineHeight: 1.15 }}>
               {post!.title}
@@ -191,7 +242,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </section>
 
         {/* Article body */}
-        <section style={{ background: "#fff", padding: "48px 40px 80px" }}>
+        <section className="article-body-section">
           <div style={{ maxWidth: 720, margin: "0 auto" }}>
             {/* Back link — top */}
             <div style={{ marginBottom: 32 }}>
@@ -213,6 +264,47 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <PortableText value={post!.body} components={ptComponents} />
             )}
 
+            {/* À lire aussi */}
+            {related.length > 0 && (
+              <div style={{ marginTop: 56, paddingTop: 40, borderTop: "2px solid #E0E0E0" }}>
+                <div style={{ fontFamily: "DM Sans, sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#A01414", marginBottom: 24, display: "flex", alignItems: "center", gap: 10 }}>
+                  <span style={{ display: "inline-block", width: 24, height: 1, background: "#A01414" }} />
+                  À lire aussi
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 16 }}>
+                  {related.map((r) => (
+                    <Link key={r.slug} href={`/blog/${r.slug}`} style={{ textDecoration: "none", display: "block" }}>
+                      <div className="blog-related-card" style={{ border: "1px solid #E8E8E8", borderRadius: 10, overflow: "hidden", height: "100%", transition: "box-shadow .2s, transform .2s" }}>
+                        {r.imageUrl ? (
+                          <div style={{ position: "relative", height: 110, background: "#111" }}>
+                            <Image src={r.imageUrl} alt={r.imageAlt || r.title} fill style={{ objectFit: "cover" }} />
+                            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)" }} />
+                          </div>
+                        ) : (
+                          <div style={{ height: 110, background: "#0D0D0D", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <span style={{ fontSize: 28 }}>🚗</span>
+                          </div>
+                        )}
+                        <div style={{ padding: "14px 16px" }}>
+                          {r.category && (
+                            <span style={{ fontFamily: "DM Sans, sans-serif", fontSize: 9, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "#A01414", display: "block", marginBottom: 6 }}>
+                              {CAT_LABELS[r.category] || r.category}
+                            </span>
+                          )}
+                          <p style={{ fontFamily: "Cormorant Garamond, serif", fontSize: 16, fontWeight: 700, color: "#0D0D0D", lineHeight: 1.3, margin: "0 0 8px" }}>
+                            {r.title.length > 72 ? r.title.slice(0, 72) + "…" : r.title}
+                          </p>
+                          <span style={{ fontFamily: "DM Sans, sans-serif", fontSize: 11, fontWeight: 700, color: "#A01414" }}>
+                            Lire →
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Next article */}
             {nextPost && (
               <div style={{ marginTop: 64, paddingTop: 40, borderTop: "2px solid #E0E0E0" }}>
@@ -220,16 +312,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   Article suivant
                 </div>
                 <Link href={`/blog/${nextPost.slug}`} style={{ textDecoration: "none", display: "block" }}>
-                  <div style={{
-                    border: "1px solid #E0E0E0", borderRadius: 12, overflow: "hidden",
-                    display: "grid", gridTemplateColumns: nextPost.imageUrl ? "160px 1fr" : "1fr",
-                    transition: "box-shadow .2s",
-                  }}
-                    className="blog-next-card"
-                  >
+                  <div className={`blog-next-card article-next-card${!nextPost.imageUrl ? " article-next-card--no-img" : ""}`}>
                     {nextPost.imageUrl && (
                       <div style={{ position: "relative", height: 140, background: "#111" }}>
-                        <Image src={nextPost.imageUrl} alt={nextPost.imageAlt || nextPost.title} fill style={{ objectFit: "cover" }} unoptimized />
+                        <Image src={nextPost.imageUrl} alt={nextPost.imageAlt || nextPost.title} fill style={{ objectFit: "cover" }} />
                       </div>
                     )}
                     <div style={{ padding: "20px 24px" }}>

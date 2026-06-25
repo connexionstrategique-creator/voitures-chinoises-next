@@ -1,6 +1,6 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import FeaturedCar from "@/components/FeaturedCar";
+import FeaturedCarousel from "@/components/FeaturedCarousel";
 import BrandMarquee from "@/components/BrandMarquee";
 import Catalogue from "@/components/Catalogue";
 import Footer from "@/components/Footer";
@@ -32,10 +32,9 @@ export default async function Home() {
         waNumber={settings?.whatsappNumber}
       />
       <BrandMarquee />
-      {(() => {
-        const featured = cars.find((c) => c.featured) || cars[0];
-        return featured ? <FeaturedCar car={featured} waNumber={settings?.whatsappNumber} /> : null;
-      })()}
+      {cars.length > 0 && (
+        <FeaturedCarousel cars={cars} waNumber={settings?.whatsappNumber} />
+      )}
       <Catalogue cars={cars} />
       <Footer
         waNumber={settings?.whatsappNumber}
