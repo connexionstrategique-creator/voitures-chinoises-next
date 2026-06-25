@@ -69,6 +69,7 @@ export default function Footer({
             <li><a href="/pourquoi">Pourquoi nous</a></li>
             <li><a href="/process">Process</a></li>
             <li><a href="/faq">FAQ</a></li>
+            <li><a href="/blog">Blog</a></li>
           </ul>
         </div>
         <div>
