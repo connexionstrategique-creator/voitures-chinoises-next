@@ -3240,6 +3240,10 @@ html, body { overflow-x:hidden; max-width:100%; }
   .blog-page-inner { padding: 20px 12px 48px; }
   .blog-hero-overlay-text { padding: 16px; }
   .blog-gallery-hero { height: 200px !important; }
+  .blog-gallery-card-img { height: 200px; }
+  .blog-pagination { gap: 6px !important; flex-wrap: wrap; }
+  .blog-pagination a, .blog-pagination span { padding: 8px 12px !important; font-size: 12px !important; }
+  .blog-page-btn { display: none; }
   /* Carousel */
   .fdm-section { padding: 0 16px 36px !important; }
   .fdm-photo-box { min-height: 220px !important; }

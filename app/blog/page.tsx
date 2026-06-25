@@ -210,7 +210,7 @@ export default async function BlogPage({
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div style={{
+                <div className="blog-pagination" style={{
                   display: "flex", alignItems: "center", justifyContent: "center",
                   gap: 8, marginTop: 56,
                 }}>
