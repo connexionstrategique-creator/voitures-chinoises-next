@@ -1,5 +1,6 @@
 "use client";
 import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { getColorHex } from "@/data/types";
 import type { Car } from "@/data/types";
@@ -159,10 +160,10 @@ function CarModal({ car, onClose }: { car: Car; onClose: () => void }) {
 }
 
 export default function Catalogue({ cars }: { cars: Car[] }) {
+  const router = useRouter();
   const [activeFilter, setActiveFilter] = useState("all");
   const [activeBudget, setActiveBudget] = useState("all");
   const [search, setSearch] = useState("");
-  const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 9;
 
@@ -248,7 +249,7 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                 <div
                   key={car.id}
                   className={`car-card${car.featured ? " featured" : ""}`}
-                  onClick={() => setSelectedCar(car)}
+                  onClick={() => router.push(`/voitures/${carSlug(car.brand, car.model)}`)}
                 >
                   <div className="car-img-wrap">
                     {photos.length > 0 ? (
@@ -330,14 +331,6 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                         </svg>
                         Commander
                       </a>
-                      <a
-                        className="card-cta-red"
-                        href={`/voitures/${carSlug(car.brand, car.model)}`}
-                        onClick={(e) => e.stopPropagation()}
-                        title="Fiche technique"
-                      >
-                        Fiche technique
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -395,9 +388,6 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
         </div>
       </section>
 
-      {selectedCar && (
-        <CarModal car={selectedCar} onClose={() => setSelectedCar(null)} />
-      )}
     </>
   );
 }
