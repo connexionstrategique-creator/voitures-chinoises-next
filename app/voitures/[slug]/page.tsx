@@ -181,7 +181,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
         </section>
 
         {/* Détails */}
-        <section className="section">
+        <section className="section" style={{ paddingTop: 32 }}>
           <div className="section-inner">
 
             {/* Couleurs — compact row */}
