@@ -81,7 +81,7 @@ export default function Footer({
               </a>
             </li>
             <li>📞 {phoneCN}</li>
-            <li>📍 Cotonou, Étoile Rouge</li>
+            <li><a href="https://share.google/HqE0ij0QAgsbYwo3H" target="_blank" rel="noopener noreferrer" style={{ color: "inherit" }}>📍 Cotonou, Étoile Rouge</a></li>
             <li>📍 Guangzhou Baiyun, Chine</li>
           </ul>
         </div>
