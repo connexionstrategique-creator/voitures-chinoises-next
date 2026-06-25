@@ -46,7 +46,19 @@ function transformBody(body: any[]): any[] {
   };
 
   for (const block of body) {
-    if (block._type === "block" && block.style === "normal") {
+    // Detect separators (---, —, hr blocks) — skip them when inside a table
+    const isSeparator =
+      block._type === "break" ||
+      block._type === "divider" ||
+      (block._type === "block" && (block.children || []).map((c: any) => c.text || "").join("").trim().match(/^[-—–]{2,}$/));
+
+    if (isSeparator) {
+      if (tableRows.length > 0) continue; // skip separators inside a table
+      result.push(block);
+      continue;
+    }
+
+    if (block._type === "block" && (block.style === "normal" || !block.style)) {
       const text = (block.children || []).map((c: any) => c.text || "").join("");
       if (text.includes("|")) {
         const cells = text.split("|").map((c: string) => c.trim()).filter(Boolean);
