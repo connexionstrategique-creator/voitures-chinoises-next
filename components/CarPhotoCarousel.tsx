@@ -30,13 +30,13 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
   return (
     <>
       {/* Carousel */}
-      <div style={{ position: "relative", background: "#111", overflow: "hidden", width: "100%", borderRadius: 20 }}>
-        <div style={{ display: "flex", transition: "transform .35s ease", transform: `translateX(-${photoIdx * 100}%)`, width: "100%" }}>
+      <div style={{ position: "relative", background: "#111", overflow: "hidden", width: "100%", borderRadius: 20, aspectRatio: "4/3" }}>
+        <div style={{ position: "absolute", inset: 0, display: "flex", transition: "transform .35s ease", transform: `translateX(-${photoIdx * 100}%)` }}>
           {photos.map((p, i) => (
             <div
               key={i}
               onClick={() => setLightbox(true)}
-              style={{ flex: "0 0 100%", position: "relative", aspectRatio: "4/3", cursor: "zoom-in", padding: "6px" }}
+              style={{ flex: "0 0 100%", height: "100%", cursor: "zoom-in", padding: "6px", boxSizing: "border-box" }}
             >
               <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: 16, overflow: "hidden", border: "1.5px solid rgba(255,255,255,0.15)" }}>
                 <Image
