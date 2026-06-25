@@ -78,6 +78,12 @@ export const COLOR_HEX: Record<string, string> = {
   "Noir Cristal": "#1A1A2E",
   "Kaki": "#8B7D5B",
   "Bleu Capri": "#006B9F",
+  "Noir Jais": "#0A0A0A",
+  "Noir Nuit": "#0D0D1A",
+  "Gris Acier": "#6E7A8A",
+  "Orange": "#E8672A",
+  "Jaune": "#EAC317",
+  "Rouge": "#B71C1C",
 };
 
 export function getColorHex(name: string): string {
