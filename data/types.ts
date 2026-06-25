@@ -74,6 +74,10 @@ export const COLOR_HEX: Record<string, string> = {
   "Bleu Azure": "#2979C4",
   "Noir Noble": "#141820",
   "Argent Neige": "#D8DCE8",
+  "Gris Titanium": "#6B6E7A",
+  "Noir Cristal": "#1A1A2E",
+  "Kaki": "#8B7D5B",
+  "Bleu Capri": "#006B9F",
 };
 
 export function getColorHex(name: string): string {

@@ -75,7 +75,7 @@ export default function Footer({
           <div className="footer-col-title">Contact</div>
           <ul className="footer-links">
             <li>
-              <a href={`https://wa.me/${waNumber}?text=${waMsg}`} target="_blank" rel="noopener noreferrer" style={{ color: "inherit" }}>
+              <a href={`tel:${phoneDisplay.replace(/\s/g, "")}`} style={{ color: "inherit" }}>
                 📞 {phoneDisplay}
               </a>
             </li>

@@ -9,5 +9,5 @@ export const sanityClient = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true, // false pour les données fraîches en dev
+  useCdn: process.env.NODE_ENV === "production",
 });

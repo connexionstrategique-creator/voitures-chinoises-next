@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import type { CarPhoto } from "@/data/types";
 
@@ -18,6 +18,7 @@ function CarSVG({ color }: { color: string }) {
 export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPhoto[]; color: string; alt: string }) {
   const [photoIdx, setPhotoIdx] = useState(0);
   const [lightbox, setLightbox] = useState(false);
+  const touchStartX = useRef<number | null>(null);
 
   if (photos.length === 0) {
     return (
@@ -30,7 +31,18 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
   return (
     <>
       {/* Carousel */}
-      <div style={{ position: "relative", background: "#111", overflow: "hidden", width: "100%", borderRadius: 20, aspectRatio: "4/3" }}>
+      <div
+        style={{ position: "relative", background: "#111", overflow: "hidden", width: "100%", borderRadius: 20, aspectRatio: "4/3" }}
+        onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+        onTouchEnd={(e) => {
+          if (touchStartX.current === null) return;
+          const dx = touchStartX.current - e.changedTouches[0].clientX;
+          touchStartX.current = null;
+          if (Math.abs(dx) < 40) return;
+          if (dx > 0) setPhotoIdx((i) => (i + 1) % photos.length);
+          else setPhotoIdx((i) => (i - 1 + photos.length) % photos.length);
+        }}
+      >
         <div style={{ position: "absolute", inset: 0, display: "flex", transition: "transform .35s ease", transform: `translateX(-${photoIdx * 100}%)` }}>
           {photos.map((p, i) => (
             <div
