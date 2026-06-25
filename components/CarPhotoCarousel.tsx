@@ -30,29 +30,31 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
   return (
     <>
       {/* Carousel */}
-      <div style={{ position: "relative", background: "#111", borderRadius: 28, overflow: "hidden", border: "1.5px solid rgba(255,255,255,0.22)" }}>
+      <div style={{ position: "relative", background: "#111", overflow: "hidden" }}>
         <div style={{ display: "flex", transition: "transform .35s ease", transform: `translateX(-${photoIdx * 100}%)` }}>
           {photos.map((p, i) => (
             <div
               key={i}
               onClick={() => setLightbox(true)}
-              style={{ minWidth: "100%", flexShrink: 0, position: "relative", aspectRatio: "16/10", cursor: "zoom-in" }}
+              style={{ minWidth: "100%", flexShrink: 0, position: "relative", aspectRatio: "16/10", cursor: "zoom-in", padding: "10px" }}
             >
-              <Image
-                src={p.src}
-                alt={p.label || alt}
-                fill
-                style={{ objectFit: "contain", padding: "12px" }}
-                unoptimized
-              />
-              {photos.length > 1 && (
-                <span style={{ position: "absolute", top: 12, right: 16, fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: "0.15em" }}>
-                  {i + 1} / {photos.length}
+              <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: 20, overflow: "hidden", border: "1.5px solid rgba(255,255,255,0.22)" }}>
+                <Image
+                  src={p.src}
+                  alt={p.label || alt}
+                  fill
+                  style={{ objectFit: "contain" }}
+                  unoptimized
+                />
+                {photos.length > 1 && (
+                  <span style={{ position: "absolute", top: 10, right: 14, fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: "0.15em" }}>
+                    {i + 1} / {photos.length}
+                  </span>
+                )}
+                <span style={{ position: "absolute", bottom: 10, right: 14, fontSize: 10, color: "rgba(255,255,255,0.25)", letterSpacing: "0.1em" }}>
+                  🔍 CLIQUER POUR AGRANDIR
                 </span>
-              )}
-              <span style={{ position: "absolute", bottom: 12, right: 16, fontSize: 10, color: "rgba(255,255,255,0.25)", letterSpacing: "0.1em" }}>
-                🔍 CLIQUER POUR AGRANDIR
-              </span>
+              </div>
             </div>
           ))}
         </div>
