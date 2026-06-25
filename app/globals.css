@@ -2254,7 +2254,7 @@ html, body { overflow-x:hidden; max-width:100%; }
     .hero { padding:24px 16px 28px; min-height:auto; align-items:flex-start; }
     .hero-inner { text-align:left; }
     .hero-eyebrow { display:none; }
-    .hero-title { font-size:clamp(22px,6.5vw,28px); line-height:1.25; margin-bottom:12px; letter-spacing:0; }
+    .hero-title { font-size:clamp(28px,8vw,36px); line-height:1.2; margin-bottom:12px; letter-spacing:0; }
     .hero-line-1, .hero-title em, .hero-title strong { animation:none !important; opacity:1 !important; transform:none !important; display:block !important; }
     .hero-line-1::after { content:''; }
     .hero-title em::after { content:''; }
@@ -2273,6 +2273,7 @@ html, body { overflow-x:hidden; max-width:100%; }
     section.catalogue-section { padding-top:28px !important; }
     .catalogue-header { margin-bottom:20px; }
     .catalogue-controls { gap:12px; margin-bottom:20px; }
+    .search-wrap { display:none; }
     .hero-cta-wrap { flex-direction:column; gap:10px; }
     .btn-red, .btn-outline { width:100%; text-align:center; padding:14px 20px; }
     .hero-bestseller-wrap { padding:0; width:100%; }
