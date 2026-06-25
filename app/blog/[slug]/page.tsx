@@ -30,6 +30,13 @@ function estimateReadTime(body: any[]): number {
   return Math.max(1, Math.round(text.split(/\s+/).length / 200));
 }
 
+// Matches ASCII pipe | (U+007C), fullwidth ｜ (U+FF5C), and box-drawing │ (U+2502)
+const PIPE_RE = /[||｜│]/;
+
+function extractCells(text: string): string[] {
+  return text.split(PIPE_RE).map((c) => c.trim()).filter(Boolean);
+}
+
 function transformBody(body: any[]): any[] {
   if (!body) return [];
   const result: any[] = [];
@@ -46,25 +53,34 @@ function transformBody(body: any[]): any[] {
   };
 
   for (const block of body) {
-    // Detect separators (---, —, hr blocks) — skip them when inside a table
+    // Skip separators (---, —, hr) when inside a table; pass them through otherwise
     const isSeparator =
       block._type === "break" ||
       block._type === "divider" ||
       (block._type === "block" && (block.children || []).map((c: any) => c.text || "").join("").trim().match(/^[-—–]{2,}$/));
 
     if (isSeparator) {
-      if (tableRows.length > 0) continue; // skip separators inside a table
+      if (tableRows.length > 0) continue;
       result.push(block);
       continue;
     }
 
+    // Detect pipe-separated rows (any Unicode pipe variant)
     if (block._type === "block" && (block.style === "normal" || !block.style)) {
       const text = (block.children || []).map((c: any) => c.text || "").join("");
-      if (text.includes("|")) {
-        const cells = text.split("|").map((c: string) => c.trim()).filter(Boolean);
+      if (PIPE_RE.test(text)) {
+        const cells = extractCells(text);
         if (cells.length > 1) { tableRows.push(cells); continue; }
       }
     }
+
+    // Native Sanity @sanity/table block — pass through as-is
+    if (block._type === "table") {
+      flushTable();
+      result.push(block);
+      continue;
+    }
+
     flushTable();
     result.push(block);
   }
@@ -133,43 +149,62 @@ const ptComponents = {
       </figure>
     ) : null,
     table: ({ value }: any) => {
-      if (!value?.rows?.length) return null;
-      const [headerRow, ...bodyRows] = value.rows;
+      const rows: any[] = value?.rows ?? [];
+      if (!rows.length) return null;
+      // First row = header
+      const [headerRow, ...bodyRows] = rows;
+      const headerCells: string[] = headerRow?.cells ?? [];
+      const colCount = Math.max(headerCells.length, ...bodyRows.map((r: any) => r?.cells?.length ?? 0));
+      if (colCount === 0) return null;
       return (
-        <div style={{ overflowX: "auto", margin: "36px 0" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: "DM Sans, sans-serif", fontSize: 14 }}>
-            {headerRow?.cells?.length > 0 && (
+        <div style={{ overflowX: "auto", margin: "40px 0", borderRadius: 12, border: "1px solid #E0E0E0", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: "DM Sans, sans-serif", fontSize: 14, minWidth: 480 }}>
+            {headerCells.length > 0 && (
               <thead>
                 <tr>
-                  {headerRow.cells.map((cell: string, i: number) => (
+                  {headerCells.map((cell: string, i: number) => (
                     <th key={i} style={{
-                      background: "#0D0D0D", color: "#fff",
-                      padding: "12px 16px", textAlign: "left",
-                      fontWeight: 700, fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase",
-                      borderBottom: "2px solid #A01414",
+                      background: "#0D0D0D",
+                      color: "#fff",
+                      padding: "13px 18px",
+                      textAlign: "left",
+                      fontWeight: 700,
+                      fontSize: 10,
+                      letterSpacing: "0.14em",
+                      textTransform: "uppercase",
+                      borderRight: i < headerCells.length - 1 ? "1px solid rgba(255,255,255,0.08)" : "none",
                       whiteSpace: "nowrap",
                     }}>
                       {cell}
                     </th>
                   ))}
                 </tr>
+                <tr>
+                  <td colSpan={headerCells.length} style={{ height: 3, background: "#A01414", padding: 0 }} />
+                </tr>
               </thead>
             )}
             <tbody>
-              {bodyRows.map((row: any, ri: number) => (
-                <tr key={ri} style={{ background: ri % 2 === 0 ? "#fff" : "#F5F5F5" }}>
-                  {row.cells?.map((cell: string, ci: number) => (
-                    <td key={ci} style={{
-                      padding: "11px 16px", color: "#333",
-                      borderBottom: "1px solid #E0E0E0",
-                      lineHeight: 1.5,
-                      fontWeight: ci === 0 ? 600 : 400,
-                    }}>
-                      {cell}
-                    </td>
-                  ))}
-                </tr>
-              ))}
+              {bodyRows.map((row: any, ri: number) => {
+                const cells: string[] = row?.cells ?? [];
+                return (
+                  <tr key={ri} style={{ background: ri % 2 === 0 ? "#fff" : "#F8F8F8" }}>
+                    {Array.from({ length: colCount }, (_, ci) => (
+                      <td key={ci} style={{
+                        padding: "12px 18px",
+                        color: ci === 0 ? "#0D0D0D" : "#444",
+                        borderBottom: ri < bodyRows.length - 1 ? "1px solid #EBEBEB" : "none",
+                        borderRight: ci < colCount - 1 ? "1px solid #EBEBEB" : "none",
+                        lineHeight: 1.55,
+                        fontWeight: ci === 0 ? 600 : 400,
+                        fontSize: 14,
+                      }}>
+                        {cells[ci] ?? "—"}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -302,20 +337,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 {post!.excerpt}
               </p>
             )}
-            {post!.body && post!.body.length > 0 && (() => {
-              const transformed = transformBody(post!.body);
-              const tableCount = transformed.filter((b: any) => b._type === "table").length;
-              return (
-                <>
-                  <div style={{ background: "#fffbe6", border: "1px solid #f0c040", padding: "8px 12px", fontSize: 11, marginBottom: 16, borderRadius: 4, lineHeight: 1.6 }}>
-                    DEBUG — blocs total : {transformed.length} | tableaux détectés : {tableCount}<br/>
-                    Types distincts : {[...new Set(post!.body.map((b: any) => b._type))].join(", ")}<br/>
-                    Blocs table bruts : {post!.body.filter((b: any) => b._type === "table").length}
-                  </div>
-                  <PortableText value={transformed} components={ptComponents} />
-                </>
-              );
-            })()}
+            {post!.body && post!.body.length > 0 && (
+              <PortableText value={transformBody(post!.body)} components={ptComponents} />
+            )}
 
             {/* À lire aussi */}
             {related.length > 0 && (
