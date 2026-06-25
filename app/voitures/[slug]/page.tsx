@@ -152,29 +152,17 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
             </div>
 
             <div className="car-info-block" style={{ flex: "1 1 280px" }}>
-              <Link href="/catalogue" style={{ textDecoration: "none", fontSize: 11, color: "rgba(255,255,255,0.3)", display: "inline-block", marginBottom: 12, letterSpacing: "0.06em" }}>
+              <Link href="/catalogue" style={{ textDecoration: "none", fontSize: 11, color: "rgba(255,255,255,0.3)", display: "inline-block", marginBottom: 16, letterSpacing: "0.06em" }}>
                 ← retour
               </Link>
-              {/* Ligne supérieure : marque à gauche, prix à droite */}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 4 }}>
-                <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase" }}>
-                  {car!.brand} · {car!.year}
-                </div>
-                <div style={{ textAlign: "right" }}>
-                  <div style={{ fontSize: 18, fontWeight: 900, lineHeight: 1, letterSpacing: "-0.01em" }}>
-                    {car!.price} <span style={{ fontSize: 11, fontWeight: 400, opacity: 0.4 }}>FCFA</span>
-                  </div>
-                  <div style={{ fontSize: 10, color: "rgba(255,255,255,0.22)", marginTop: 2 }}>CIF inclus</div>
-                </div>
-              </div>
 
-              <h1 style={{ fontSize: "clamp(30px, 5vw, 48px)", fontWeight: 900, lineHeight: 1.05, marginBottom: 20 }}>
-                {car!.model.split(" ").map((w, i) =>
-                  i === 0
-                    ? <span key={i}>{w} </span>
-                    : <em key={i} style={{ color: "var(--red, #A01414)" }}>{w} </em>
-                )}
-              </h1>
+              <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", marginBottom: 4 }}>
+                {car!.brand} · {car!.model}
+              </div>
+              <div style={{ fontSize: "clamp(26px,5vw,38px)", fontWeight: 900, letterSpacing: "-0.01em", lineHeight: 1, marginBottom: 4 }}>
+                {car!.price} <span style={{ fontSize: 14, fontWeight: 400, opacity: 0.4 }}>FCFA</span>
+              </div>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,0.22)", marginBottom: 20 }}>CIF · Coût + Assurance + Fret inclus</div>
 
               <div className="car-cta-group">
                 <a
