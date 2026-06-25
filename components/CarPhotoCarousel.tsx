@@ -99,7 +99,7 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
             </>
           )}
 
-          <div style={{ position: "relative", width: "90vw", height: "85vh" }} onClick={(e) => e.stopPropagation()}>
+          <div style={{ position: "relative", width: "90vw", height: "85vh", borderRadius: 20, overflow: "hidden" }} onClick={(e) => e.stopPropagation()}>
             <Image
               src={photos[photoIdx].src}
               alt={photos[photoIdx].label || alt}
