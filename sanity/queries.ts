@@ -159,8 +159,8 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
       publishedAt, category, excerpt, seoTitle, seoDescription,
       body[] {
         ...,
-        _type == "image" => { "url": asset->url, alt, caption },
-        _type == "table" => { rows[]{ cells } }
+        _type == "image" => { ..., "url": asset->url, alt, caption },
+        _type == "table" => { ..., rows[]{ ..., cells } }
       }
     }`,
     { slug },
