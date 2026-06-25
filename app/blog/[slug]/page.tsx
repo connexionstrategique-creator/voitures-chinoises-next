@@ -302,9 +302,18 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 {post!.excerpt}
               </p>
             )}
-            {post!.body && post!.body.length > 0 && (
-              <PortableText value={transformBody(post!.body)} components={ptComponents} />
-            )}
+            {post!.body && post!.body.length > 0 && (() => {
+              const transformed = transformBody(post!.body);
+              const tableCount = transformed.filter((b: any) => b._type === "table").length;
+              return (
+                <>
+                  <div style={{ background: "#fffbe6", border: "1px solid #f0c040", padding: "8px 12px", fontSize: 12, marginBottom: 16, borderRadius: 4 }}>
+                    DEBUG — blocs total : {transformed.length} | tableaux détectés : {tableCount} | blocs pipe bruts : {post!.body.filter((b: any) => b._type === "block" && (b.children||[]).map((c:any)=>c.text||"").join("").includes("|")).length}
+                  </div>
+                  <PortableText value={transformed} components={ptComponents} />
+                </>
+              );
+            })()}
 
             {/* À lire aussi */}
             {related.length > 0 && (
