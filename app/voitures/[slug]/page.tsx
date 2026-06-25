@@ -152,6 +152,9 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
             </div>
 
             <div className="car-info-block" style={{ flex: "1 1 280px" }}>
+              <Link href="/catalogue" style={{ textDecoration: "none", fontSize: 11, color: "rgba(255,255,255,0.3)", display: "inline-block", marginBottom: 12, letterSpacing: "0.06em" }}>
+                ← retour
+              </Link>
               {/* Ligne supérieure : marque à gauche, prix à droite */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 4 }}>
                 <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase" }}>
@@ -183,9 +186,6 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
                 >
                   Commander sur WhatsApp
                 </a>
-                <Link href="/catalogue" className="car-cta-back" style={{ textDecoration: "none", fontSize: 12, color: "rgba(255,255,255,0.3)", textAlign: "center", display: "block", paddingTop: 4 }}>
-                  ← retour
-                </Link>
               </div>
             </div>
           </div>
