@@ -152,17 +152,20 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
             </div>
 
             <div className="car-info-block" style={{ flex: "1 1 280px" }}>
-              <Link href="/catalogue" style={{ textDecoration: "none", fontSize: 11, color: "rgba(255,255,255,0.3)", display: "inline-block", marginBottom: 16, letterSpacing: "0.06em" }}>
+              <Link href="/catalogue" style={{ textDecoration: "none", fontSize: 11, color: "rgba(255,255,255,0.3)", display: "inline-block", marginBottom: 20, letterSpacing: "0.06em" }}>
                 ← retour
               </Link>
 
-              <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", marginBottom: 4 }}>
-                {car!.brand} · {car!.model}
+              <div style={{ fontSize: 11, letterSpacing: "0.2em", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", marginBottom: 6 }}>
+                {car!.brand}
               </div>
-              <div style={{ fontSize: "clamp(26px,5vw,38px)", fontWeight: 900, letterSpacing: "-0.01em", lineHeight: 1, marginBottom: 4 }}>
-                {car!.price} <span style={{ fontSize: 14, fontWeight: 400, opacity: 0.4 }}>FCFA</span>
+              <div style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(32px,6vw,52px)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.05, marginBottom: 20, color: "#fff", fontStyle: "italic" }}>
+                {car!.model}
               </div>
-              <div style={{ fontSize: 10, color: "rgba(255,255,255,0.22)", marginBottom: 20 }}>CIF · Coût + Assurance + Fret inclus</div>
+              <div style={{ fontSize: "clamp(22px,4vw,30px)", fontWeight: 800, letterSpacing: "-0.01em", lineHeight: 1, marginBottom: 4 }}>
+                {car!.price} <span style={{ fontSize: 13, fontWeight: 400, opacity: 0.4 }}>FCFA</span>
+              </div>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,0.22)", marginBottom: 24 }}>CIF · Coût + Assurance + Fret inclus</div>
 
               <div className="car-cta-group">
                 <a
