@@ -186,7 +186,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
 
             {/* Couleurs — compact row */}
             {car!.colors && car!.colors.length > 0 && (
-              <div style={{ marginBottom: 48, paddingBottom: 32, borderBottom: "1px solid var(--border, #E0E0E0)" }}>
+              <div style={{ marginBottom: 24 }}>
                 <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "#A01414", fontWeight: 700, marginBottom: 16 }}>COULEURS DISPONIBLES</div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
                   {car!.colors.map((col) => (
