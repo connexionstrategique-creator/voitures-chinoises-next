@@ -146,7 +146,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
       <main>
         {/* Hero */}
         <section style={{ background: "#111", color: "#fff" }}>
-          <div className="section-inner" style={{ display: "flex", gap: 48, alignItems: "center", flexWrap: "wrap", padding: "48px 24px" }}>
+          <div className="section-inner car-hero-inner" style={{ display: "flex", gap: 48, alignItems: "center", flexWrap: "wrap", padding: "48px 24px" }}>
             <div style={{ flex: "1 1 380px" }}>
               <CarPhotoCarousel photos={photos} color={car!.color} alt={`${car!.brand} ${car!.model}`} />
             </div>
