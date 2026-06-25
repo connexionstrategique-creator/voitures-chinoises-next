@@ -10,7 +10,7 @@ export default function Hero({ line1, line2, line3, subtitle, waNumber }: HeroPr
   const t1 = line1 ?? "Voitures chinoises.";
   const t2 = line2 ?? "Neuves.";
   const t3 = line3 ?? "Direct Chine.";
-  const sub = subtitle ?? "Une voiture neuve au prix d'une occasion. Achat direct en usine en Chine — vous choisissez, vous personnalisez, nous livrons CIF jusqu'à votre port. Zéro intermédiaire, zéro mauvaise surprise.";
+  const sub = subtitle ?? "Une commande. Un suivi. Un véhicule neuf livré CIF à votre port — jusqu'au dédouanement et à l'immatriculation. Pas de compromis, pas d'approximation — juste le travail bien fait.";
   const wa = waNumber ?? "8619587439774";
   const waMsg = encodeURIComponent("Bonjour, je souhaite obtenir des informations sur vos véhicules.");
 
