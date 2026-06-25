@@ -151,42 +151,42 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
               <CarPhotoCarousel photos={photos} color={car!.color} alt={`${car!.brand} ${car!.model}`} />
             </div>
 
-            <div style={{ flex: "1 1 280px" }}>
-              <div style={{ fontSize: 12, letterSpacing: "0.15em", color: "rgba(255,255,255,0.4)", marginBottom: 8 }}>
-                {car!.brand} · {car!.year} · NEUF 0KM
+            <div className="car-info-block" style={{ flex: "1 1 280px" }}>
+              <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "rgba(255,255,255,0.35)", marginBottom: 6, textTransform: "uppercase" }}>
+                {car!.brand} · {car!.year} · Neuf 0km
               </div>
-              <h1 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 900, lineHeight: 1.1, marginBottom: 16 }}>
+              <h1 style={{ fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 900, lineHeight: 1.05, marginBottom: 8 }}>
                 {car!.model.split(" ").map((w, i) =>
                   i === 0
                     ? <span key={i}>{w} </span>
                     : <em key={i} style={{ color: "var(--red, #A01414)" }}>{w} </em>
                 )}
               </h1>
-              <div style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>
-                Millésime {car!.year} · Neuf 0km · CIF tous ports
+              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", marginBottom: 28, letterSpacing: "0.06em" }}>
+                CIF · Livré à votre port · Tous pays
               </div>
 
-              <div style={{ background: "rgba(255,255,255,0.06)", borderRadius: 12, padding: "20px 24px", marginBottom: 24 }}>
-                <div style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 4 }}>Prix CIF</div>
-                <div style={{ fontSize: 32, fontWeight: 900 }}>
-                  {car!.price} <span style={{ fontSize: 16, fontWeight: 400, opacity: 0.5 }}>FCFA</span>
+              <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: 20, marginBottom: 20 }}>
+                <div style={{ fontSize: 11, letterSpacing: "0.14em", color: "rgba(255,255,255,0.35)", marginBottom: 6, textTransform: "uppercase" }}>Prix CIF livré</div>
+                <div style={{ fontSize: "clamp(28px,5vw,40px)", fontWeight: 900, letterSpacing: "-0.01em", lineHeight: 1 }}>
+                  {car!.price} <span style={{ fontSize: 15, fontWeight: 400, opacity: 0.45 }}>FCFA</span>
                 </div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginTop: 6 }}>
-                  📦 Coût + Assurance + Fret inclus · 🇧🇯 🇹🇬 🇨🇮 🇸🇳 Même prix
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.28)", marginTop: 8 }}>
+                  Coût · Assurance · Fret inclus · 🇧🇯 🇹🇬 🇨🇮 🇸🇳
                 </div>
               </div>
 
-              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <div className="car-cta-group">
                 <a
                   href={`https://wa.me/${waNumber}?text=${waMsg}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="modal-cta-primary"
-                  style={{ display: "inline-flex", alignItems: "center", gap: 8, textDecoration: "none" }}
+                  className="modal-cta-primary car-cta-wa"
+                  style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none" }}
                 >
                   📱 Commander sur WhatsApp
                 </a>
-                <Link href="/catalogue" className="modal-cta-secondary" style={{ textDecoration: "none" }}>
+                <Link href="/catalogue" className="modal-cta-secondary car-cta-back" style={{ textDecoration: "none" }}>
                   ← Catalogue
                 </Link>
               </div>

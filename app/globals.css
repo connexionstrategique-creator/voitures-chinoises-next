@@ -2288,7 +2288,11 @@ html, body { overflow-x:hidden; max-width:100%; }
     .hbs-img-wrap img { width:100%; height:100%; object-fit:cover; }
 
     /* PAGE VOITURE */
-    .car-hero-inner { padding:16px 16px 24px !important; gap:24px !important; }
+    .car-hero-inner { padding:16px 16px 24px !important; gap:20px !important; }
+    .car-info-block { padding-top:4px; }
+    .car-cta-group { display:flex; flex-direction:column; gap:10px; }
+    .car-cta-wa { width:100%; }
+    .car-cta-back { text-align:center; font-size:12px; opacity:0.6; }
 
     /* VALUE SECTION */
     .value-layout { grid-template-columns:1fr !important; gap:32px; margin-top:32px; }
