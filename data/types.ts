@@ -62,6 +62,18 @@ export const COLOR_HEX: Record<string, string> = {
   "Marron": "#6D4C41",
   "Sable": "#C2B280",
   "Cyan Brumeux": "#4DB6AC",
+  "Vert lac": "#2D7A6B",
+  "Noir nuit": "#0D0D1A",
+  "Argent étoilé": "#B8C4D4",
+  "Blanc Brillant": "#FFFFFF",
+  "Blanc nacré": "#F0EDE8",
+  "Gris Andes": "#7A8A8C",
+  "Gris Atomique": "#5A6472",
+  "Gris Nebuleuse": "#8E9BAA",
+  "Gris anthracite": "#3D3D3D",
+  "Bleu Azure": "#2979C4",
+  "Noir Noble": "#141820",
+  "Argent Neige": "#D8DCE8",
 };
 
 export function getColorHex(name: string): string {
