@@ -62,7 +62,6 @@ export default function Footer({
       {/* Footer */}
       <div className="footer-top">
         <div>
-          <div className="footer-col-title">Navigation</div>
           <ul className="footer-links">
             <li><a href="/catalogue">Catalogue</a></li>
             <li><a href="/marques">Marques</a></li>
