@@ -45,6 +45,7 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
                   fill
                   style={{ objectFit: "cover" }}
                   sizes="(max-width: 768px) 100vw, 55vw"
+                  loading="eager"
                   priority={i === 0}
                 />
                 {photos.length > 1 && (
