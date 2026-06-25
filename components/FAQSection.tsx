@@ -3,6 +3,36 @@ import { useState } from "react";
 
 const FAQS = [
   {
+    icon: "⏱️",
+    q: "Quel est le délai de livraison ?",
+    a: "Le délai moyen est de <strong>45 à 75 jours</strong> à partir de la confirmation de commande et du premier versement. Ce délai comprend : la fabrication ou la préparation du véhicule en usine, le chargement, le transport maritime, et la livraison au port de destination. Nous vous tenons informé à chaque étape.",
+  },
+  {
+    icon: "🏛️",
+    q: "Gérez-vous le dédouanement ?",
+    a: "Oui. Nous prenons en charge l'ensemble des formalités douanières à l'arrivée au port. Nos transitaires partenaires s'occupent de la déclaration en douane, du paiement des droits et taxes, et de la mainlevée du véhicule. Vous n'avez aucune démarche à effectuer auprès des services douaniers.",
+  },
+  {
+    icon: "📝",
+    q: "Incluez-vous l'immatriculation ?",
+    a: "Oui, nous gérons également l'immatriculation locale du véhicule. Une fois dédouané, nous accompagnons le processus d'enregistrement auprès des services compétents jusqu'à l'obtention de vos plaques d'immatriculation et du certificat de propriété à votre nom.",
+  },
+  {
+    icon: "🎨",
+    q: "Puis-je choisir la couleur et les options ?",
+    a: "Absolument. Vous choisissez parmi les <strong>coloris disponibles en usine</strong> pour le modèle souhaité, ainsi que les finitions et options proposées par le constructeur. Certaines configurations nécessitent un délai de production supplémentaire de 2 à 3 semaines — nous vous le précisons avant la commande.",
+  },
+  {
+    icon: "📄",
+    q: "Quels documents sont fournis avec le véhicule ?",
+    a: "À la livraison, vous recevez : la <strong>facture d'achat originale</strong> du constructeur, le <strong>certificat de conformité</strong>, le <strong>certificat d'origine</strong>, le <strong>carnet d'entretien</strong>, ainsi que tous les documents douaniers et le certificat d'immatriculation à votre nom.",
+  },
+  {
+    icon: "🔍",
+    q: "Importez-vous des modèles hors catalogue ?",
+    a: "Oui. Notre catalogue présente les modèles les plus demandés, mais nous pouvons sourcer <strong>n'importe quel véhicule neuf disponible en Chine</strong> — marque, modèle, finition et motorisation de votre choix. Contactez-nous avec vos spécifications, nous vous faisons un devis sous 48h ouvrées.",
+  },
+  {
     icon: "💳",
     q: "Quels modes de paiement acceptez-vous ?",
     a: "Nous acceptons deux modes : <strong>virement bancaire</strong> sur notre compte société, ou <strong>paiement en espèces</strong> directement à notre bureau de Cotonou. Chaque paiement est accompagné d'un contrat officiel et d'un ordre de mission d'achat signé.",
