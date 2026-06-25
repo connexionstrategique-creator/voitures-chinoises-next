@@ -2213,6 +2213,8 @@ html, body { overflow-x:hidden; max-width:100%; }
     .nav-links.open { display:flex; }
     .nav-links li { border-bottom:1px solid #f0f0f0; }
     .nav-links a { display:block; padding:12px 0; font-size:14px; letter-spacing:0.08em; white-space:normal; }
+    nav.nav--dark .nav-links.open a { color:#1c1c1c; }
+    nav.nav--dark .nav-links.open a:hover { color:var(--red); }
     .nav-cta { display:none; }
     .nav-burger { display:flex !important; align-items:center; justify-content:center; }
     .hero { padding:60px 24px 40px; }
