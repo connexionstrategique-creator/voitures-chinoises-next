@@ -1540,9 +1540,7 @@ html, body { overflow-x:hidden; max-width:100%; }
     justify-content: space-between;
     gap: 16px;
     padding: 14px 20px;
-    border-bottom: 1px solid var(--border);
   }
-  .spec-row:last-child { border-bottom: none; }
   .spec-row:nth-child(even) { background: var(--yellow); }
   .spec-key {
     font-family: 'DM Sans', sans-serif;

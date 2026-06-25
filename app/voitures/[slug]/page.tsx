@@ -233,7 +233,6 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
                   {reasons.map((reason, i) => (
                     <div key={i} style={{
                       background: "#fff",
-                      border: "1px solid var(--border,#E0E0E0)",
                       borderRadius: 16,
                       padding: "24px 28px",
                       display: "flex",
