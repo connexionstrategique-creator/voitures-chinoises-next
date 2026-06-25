@@ -81,7 +81,7 @@ export default async function BlogPage({
           <div style={{ fontSize: 11, letterSpacing: "0.22em", color: "rgba(255,255,255,0.4)", marginBottom: 16, textTransform: "uppercase" }}>
             Voitures Chinoises · Blog
           </div>
-          <h1 style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(36px,5vw,64px)", fontWeight: 300, lineHeight: 1.1, marginBottom: 16 }}>
+          <h1 style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(36px,5vw,64px)", fontWeight: 300, lineHeight: 1.1, marginBottom: 16 }}>
             Actualités &amp; guides<br />
             <em style={{ color: "#A01414", fontStyle: "italic" }}>sur l&apos;automobile chinoise.</em>
           </h1>
@@ -135,7 +135,7 @@ export default async function BlogPage({
                         </span>
                       </div>
                       <h2 style={{
-                        fontFamily: "Cormorant Garamond, serif",
+                        fontFamily: "Syne, sans-serif",
                         fontSize: "clamp(24px,3vw,44px)",
                         fontWeight: 700, lineHeight: 1.15, color: "#fff",
                         marginBottom: 12, maxWidth: 700,
@@ -195,7 +195,7 @@ export default async function BlogPage({
                             {post.publishedAt ? formatDate(post.publishedAt) : ""}
                           </div>
                           <h3 style={{
-                            fontFamily: "Cormorant Garamond, serif",
+                            fontFamily: "Syne, sans-serif",
                             fontSize: "clamp(18px,1.8vw,22px)",
                             fontWeight: 700, lineHeight: 1.25, color: "#0D0D0D",
                           }}>

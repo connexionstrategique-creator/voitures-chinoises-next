@@ -122,13 +122,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 const ptComponents = {
   block: {
     normal: ({ children }: any) => <p style={{ fontFamily: "DM Sans, sans-serif", fontSize: 16, lineHeight: 1.85, color: "#333", marginBottom: 20 }}>{children}</p>,
-    h2: ({ children }: any) => <h2 style={{ fontFamily: "Cormorant Garamond, serif", fontSize: 32, fontWeight: 700, color: "#0D0D0D", margin: "40px 0 16px", lineHeight: 1.2 }}>{children}</h2>,
-    h3: ({ children }: any) => <h3 style={{ fontFamily: "Cormorant Garamond, serif", fontSize: 24, fontWeight: 700, color: "#0D0D0D", margin: "32px 0 12px", lineHeight: 1.2 }}>{children}</h3>,
+    h2: ({ children }: any) => <h2 style={{ fontFamily: "Syne, sans-serif", fontSize: 32, fontWeight: 700, color: "#0D0D0D", margin: "40px 0 16px", lineHeight: 1.2 }}>{children}</h2>,
+    h3: ({ children }: any) => <h3 style={{ fontFamily: "Syne, sans-serif", fontSize: 24, fontWeight: 700, color: "#0D0D0D", margin: "32px 0 12px", lineHeight: 1.2 }}>{children}</h3>,
     h4: ({ children }: any) => <h4 style={{ fontFamily: "DM Sans, sans-serif", fontSize: 16, fontWeight: 700, color: "#0D0D0D", margin: "24px 0 8px" }}>{children}</h4>,
     blockquote: ({ children }: any) => (
       <blockquote style={{
         borderLeft: "3px solid #A01414", paddingLeft: 24, margin: "28px 0",
-        fontFamily: "Cormorant Garamond, serif", fontSize: 22, fontStyle: "italic", color: "#555",
+        fontFamily: "Syne, sans-serif", fontSize: 22, fontStyle: "italic", color: "#555",
       }}>{children}</blockquote>
     ),
   },
@@ -341,7 +341,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               </span>
               <PostViewCounter slug={slug} />
             </div>
-            <h1 style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(28px,4vw,52px)", fontWeight: 700, color: "#fff", lineHeight: 1.15 }}>
+            <h1 style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(28px,4vw,52px)", fontWeight: 700, color: "#fff", lineHeight: 1.15 }}>
               {post!.title}
             </h1>
           </div>
@@ -359,7 +359,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
             {post!.excerpt && (
               <p style={{
-                fontFamily: "Cormorant Garamond, serif", fontSize: 20, fontStyle: "italic",
+                fontFamily: "Syne, sans-serif", fontSize: 20, fontStyle: "italic",
                 color: "#555", lineHeight: 1.7, marginBottom: 40,
                 paddingBottom: 32, borderBottom: "1px solid #E0E0E0",
               }}>
@@ -397,7 +397,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                               {CAT_LABELS[r.category] || r.category}
                             </span>
                           )}
-                          <p style={{ fontFamily: "Cormorant Garamond, serif", fontSize: 16, fontWeight: 700, color: "#0D0D0D", lineHeight: 1.3, margin: "0 0 8px" }}>
+                          <p style={{ fontFamily: "Syne, sans-serif", fontSize: 16, fontWeight: 700, color: "#0D0D0D", lineHeight: 1.3, margin: "0 0 8px" }}>
                             {r.title.length > 72 ? r.title.slice(0, 72) + "…" : r.title}
                           </p>
                           <span style={{ fontFamily: "DM Sans, sans-serif", fontSize: 11, fontWeight: 700, color: "#A01414" }}>
@@ -430,7 +430,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                           {CAT_LABELS[nextPost.category] || nextPost.category}
                         </span>
                       )}
-                      <h3 style={{ fontFamily: "Cormorant Garamond, serif", fontSize: 20, fontWeight: 700, color: "#0D0D0D", lineHeight: 1.25, marginBottom: 8 }}>
+                      <h3 style={{ fontFamily: "Syne, sans-serif", fontSize: 20, fontWeight: 700, color: "#0D0D0D", lineHeight: 1.25, marginBottom: 8 }}>
                         {nextPost.title}
                       </h3>
                       {nextPost.excerpt && (

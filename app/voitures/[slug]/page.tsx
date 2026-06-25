@@ -157,10 +157,10 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
             </div>
 
             <div className="car-info-block" style={{ flex: "1 1 280px" }}>
-              <div style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(28px,6vw,52px)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.05, marginBottom: 20, color: "#fff", fontStyle: "italic", whiteSpace: "nowrap" }}>
+              <div style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(28px,6vw,52px)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.05, marginBottom: 20, color: "#fff", fontStyle: "italic", whiteSpace: "nowrap" }}>
                 {car!.brand} {car!.model}
               </div>
-              <div style={{ fontSize: "clamp(22px,4vw,30px)", fontWeight: 800, letterSpacing: "-0.01em", lineHeight: 1, marginBottom: 4 }}>
+              <div style={{ fontFamily: "DM Sans, sans-serif", fontSize: "clamp(22px,4vw,32px)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 4, fontVariantNumeric: "tabular-nums lining-nums" }}>
                 {car!.price} <span style={{ fontSize: 13, fontWeight: 400, opacity: 0.4 }}>FCFA</span>
               </div>
               <div style={{ fontSize: 10, color: "rgba(255,255,255,0.22)", marginBottom: 24 }}>CIF · Coût + Assurance + Fret inclus</div>
@@ -249,7 +249,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        fontFamily: "Cormorant Garamond, serif",
+                        fontFamily: "Syne, sans-serif",
                         fontSize: 20,
                         fontWeight: 700,
                         lineHeight: 1,
