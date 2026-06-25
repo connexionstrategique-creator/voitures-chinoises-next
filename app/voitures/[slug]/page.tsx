@@ -146,16 +146,17 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
       <main>
         {/* Hero */}
         <section style={{ background: "#111", color: "#fff" }}>
-          <div className="section-inner car-hero-inner" style={{ display: "flex", gap: 48, alignItems: "center", flexWrap: "wrap", padding: "48px 24px" }}>
+          <div className="section-inner" style={{ padding: "20px 24px 0" }}>
+            <Link href="/catalogue" style={{ textDecoration: "none", fontSize: 11, color: "rgba(255,255,255,0.35)", display: "inline-block", letterSpacing: "0.06em" }}>
+              ← retour
+            </Link>
+          </div>
+          <div className="section-inner car-hero-inner" style={{ display: "flex", gap: 48, alignItems: "center", flexWrap: "wrap", padding: "16px 24px 48px" }}>
             <div style={{ flex: "1 1 380px" }}>
               <CarPhotoCarousel photos={photos} color={car!.color} alt={`${car!.brand} ${car!.model}`} />
             </div>
 
             <div className="car-info-block" style={{ flex: "1 1 280px" }}>
-              <Link href="/catalogue" style={{ textDecoration: "none", fontSize: 11, color: "rgba(255,255,255,0.3)", display: "inline-block", marginBottom: 20, letterSpacing: "0.06em" }}>
-                ← retour
-              </Link>
-
               <div style={{ fontSize: 11, letterSpacing: "0.2em", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", marginBottom: 6 }}>
                 {car!.brand}
               </div>
