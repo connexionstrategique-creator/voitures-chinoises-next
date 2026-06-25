@@ -14,10 +14,10 @@ export default function ValueSection() {
             <div className="pull-quote">
               &ldquo;Nos prix sont CIF — c&apos;est-à-dire coût du véhicule, assurance maritime et fret inclus jusqu&apos;à destination. Même prix vers Cotonou, Lomé, Abidjan et Dakar. Ce que vous voyez est ce que vous payez.&rdquo;
             </div>
-            <p>Et contrairement à la seconde main, <strong>tous nos véhicules sont neufs, 0 kilomètre, sortis d&apos;usine</strong>. Chaque véhicule bénéficie de la garantie constructeur, des dernières technologies embarquées et d&apos;un état irréprochable à la livraison.</p>
+            <p>Et contrairement à la seconde main, <strong>tous nos véhicules sont neufs, 0 kilomètre, sortis d&apos;usine</strong>. Chaque véhicule embarque les dernières technologies et arrive dans un état irréprochable à la livraison.</p>
           </div>
           <div className="highlight-box">
-            <p>Nos clients économisent en moyenne <strong>20 à 35%</strong> par rapport aux prix du marché local — sur des véhicules neufs, avec garantie, livrés directement par bateau depuis les meilleures usines de Chine.</p>
+            <p>Nos clients économisent en moyenne <strong>20 à 35%</strong> par rapport aux prix du marché local — sur des véhicules neufs 0 km, livrés directement par bateau depuis les meilleures usines de Chine.</p>
           </div>
         </div>
       </section>
@@ -34,7 +34,7 @@ export default function ValueSection() {
             <div>
               {[
                 { num: "01", title: "Prix directs d'usine, sans gonflement", desc: "Nous négocions en direct avec les fabricants. Zéro agent de transit inutile — vous bénéficiez des vrais prix de gros." },
-                { num: "02", title: "100% neuf, 0 kilomètre, garanti", desc: "Aucun véhicule d'occasion dans notre catalogue. Chaque voiture est neuve, scellée, avec sa garantie constructeur complète." },
+                { num: "02", title: "100% neuf, 0 kilomètre, jamais immatriculé", desc: "Aucun véhicule d'occasion dans notre catalogue. Chaque voiture est neuve, scellée, sortie directement d'usine." },
                 { num: "03", title: "Prix CIF — tout compris, transparent", desc: "Coût du véhicule, assurance maritime et fret inclus dans nos prix. Livraison vers tous les ports d'Afrique francophone. Pas de surprise à l'arrivée." },
                 { num: "04", title: "Devis sous 48h, livraison en Afrique francophone", desc: "Demandez votre devis, recevez une réponse en 48h ouvrées. Nous gérons la logistique jusqu'à vous — Bénin, Togo, Côte d'Ivoire, Sénégal et au-delà." },
               ].map((b) => (

@@ -5,7 +5,7 @@ import { CARS } from "@/data/cars";
 import { getCars } from "@/sanity/queries";
 import type { Metadata } from "next";
 
-export const revalidate = 60;
+export const revalidate = 10;
 
 export const metadata: Metadata = {
   title: "Catalogue 2026 — Voitures Chinoises | Connexion Stratégique",
@@ -22,8 +22,10 @@ export default async function CataloguePage() {
   return (
     <>
       <Nav />
-      <Catalogue cars={cars} />
-      <Footer />
+      <main style={{ paddingTop: 56 }}>
+        <Catalogue cars={cars} />
+      </main>
+      <Footer minimal />
     </>
   );
 }

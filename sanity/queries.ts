@@ -23,8 +23,8 @@ function transformCar(raw: any): Car {
     colors: raw.colors || [],
     photos: Array.isArray(raw.photos)
       ? raw.photos.map((p: any) => ({
-          label: p.label || "",
-          src: p.image?.asset?.url || p.src || "",
+          label: "",
+          src: p.asset?.url || p.image?.asset?.url || p.src || "",
         })).filter((p: any) => p.src)
       : [],
     specs: specsRecord,
@@ -37,6 +37,7 @@ function transformCar(raw: any): Car {
       k3: raw.mini_k3 || "",
     },
     desc: raw.desc || "",
+    reasons: raw.reasons || [],
   };
 }
 
@@ -50,15 +51,48 @@ function transformBrand(raw: any): Brand {
 
 export async function getCars(): Promise<Car[]> {
   const raw = await sanityClient.fetch(
-    `*[_type == "car"] | order(order asc) {
+    `*[_type == "car"] | order(orderRank asc) {
       _id, brand, model, year, cat, badge, badgeText, featured,
-      price, color, colors, "photos": photos[]{ label, "image": image{ asset->{ url } } }, specs,
-      mini_v1, mini_k1, mini_v2, mini_k2, mini_v3, mini_k3, desc
+      price, color, colors,
+      "photos": photos[]{ "asset": asset->{ url } },
+      specs,
+      mini_v1, mini_k1, mini_v2, mini_k2, mini_v3, mini_k3, desc,
+      "reasons": reasons[]{ title, body }
     }`,
     {},
-    { next: { revalidate: 60 } }
+    { next: { revalidate: 10 } }
   );
   return (raw || []).map(transformCar);
+}
+
+export interface SiteSettings {
+  heroLine1: string;
+  heroLine2: string;
+  heroLine3: string;
+  heroSubtitle: string;
+  whatsappNumber: string;
+  phoneDisplay: string;
+  phoneCN: string;
+}
+
+export async function getSiteSettings(): Promise<SiteSettings> {
+  const raw = await sanityClient.fetch(
+    `*[_type == "siteSettings" && _id == "siteSettings"][0] {
+      heroLine1, heroLine2, heroLine3, heroSubtitle,
+      whatsappNumber, phoneDisplay, phoneCN
+    }`,
+    {},
+    { next: { revalidate: 10 } }
+  );
+  return {
+    heroLine1:       raw?.heroLine1       ?? "Voitures chinoises.",
+    heroLine2:       raw?.heroLine2       ?? "Neuves.",
+    heroLine3:       raw?.heroLine3       ?? "Direct Chine.",
+    heroSubtitle:    raw?.heroSubtitle    ?? "Une voiture neuve au prix d'une occasion. Nous achetons directement en usine en Chine — vous choisissez, vous personnalisez, nous livrons CIF jusqu'à votre port. Zéro intermédiaire. Zéro mauvaise surprise.",
+    whatsappNumber:  raw?.whatsappNumber  ?? "8619587439774",
+    phoneDisplay:    raw?.phoneDisplay    ?? "+229 01 41 76 53 41",
+    phoneCN:         raw?.phoneCN         ?? "+86 195 8743 9774",
+  };
 }
 
 export async function getCarBySlug(slug: string): Promise<Car | null> {
@@ -76,11 +110,69 @@ export async function getCarsByBrand(slug: string): Promise<Car[]> {
   return cars.filter((c) => makeBrandSlug(c.brand) === slug);
 }
 
+export interface BlogPost {
+  _id: string;
+  title: string;
+  slug: string;
+  imageUrl: string;
+  imageAlt: string;
+  publishedAt: string;
+  category: string;
+  excerpt: string;
+  body?: any[];
+  seoTitle?: string;
+  seoDescription?: string;
+}
+
+const CAT_LABELS: Record<string, string> = {
+  actualites: "Actualités",
+  guides: "Guides d'achat",
+  modeles: "Nouveaux modèles",
+  marche: "Marché automobile",
+};
+
+export async function getPosts(category?: string): Promise<BlogPost[]> {
+  const filter = category && category !== "all"
+    ? `_type == "post" && category == "${category}"`
+    : `_type == "post"`;
+  const raw = await sanityClient.fetch(
+    `*[${filter}] | order(publishedAt desc) {
+      _id, title,
+      "slug": slug.current,
+      "imageUrl": mainImage.asset->url,
+      "imageAlt": mainImage.alt,
+      publishedAt, category, excerpt
+    }`,
+    {},
+    { next: { revalidate: 60 } }
+  );
+  return (raw || []).map((r: any) => ({ ...r, categoryLabel: CAT_LABELS[r.category] || r.category }));
+}
+
+export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+  const raw = await sanityClient.fetch(
+    `*[_type == "post" && slug.current == $slug][0] {
+      _id, title,
+      "slug": slug.current,
+      "imageUrl": mainImage.asset->url,
+      "imageAlt": mainImage.alt,
+      publishedAt, category, excerpt, seoTitle, seoDescription,
+      body[] {
+        ...,
+        _type == "image" => { "url": asset->url, alt, caption }
+      }
+    }`,
+    { slug },
+    { next: { revalidate: 60 } }
+  );
+  return raw ?? null;
+}
+
 export async function getBrands(): Promise<Brand[]> {
   const raw = await sanityClient.fetch(
     `*[_type == "brand"] | order(order asc) { _id, name, desc, logo }`,
     {},
-    { next: { revalidate: 60 } }
+    { next: { revalidate: 10 } }
   );
   return (raw || []).map(transformBrand);
 }

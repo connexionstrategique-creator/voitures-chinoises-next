@@ -5,11 +5,11 @@ import { getColorHex } from "@/data/types";
 import type { Car } from "@/data/types";
 import { carSlug } from "@/lib/slug";
 
-const WA_NUMBER = "22941765341";
+const WA_NUMBER = "8619587439774";
 
-function openWhatsApp(model: string) {
+function waLink(model: string) {
   const msg = encodeURIComponent(`Bonjour, je suis intéressé par la ${model}. Pouvez-vous me donner plus d'informations ?`);
-  window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, "_blank");
+  return `https://wa.me/${WA_NUMBER}?text=${msg}`;
 }
 
 function priceNum(priceStr: string) {
@@ -122,15 +122,32 @@ function CarModal({ car, onClose }: { car: Car; onClose: () => void }) {
             ))}
           </div>
 
-          <p className="modal-desc">{car.desc}</p>
+          {car.reasons && car.reasons.length > 0 ? (
+            <div className="modal-reasons">
+              <div className="modal-reasons-title">Pourquoi choisir cette voiture ?</div>
+              {car.reasons.map((r, i) => (
+                <div className="modal-reason-item" key={i}>
+                  <div className="modal-reason-num">{String(i + 1).padStart(2, "0")}</div>
+                  <div className="modal-reason-content">
+                    <div className="modal-reason-heading">{r.title}</div>
+                    <div className="modal-reason-body">{r.body}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="modal-desc">{car.desc}</p>
+          )}
 
           <div className="modal-actions">
-            <button
+            <a
               className="modal-cta-primary"
-              onClick={() => openWhatsApp(`${car.brand} ${car.model}`)}
+              href={waLink(`${car.brand} ${car.model}`)}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               📱 Commander sur WhatsApp
-            </button>
+            </a>
             <button className="modal-cta-secondary" onClick={onClose}>
               ← Retour au catalogue
             </button>
@@ -146,8 +163,11 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
   const [activeBudget, setActiveBudget] = useState("all");
   const [search, setSearch] = useState("");
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 9;
 
   const filtered = useMemo(() => {
+    setPage(1);
     return cars.filter((c) => {
       const catOk =
         activeFilter === "all" ||
@@ -160,28 +180,13 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
     });
   }, [activeFilter, activeBudget, search]);
 
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
   return (
     <>
       <section className="section catalogue-section" id="catalogue">
         <div className="section-inner">
-          <div className="catalogue-header">
-            <div>
-              <div className="tag">Catalogue officiel 2026</div>
-              <h2 className="h2" style={{ marginBottom: 0 }}>Tous nos véhicules.<br /><em>Neufs. Direct usine.</em></h2>
-            </div>
-            <div>
-              <div className="search-wrap">
-                <input
-                  type="text"
-                  className="search-input"
-                  placeholder="Rechercher marque ou modèle…"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value.toLowerCase().trim())}
-                />
-              </div>
-            </div>
-          </div>
-
           {/* Type filters */}
           <div className="catalogue-controls">
             <div>
@@ -198,7 +203,19 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                 ))}
               </div>
             </div>
-            <div className="results-count"><strong style={{ color: "var(--red)" }}>{filtered.length}</strong> véhicules</div>
+          </div>
+
+          {/* Search */}
+          <div style={{ marginBottom: 16 }}>
+            <div className="search-wrap">
+              <input
+                type="text"
+                className="search-input"
+                placeholder="Rechercher marque ou modèle…"
+                value={search}
+                onChange={(e) => setSearch(e.target.value.toLowerCase().trim())}
+              />
+            </div>
           </div>
 
           {/* Budget filters */}
@@ -225,7 +242,7 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
 
           {/* Cars grid */}
           <div className="cars-grid">
-            {filtered.map((car) => {
+            {paginated.map((car) => {
               const photos = car.photos || [];
               return (
                 <div
@@ -300,23 +317,26 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                     </div>
 
                     <div className="card-actions">
-                      <button
+                      <a
                         className="card-cta-wa"
-                        onClick={(e) => { e.stopPropagation(); openWhatsApp(`${car.brand} ${car.model}`); }}
+                        href={waLink(`${car.brand} ${car.model}`)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                       >
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
                           <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.555 4.122 1.526 5.854L0 24l6.335-1.509A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.88 9.88 0 01-5.031-1.373l-.36-.214-3.762.896.957-3.665-.235-.376A9.861 9.861 0 012.118 12C2.118 6.533 6.533 2.118 12 2.118c5.467 0 9.882 4.415 9.882 9.882 0 5.467-4.415 9.882-9.882 9.882z" />
                         </svg>
                         Commander
-                      </button>
+                      </a>
                       <a
                         className="card-cta-red"
                         href={`/voitures/${carSlug(car.brand, car.model)}`}
                         onClick={(e) => e.stopPropagation()}
-                        title="Voir la fiche complète"
+                        title="Fiche technique"
                       >
-                        🌍 Voir la fiche
+                        Fiche technique
                       </a>
                     </div>
                   </div>
@@ -324,6 +344,41 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
               );
             })}
           </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginTop: 48, paddingBottom: 8 }}>
+              <button
+                onClick={() => { setPage(p => p - 1); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                disabled={page === 1}
+                style={{
+                  padding: "10px 24px", border: "1px solid #E0E0E0", borderRadius: 2,
+                  background: page === 1 ? "#F5F5F5" : "#0D0D0D", color: page === 1 ? "#aaa" : "#fff",
+                  fontFamily: "DM Sans, sans-serif", fontWeight: 600, fontSize: 13,
+                  letterSpacing: "0.08em", cursor: page === 1 ? "not-allowed" : "pointer",
+                  textTransform: "uppercase",
+                }}
+              >
+                ← Précédent
+              </button>
+              <span style={{ fontFamily: "DM Sans, sans-serif", fontSize: 13, color: "#888", letterSpacing: "0.1em" }}>
+                Page {page} / {totalPages}
+              </span>
+              <button
+                onClick={() => { setPage(p => p + 1); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                disabled={page === totalPages}
+                style={{
+                  padding: "10px 24px", border: "1px solid #E0E0E0", borderRadius: 2,
+                  background: page === totalPages ? "#F5F5F5" : "#A01414", color: page === totalPages ? "#aaa" : "#fff",
+                  fontFamily: "DM Sans, sans-serif", fontWeight: 600, fontSize: 13,
+                  letterSpacing: "0.08em", cursor: page === totalPages ? "not-allowed" : "pointer",
+                  textTransform: "uppercase",
+                }}
+              >
+                Suivant →
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

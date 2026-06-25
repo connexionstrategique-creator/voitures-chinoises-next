@@ -1,13 +1,12 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import Image from "next/image";
 import Link from "next/link";
 import { BRANDS } from "@/data/brands";
 import { getBrands } from "@/sanity/queries";
 import { brandSlug } from "@/lib/slug";
 import type { Metadata } from "next";
 
-export const revalidate = 60;
+export const revalidate = 10;
 
 export const metadata: Metadata = {
   title: "Marques Chinoises — Voitures Chinoises | Connexion Stratégique",
@@ -39,16 +38,7 @@ export default async function MarquesPage() {
                 style={{ textDecoration: "none" }}
               >
                 <div className="brand-item" style={{ cursor: "pointer", transition: "transform .2s", display: "block" }}>
-                  <div className="brand-logo-wrap">
-                    <Image
-                      src={brand.logo}
-                      alt={brand.name}
-                      width={150}
-                      height={72}
-                      className="brand-logo-img"
-                      unoptimized
-                    />
-                  </div>
+                  <span className="brand-name-text">{brand.name}</span>
                   <span className="brand-desc">{brand.desc}</span>
                 </div>
               </Link>
@@ -56,7 +46,7 @@ export default async function MarquesPage() {
           </div>
         </div>
       </section>
-      <Footer />
+      <Footer minimal />
     </>
   );
 }

@@ -17,40 +17,105 @@ function CarSVG({ color }: { color: string }) {
 
 export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPhoto[]; color: string; alt: string }) {
   const [photoIdx, setPhotoIdx] = useState(0);
+  const [lightbox, setLightbox] = useState(false);
 
   if (photos.length === 0) {
     return (
-      <div style={{ height: 300, display: "flex", alignItems: "center", justifyContent: "center", background: "#1a1a1a", borderRadius: 16 }}>
+      <div style={{ height: 400, display: "flex", alignItems: "center", justifyContent: "center", background: "#1a1a1a", borderRadius: 16 }}>
         <CarSVG color={color} />
       </div>
     );
   }
 
   return (
-    <div style={{ position: "relative", background: "#1a1a1a", borderRadius: 16, overflow: "hidden", minHeight: 300 }}>
-      <div style={{ display: "flex", height: 300, transition: "transform .35s ease", transform: `translateX(-${photoIdx * 100}%)` }}>
-        {photos.map((p, i) => (
-          <div key={i} style={{ minWidth: "100%", height: 300, flexShrink: 0, position: "relative" }}>
-            <Image src={p.src} alt={p.label || alt} fill style={{ objectFit: "cover", opacity: 0.9 }} unoptimized />
-            {photos.length > 1 && (
-              <span style={{ position: "absolute", top: 12, right: 16, fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: "0.15em" }}>
-                {i + 1} / {photos.length}
+    <>
+      {/* Carousel */}
+      <div style={{ position: "relative", background: "#111", borderRadius: 16, overflow: "hidden" }}>
+        <div style={{ display: "flex", transition: "transform .35s ease", transform: `translateX(-${photoIdx * 100}%)` }}>
+          {photos.map((p, i) => (
+            <div
+              key={i}
+              onClick={() => setLightbox(true)}
+              style={{ minWidth: "100%", flexShrink: 0, position: "relative", aspectRatio: "16/10", cursor: "zoom-in" }}
+            >
+              <Image
+                src={p.src}
+                alt={p.label || alt}
+                fill
+                style={{ objectFit: "contain", padding: "12px" }}
+                unoptimized
+              />
+              {photos.length > 1 && (
+                <span style={{ position: "absolute", top: 12, right: 16, fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: "0.15em" }}>
+                  {i + 1} / {photos.length}
+                </span>
+              )}
+              <span style={{ position: "absolute", bottom: 12, right: 16, fontSize: 10, color: "rgba(255,255,255,0.25)", letterSpacing: "0.1em" }}>
+                🔍 CLIQUER POUR AGRANDIR
               </span>
-            )}
-          </div>
-        ))}
+            </div>
+          ))}
+        </div>
+
+        {photos.length > 1 && (
+          <>
+            <button onClick={(e) => { e.stopPropagation(); setPhotoIdx((photoIdx - 1 + photos.length) % photos.length); }} className="modal-carousel-prev">‹</button>
+            <button onClick={(e) => { e.stopPropagation(); setPhotoIdx((photoIdx + 1) % photos.length); }} className="modal-carousel-next">›</button>
+            <div className="modal-carousel-dots">
+              {photos.map((_, i) => (
+                <div key={i} className={`modal-carousel-dot${i === photoIdx ? " active" : ""}`} onClick={() => setPhotoIdx(i)} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
-      {photos.length > 1 && (
-        <>
-          <button onClick={() => setPhotoIdx((photoIdx - 1 + photos.length) % photos.length)} className="modal-carousel-prev">‹</button>
-          <button onClick={() => setPhotoIdx((photoIdx + 1) % photos.length)} className="modal-carousel-next">›</button>
-          <div className="modal-carousel-dots">
-            {photos.map((_, i) => (
-              <div key={i} className={`modal-carousel-dot${i === photoIdx ? " active" : ""}`} onClick={() => setPhotoIdx(i)} />
-            ))}
+
+      {/* Lightbox */}
+      {lightbox && (
+        <div
+          onClick={() => setLightbox(false)}
+          style={{
+            position: "fixed", inset: 0, zIndex: 9999,
+            background: "rgba(0,0,0,0.95)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            cursor: "zoom-out",
+          }}
+        >
+          <button
+            onClick={() => setLightbox(false)}
+            style={{ position: "absolute", top: 20, right: 28, background: "none", border: "none", color: "#fff", fontSize: 32, cursor: "pointer", lineHeight: 1 }}
+          >✕</button>
+
+          {photos.length > 1 && (
+            <>
+              <button
+                onClick={(e) => { e.stopPropagation(); setPhotoIdx((photoIdx - 1 + photos.length) % photos.length); }}
+                style={{ position: "absolute", left: 20, background: "rgba(255,255,255,0.1)", border: "none", color: "#fff", fontSize: 40, width: 56, height: 56, borderRadius: "50%", cursor: "pointer" }}
+              >‹</button>
+              <button
+                onClick={(e) => { e.stopPropagation(); setPhotoIdx((photoIdx + 1) % photos.length); }}
+                style={{ position: "absolute", right: 20, background: "rgba(255,255,255,0.1)", border: "none", color: "#fff", fontSize: 40, width: 56, height: 56, borderRadius: "50%", cursor: "pointer" }}
+              >›</button>
+            </>
+          )}
+
+          <div style={{ position: "relative", width: "90vw", height: "85vh" }} onClick={(e) => e.stopPropagation()}>
+            <Image
+              src={photos[photoIdx].src}
+              alt={photos[photoIdx].label || alt}
+              fill
+              style={{ objectFit: "contain" }}
+              unoptimized
+            />
           </div>
-        </>
+
+          {photos.length > 1 && (
+            <span style={{ position: "absolute", bottom: 20, color: "rgba(255,255,255,0.4)", fontSize: 13, letterSpacing: "0.15em" }}>
+              {photoIdx + 1} / {photos.length}
+            </span>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 }

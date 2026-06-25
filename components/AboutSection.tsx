@@ -14,9 +14,9 @@ export default function AboutSection() {
         </div>
         <div className="about-headline-stats">
           <div className="about-hs"><span className="about-hs-num">3<sup>+</sup></span><span className="about-hs-label">Ans terrain Chine</span></div>
-          <div className="about-hs"><span className="about-hs-num">5</span><span className="about-hs-label">Éditions business</span></div>
+          <div className="about-hs"><span className="about-hs-num">6<sup>+</sup></span><span className="about-hs-label">Éditions business</span></div>
           <div className="about-hs"><span className="about-hs-num">6</span><span className="about-hs-label">Pays africains</span></div>
-          <div className="about-hs"><span className="about-hs-num">600M</span><span className="about-hs-label">FCFA transactions</span></div>
+          <div className="about-hs"><span className="about-hs-num">1Md<sup>+</sup></span><span className="about-hs-label">FCFA transactions</span></div>
         </div>
       </div>
 

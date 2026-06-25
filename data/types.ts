@@ -34,6 +34,7 @@ export interface Car {
   specs: Record<string, string>;
   mini: CarMini;
   desc: string;
+  reasons?: { title: string; body: string }[];
 }
 
 export const COLOR_HEX: Record<string, string> = {

@@ -40,7 +40,7 @@ const FAQS = [
   {
     icon: "📞",
     q: "Comment vous contacter ?",
-    a: "<strong>Bureau Cotonou :</strong> +229 01 41 76 53 41<br><strong>Équipe Chine :</strong> +86 196 8743 9774<br>Nous répondons sous <strong>48h ouvrées</strong>.",
+    a: "<strong>Bureau Cotonou :</strong> +229 01 41 76 53 41<br><strong>Équipe Chine :</strong> +86 195 8743 9774<br>Nous répondons sous <strong>48h ouvrées</strong>.",
   },
 ];
 
@@ -51,7 +51,6 @@ export default function FAQSection() {
     <section className="section faq-section" id="faq">
       <div className="section-inner">
         <div className="faq-header" style={{ textAlign: "center" }}>
-          <div className="tag">Questions fréquentes</div>
           <h2 className="h2" style={{ textAlign: "center" }}>
             Tout ce que vous devez<br />savoir avant de <em>commander.</em>
           </h2>

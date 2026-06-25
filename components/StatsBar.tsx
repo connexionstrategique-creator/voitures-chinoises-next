@@ -19,7 +19,7 @@ export default function StatsBar() {
       </div>
       <div className="statb">
         <div className="statb-num">0<em>km</em></div>
-        <div className="statb-label">Garantie origine</div>
+        <div className="statb-label">Sortis d&apos;usine</div>
       </div>
     </div>
   );

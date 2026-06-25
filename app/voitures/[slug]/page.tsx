@@ -6,10 +6,68 @@ import { notFound } from "next/navigation";
 import { CARS } from "@/data/cars";
 import { getColorHex } from "@/data/types";
 import { carSlug } from "@/lib/slug";
-import { getCarBySlug, getCars } from "@/sanity/queries";
+import { getCarBySlug, getCars, getSiteSettings } from "@/sanity/queries";
 import type { Metadata } from "next";
 
-export const revalidate = 60;
+export const revalidate = 10;
+
+const SPEC_ICONS: Record<string, string> = {
+  // Motorisation
+  Moteur: "⚙️",
+  Type: "🔋",
+  Puissance: "⚡",
+  Couple: "🔩",
+  Cylindrée: "🔧",
+  Transmission: "🔄",
+  Traction: "🚗",
+  Boîte: "🔄",
+  Vitesses: "🔄",
+  Consommation: "⛽",
+  Autonomie: "📍",
+  Réservoir: "🛢️",
+  // Dimensions & poids
+  Dimensions: "📐",
+  Longueur: "📐",
+  Largeur: "📐",
+  Hauteur: "📐",
+  Empattement: "📐",
+  Coffre: "📦",
+  Poids: "⚖️",
+  // Confort & équipements
+  Places: "👤",
+  Sièges: "💺",
+  Finition: "✨",
+  Climatisation: "❄️",
+  "Toit ouvrant": "🌤️",
+  Toit: "🌤️",
+  // Technologie
+  Écran: "📺",
+  "Écran central": "📺",
+  "Écran conducteur": "📺",
+  Audio: "🔊",
+  Son: "🔊",
+  Navigation: "🗺️",
+  GPS: "🗺️",
+  Connectivité: "📡",
+  // Éclairage & roues
+  Phares: "💡",
+  Feux: "💡",
+  Jantes: "⭕",
+  Roues: "⭕",
+  Pneus: "⭕",
+  // Sécurité
+  Airbags: "🛡️",
+  Sécurité: "🛡️",
+  Freins: "🔴",
+  Caméra: "📷",
+  "Aide à la conduite": "🚘",
+  // Général
+  Garantie: "🛡️",
+  Kilométrage: "🏁",
+  Année: "📅",
+  Couleur: "🎨",
+  Portes: "🚪",
+};
 
 export async function generateStaticParams() {
   return CARS.map((c) => ({ slug: carSlug(c.brand, c.model) }));
@@ -23,26 +81,33 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (c) car = c;
   } catch {}
   if (!car) return {};
+  const slug2 = `${car.brand.toLowerCase().replace(/\s+/g, "-")}-${car.model.toLowerCase().replace(/\s+/g, "-")}`;
   return {
-    title: `${car.brand} ${car.model} ${car.year} — Prix CIF | Voitures Chinoises`,
-    description: `${car.brand} ${car.model} neuf 0km. Prix CIF ${car.price} FCFA, livraison Cotonou, Lomé, Abidjan, Dakar. ${car.desc?.slice(0, 120) || ""}`,
+    title: `${car.brand} ${car.model} ${car.year} — Prix CIF Afrique | Voitures Chinoises`,
+    description: `${car.brand} ${car.model} ${car.year} neuf 0km. Prix CIF ${car.price} FCFA livré Cotonou, Lomé, Abidjan, Dakar. ${car.desc?.slice(0, 100) || "Importation directe Chine."}`,
+    alternates: { canonical: `https://www.voitureschinoises.com/voitures/${slug}` },
     openGraph: {
-      title: `${car.brand} ${car.model} — ${car.price} FCFA CIF`,
-      description: `Véhicule neuf 0km livré CIF en Afrique francophone.`,
-      images: car.photos?.[0]?.src ? [{ url: car.photos[0].src }] : [],
+      title: `${car.brand} ${car.model} ${car.year} — ${car.price} FCFA CIF`,
+      description: `Véhicule neuf 0km livré CIF en Afrique francophone. Devis sous 48h.`,
+      images: car.photos?.[0]?.src ? [{ url: car.photos[0].src, width: 1200, height: 630 }] : [],
+      type: "website",
     },
   };
 }
-
-const WA_NUMBER = "22941765341";
 
 export default async function VoiturePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
   let car = CARS.find((c) => carSlug(c.brand, c.model) === slug);
+  let waNumber = "8619587439774";
+  let phoneDisplay = "+229 01 41 76 53 41";
+  let phoneCN = "+86 195 8743 9774";
   try {
-    const c = await getCarBySlug(slug);
+    const [c, settings] = await Promise.all([getCarBySlug(slug), getSiteSettings()]);
     if (c) car = c;
+    if (settings?.whatsappNumber) waNumber = settings.whatsappNumber;
+    if (settings?.phoneDisplay) phoneDisplay = settings.phoneDisplay;
+    if (settings?.phoneCN) phoneCN = settings.phoneCN;
   } catch {}
 
   if (!car) notFound();
@@ -52,7 +117,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
-      <Nav />
+      <Nav dark />
 
       {/* JSON-LD voiture */}
       <script
@@ -78,7 +143,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
         }}
       />
 
-      <main style={{ paddingTop: "80px" }}>
+      <main>
         {/* Hero */}
         <section style={{ background: "#111", color: "#fff" }}>
           <div className="section-inner" style={{ display: "flex", gap: 48, alignItems: "center", flexWrap: "wrap", padding: "48px 24px" }}>
@@ -113,7 +178,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
 
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 <a
-                  href={`https://wa.me/${WA_NUMBER}?text=${waMsg}`}
+                  href={`https://wa.me/${waNumber}?text=${waMsg}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="modal-cta-primary"
@@ -131,27 +196,33 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
 
         {/* Détails */}
         <section className="section">
-          <div className="section-inner" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 48 }}>
+          <div className="section-inner">
+
+            {/* Couleurs — compact row */}
             {car!.colors && car!.colors.length > 0 && (
-              <div>
-                <h2 style={{ fontSize: 20, fontWeight: 800, marginBottom: 20 }}>Couleurs disponibles</h2>
-                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <div style={{ marginBottom: 48, paddingBottom: 32, borderBottom: "1px solid var(--border, #E0E0E0)" }}>
+                <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "#A01414", fontWeight: 700, marginBottom: 16 }}>COULEURS DISPONIBLES</div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
                   {car!.colors.map((col) => (
-                    <div key={col} style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                      <span style={{ width: 20, height: 20, borderRadius: "50%", background: getColorHex(col), border: "2px solid rgba(0,0,0,0.1)", flexShrink: 0 }} />
-                      <span style={{ fontSize: 15 }}>{col}</span>
+                    <div key={col} style={{ display: "flex", alignItems: "center", gap: 8, background: "#F5F5F5", borderRadius: 100, padding: "6px 14px 6px 8px" }}>
+                      <span style={{ width: 18, height: 18, borderRadius: "50%", background: getColorHex(col), border: "2px solid rgba(0,0,0,0.1)", flexShrink: 0 }} />
+                      <span style={{ fontSize: 13, fontWeight: 500 }}>{col}</span>
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            <div style={{ flex: 2 }}>
-              <h2 style={{ fontSize: 20, fontWeight: 800, marginBottom: 20 }}>Fiche technique</h2>
-              <div className="specs-full">
+            {/* Fiche technique — full width, 2 columns */}
+            <div>
+              <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "#A01414", fontWeight: 700, marginBottom: 20 }}>FICHE TECHNIQUE</div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(380px, 1fr))", gap: "0 48px" }}>
                 {Object.entries(car!.specs).map(([k, v]) => (
                   <div className="spec-row" key={k}>
-                    <span className="spec-key">{k}</span>
+                    <span className="spec-key">
+                      <span className="spec-icon">{SPEC_ICONS[k] ?? "·"}</span>
+                      {k}
+                    </span>
                     <span className="spec-val">{v}</span>
                   </div>
                 ))}
@@ -159,12 +230,56 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
 
-          {car!.desc && (
-            <div className="section-inner" style={{ marginTop: 48 }}>
-              <h2 style={{ fontSize: 20, fontWeight: 800, marginBottom: 16 }}>À propos</h2>
-              <p style={{ fontSize: 16, lineHeight: 1.8, color: "var(--mid, #555)", maxWidth: 720 }}>{car!.desc}</p>
-            </div>
-          )}
+          {car!.desc && (() => {
+            const reasons = car!.desc
+              .split(/(?<=[.!?])\s+/)
+              .map(s => s.trim())
+              .filter(s => s.length > 10);
+            return (
+              <div className="section-inner" style={{ marginTop: 64 }}>
+                <div style={{ marginBottom: 32 }}>
+                  <div style={{ fontSize: 11, letterSpacing: "0.2em", color: "var(--red,#A01414)", fontWeight: 700, marginBottom: 10 }}>POURQUOI CHOISIR CETTE VOITURE</div>
+                  <h2 style={{ fontSize: "clamp(22px,3vw,32px)", fontWeight: 900, lineHeight: 1.2 }}>
+                    {reasons.length} raisons d&apos;acheter la {car!.brand} <em style={{ color: "var(--red,#A01414)", fontStyle: "italic" }}>{car!.model}</em>
+                  </h2>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
+                  {reasons.map((reason, i) => (
+                    <div key={i} style={{
+                      background: "#fff",
+                      border: "1px solid var(--border,#E0E0E0)",
+                      borderRadius: 16,
+                      padding: "24px 28px",
+                      display: "flex",
+                      gap: 20,
+                      alignItems: "flex-start",
+                    }}>
+                      <div style={{
+                        flexShrink: 0,
+                        width: 40,
+                        height: 40,
+                        borderRadius: "50%",
+                        background: "var(--red,#A01414)",
+                        color: "#fff",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontFamily: "Cormorant Garamond, serif",
+                        fontSize: 20,
+                        fontWeight: 700,
+                        lineHeight: 1,
+                      }}>
+                        {i + 1}
+                      </div>
+                      <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "#333" }}>
+                        {reason.replace(/\.$/, "").replace(/^Découvrez la [^.]+\.\s*/, "")}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
 
           <div className="section-inner" style={{ marginTop: 64 }}>
             <div style={{ background: "var(--yellow, #f5f0e8)", borderRadius: 24, padding: "48px", textAlign: "center" }}>
@@ -175,11 +290,22 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
                 Contactez-nous sur WhatsApp pour démarrer votre commande.
               </p>
               <a
-                href={`https://wa.me/${WA_NUMBER}?text=${waMsg}`}
+                href={`https://wa.me/${waNumber}?text=${waMsg}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sourcing-btn-primary"
-                style={{ display: "inline-block" }}
+                style={{
+                  display: "inline-block",
+                  background: "#A01414",
+                  color: "#fff",
+                  padding: "16px 40px",
+                  borderRadius: 2,
+                  fontFamily: "DM Sans, sans-serif",
+                  fontWeight: 700,
+                  fontSize: 14,
+                  letterSpacing: "0.06em",
+                  textDecoration: "none",
+                  textTransform: "uppercase",
+                }}
               >
                 📱 Démarrer ma commande →
               </a>
@@ -187,7 +313,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
       </main>
-      <Footer />
+      <Footer waNumber={waNumber} phoneDisplay={phoneDisplay} phoneCN={phoneCN} minimal />
     </>
   );
 }

@@ -12,10 +12,8 @@ export default function ProcessPage() {
   return (
     <>
       <Nav />
-      <div style={{ paddingTop: "80px" }}>
-        <ProcessSection />
-      </div>
-      <Footer />
+      <ProcessSection />
+      <Footer minimal />
     </>
   );
 }

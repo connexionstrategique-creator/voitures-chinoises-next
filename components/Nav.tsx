@@ -3,12 +3,12 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Nav() {
+export default function Nav({ dark }: { dark?: boolean }) {
   const [open, setOpen] = useState(false);
   const closeMenu = () => setOpen(false);
 
   return (
-    <nav id="mainNav" role="navigation" aria-label="Navigation principale">
+    <nav id="mainNav" role="navigation" aria-label="Navigation principale" className={dark ? "nav--dark" : ""}>
       <div className="nav-logo">
         <Link href="/">
           <Image
@@ -25,11 +25,10 @@ export default function Nav() {
         <li><Link href="/catalogue" onClick={closeMenu}>Catalogue</Link></li>
         <li><Link href="/marques" onClick={closeMenu}>Marques</Link></li>
         <li><Link href="/a-propos" onClick={closeMenu}>Qui sommes-nous</Link></li>
-        <li><Link href="/pourquoi" onClick={closeMenu}>Pourquoi nous</Link></li>
         <li><Link href="/process" onClick={closeMenu}>Process</Link></li>
         <li><Link href="/faq" onClick={closeMenu}>FAQ</Link></li>
-        <li><a href="/#contact" onClick={closeMenu}>Contact</a></li>
-        <li><Link href="/apporteurs" onClick={closeMenu}>Apporteurs</Link></li>
+        <li><Link href="/blog" onClick={closeMenu}>Blog</Link></li>
+        <li><a href="/contact" onClick={closeMenu}>Contact</a></li>
       </ul>
       <button
         className={`nav-burger${open ? " open" : ""}`}

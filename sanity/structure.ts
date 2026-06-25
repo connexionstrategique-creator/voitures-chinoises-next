@@ -1,7 +1,28 @@
 import type {StructureResolver} from 'sanity/structure'
 
-// https://www.sanity.io/docs/structure-builder-cheat-sheet
-export const structure: StructureResolver = (S) =>
+type StructureWithOrderable = (S: any, context: any, orderableDocumentListDeskItem?: any) => any
+
+export const structure: StructureWithOrderable = (S, context, orderableDocumentListDeskItem) =>
   S.list()
-    .title('Content')
-    .items(S.documentTypeListItems())
+    .title('Contenu')
+    .items([
+      // Singleton — paramètres du site
+      S.listItem()
+        .title('⚙️ Paramètres du site')
+        .id('siteSettings')
+        .child(
+          S.document()
+            .schemaType('siteSettings')
+            .documentId('siteSettings')
+        ),
+      S.divider(),
+      // Voitures — drag & drop
+      orderableDocumentListDeskItem
+        ? orderableDocumentListDeskItem({type: 'car', title: '🚗 Voitures', S, context})
+        : S.documentTypeListItem('car').title('🚗 Voitures'),
+      // Marques
+      S.documentTypeListItem('brand').title('🏷️ Marques'),
+      S.divider(),
+      // Blog
+      S.documentTypeListItem('post').title('📝 Articles Blog'),
+    ])

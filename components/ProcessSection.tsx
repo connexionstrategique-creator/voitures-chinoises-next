@@ -10,7 +10,6 @@ export default function ProcessSection() {
     <section className="section steps-section" id="comment-ca-marche">
       <div className="section-inner">
         <div className="steps-header">
-          <div className="tag">Simple · Transparent · Fiable</div>
           <h2 className="h2">Comment ça marche ?</h2>
           <p className="steps-sub">De votre choix jusqu&apos;à la livraison — un process clair, sans surprise.</p>
         </div>

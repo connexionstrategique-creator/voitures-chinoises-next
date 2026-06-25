@@ -9,7 +9,7 @@ import { getBrandBySlug, getCarsByBrand } from "@/sanity/queries";
 import { brandSlug } from "@/lib/slug";
 import type { Metadata } from "next";
 
-export const revalidate = 60;
+export const revalidate = 10;
 
 export async function generateStaticParams() {
   return BRANDS.map((b) => ({ slug: brandSlug(b.name) }));
@@ -79,7 +79,7 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
           </div>
         </section>
       )}
-      <Footer />
+      <Footer minimal />
     </>
   );
 }
