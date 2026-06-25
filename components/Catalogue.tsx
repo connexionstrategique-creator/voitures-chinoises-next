@@ -347,36 +347,49 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginTop: 48, paddingBottom: 8 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginTop: 48, paddingBottom: 8 }}>
               <button
                 onClick={() => { setPage(p => p - 1); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                 disabled={page === 1}
                 style={{
-                  padding: "10px 24px", border: "1px solid #E0E0E0", borderRadius: 2,
-                  background: page === 1 ? "#F5F5F5" : "#0D0D0D", color: page === 1 ? "#aaa" : "#fff",
-                  fontFamily: "DM Sans, sans-serif", fontWeight: 600, fontSize: 13,
-                  letterSpacing: "0.08em", cursor: page === 1 ? "not-allowed" : "pointer",
-                  textTransform: "uppercase",
+                  width: 40, height: 40, borderRadius: "50%",
+                  border: "1px solid #E0E0E0",
+                  background: page === 1 ? "#F5F5F5" : "#fff",
+                  color: page === 1 ? "#ccc" : "#0D0D0D",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 18, cursor: page === 1 ? "not-allowed" : "pointer",
+                  transition: "all .2s",
                 }}
-              >
-                ← Précédent
-              </button>
-              <span style={{ fontFamily: "DM Sans, sans-serif", fontSize: 13, color: "#888", letterSpacing: "0.1em" }}>
-                Page {page} / {totalPages}
-              </span>
+              >‹</button>
+
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                <button
+                  key={p}
+                  onClick={() => { setPage(p); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                  style={{
+                    width: 40, height: 40, borderRadius: "50%",
+                    border: p === page ? "1px solid #A01414" : "1px solid #E0E0E0",
+                    background: p === page ? "#A01414" : "#fff",
+                    color: p === page ? "#fff" : "#555",
+                    fontFamily: "DM Sans, sans-serif", fontWeight: p === page ? 700 : 500,
+                    fontSize: 13, cursor: "pointer", transition: "all .2s",
+                  }}
+                >{p}</button>
+              ))}
+
               <button
                 onClick={() => { setPage(p => p + 1); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                 disabled={page === totalPages}
                 style={{
-                  padding: "10px 24px", border: "1px solid #E0E0E0", borderRadius: 2,
-                  background: page === totalPages ? "#F5F5F5" : "#A01414", color: page === totalPages ? "#aaa" : "#fff",
-                  fontFamily: "DM Sans, sans-serif", fontWeight: 600, fontSize: 13,
-                  letterSpacing: "0.08em", cursor: page === totalPages ? "not-allowed" : "pointer",
-                  textTransform: "uppercase",
+                  width: 40, height: 40, borderRadius: "50%",
+                  border: "1px solid #E0E0E0",
+                  background: page === totalPages ? "#F5F5F5" : "#fff",
+                  color: page === totalPages ? "#ccc" : "#0D0D0D",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 18, cursor: page === totalPages ? "not-allowed" : "pointer",
+                  transition: "all .2s",
                 }}
-              >
-                Suivant →
-              </button>
+              >›</button>
             </div>
           )}
         </div>
