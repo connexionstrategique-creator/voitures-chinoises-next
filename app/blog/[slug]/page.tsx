@@ -68,6 +68,8 @@ function transformBody(body: any[]): any[] {
     // Detect pipe-separated rows (any Unicode pipe variant)
     if (block._type === "block" && (block.style === "normal" || !block.style)) {
       const text = (block.children || []).map((c: any) => c.text || "").join("");
+      // Skip empty lines while accumulating table rows (blank lines in Sanity between rows)
+      if (text.trim() === "" && tableRows.length > 0) continue;
       if (PIPE_RE.test(text)) {
         const cells = extractCells(text);
         if (cells.length > 1) { tableRows.push(cells); continue; }
@@ -157,8 +159,8 @@ const ptComponents = {
       const colCount = Math.max(headerCells.length, ...bodyRows.map((r: any) => r?.cells?.length ?? 0));
       if (colCount === 0) return null;
       return (
-        <div style={{ overflowX: "auto", margin: "40px 0", borderRadius: 12, border: "1px solid #E0E0E0", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: "DM Sans, sans-serif", fontSize: 14, minWidth: 480 }}>
+        <div style={{ margin: "40px 0", borderRadius: 12, border: "1px solid #E0E0E0", boxShadow: "0 2px 12px rgba(0,0,0,0.06)", overflow: "hidden" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: "DM Sans, sans-serif", fontSize: 14 }}>
             {headerCells.length > 0 && (
               <thead>
                 <tr>
@@ -173,7 +175,7 @@ const ptComponents = {
                       letterSpacing: "0.14em",
                       textTransform: "uppercase",
                       borderRight: i < headerCells.length - 1 ? "1px solid rgba(255,255,255,0.08)" : "none",
-                      whiteSpace: "nowrap",
+                      wordBreak: "break-word",
                     }}>
                       {cell}
                     </th>
