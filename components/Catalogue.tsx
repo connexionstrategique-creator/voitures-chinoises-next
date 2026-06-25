@@ -302,7 +302,7 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                     <div className="car-price-row">
                       <div>
                         <div className="car-price">{car.price} <sup>FCFA</sup></div>
-                        <div className="price-cif">📦 Prix CIF inclus · Neuf 0km</div>
+                        <div className="price-cif">Prix CIF inclus · Neuf 0km</div>
                       </div>
                     </div>
 
