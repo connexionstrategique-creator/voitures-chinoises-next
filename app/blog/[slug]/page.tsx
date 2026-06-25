@@ -37,6 +37,17 @@ function extractCells(text: string): string[] {
   return text.split(PIPE_RE).map((c) => c.trim()).filter(Boolean);
 }
 
+function isRealContent(block: any): boolean {
+  if (block._type === "table") return false;
+  if (block._type !== "block") return true;
+  const style = block.style || "normal";
+  if (style !== "normal") return true;
+  const text = (block.children || []).map((c: any) => c.text || "").join("");
+  if (text.trim() === "") return false;
+  if (PIPE_RE.test(text)) return false;
+  return true;
+}
+
 function transformBody(body: any[]): any[] {
   if (!body) return [];
   const result: any[] = [];
@@ -53,35 +64,25 @@ function transformBody(body: any[]): any[] {
   };
 
   for (const block of body) {
-    // Skip separators (---, —, hr) when inside a table; pass them through otherwise
-    const isSeparator =
-      block._type === "break" ||
-      block._type === "divider" ||
-      (block._type === "block" && (block.children || []).map((c: any) => c.text || "").join("").trim().match(/^[-—–]{2,}$/));
-
-    if (isSeparator) {
-      if (tableRows.length > 0) continue;
+    // Native @sanity/table — flush pending rows, pass through
+    if (block._type === "table") {
+      flushTable();
       result.push(block);
       continue;
     }
 
-    // Detect pipe-separated rows (any Unicode pipe variant)
+    // Pipe row (any Unicode variant)
     if (block._type === "block" && (block.style === "normal" || !block.style)) {
       const text = (block.children || []).map((c: any) => c.text || "").join("");
-      // Skip empty lines while accumulating table rows (blank lines in Sanity between rows)
-      if (text.trim() === "" && tableRows.length > 0) continue;
       if (PIPE_RE.test(text)) {
         const cells = extractCells(text);
         if (cells.length > 1) { tableRows.push(cells); continue; }
       }
     }
 
-    // Native Sanity @sanity/table block — pass through as-is
-    if (block._type === "table") {
-      flushTable();
-      result.push(block);
-      continue;
-    }
+    // While accumulating rows, skip everything that isn't real content
+    // (empty lines, separators ---, horizontal rules, unknown block types)
+    if (tableRows.length > 0 && !isRealContent(block)) continue;
 
     flushTable();
     result.push(block);
@@ -153,7 +154,33 @@ const ptComponents = {
     table: ({ value }: any) => {
       const rows: any[] = value?.rows ?? [];
       if (!rows.length) return null;
-      // First row = header
+
+      // Single-row: render as a horizontal comparison strip (not a full table)
+      if (rows.length === 1) {
+        const cells: string[] = rows[0]?.cells ?? [];
+        if (!cells.length) return null;
+        return (
+          <div style={{ display: "flex", margin: "20px 0", borderRadius: 10, overflow: "hidden", border: "1px solid #E0E0E0" }}>
+            {cells.map((cell: string, i: number) => (
+              <div key={i} style={{
+                flex: 1,
+                padding: "12px 16px",
+                background: i === 0 ? "#0D0D0D" : i % 2 === 0 ? "#F8F8F8" : "#fff",
+                color: i === 0 ? "#fff" : "#333",
+                fontSize: 13,
+                lineHeight: 1.5,
+                fontWeight: i === 0 ? 700 : 400,
+                borderLeft: i > 0 ? "1px solid #E0E0E0" : "none",
+                fontFamily: "DM Sans, sans-serif",
+              }}>
+                {cell}
+              </div>
+            ))}
+          </div>
+        );
+      }
+
+      // Multi-row: proper table — first row = header
       const [headerRow, ...bodyRows] = rows;
       const headerCells: string[] = headerRow?.cells ?? [];
       const colCount = Math.max(headerCells.length, ...bodyRows.map((r: any) => r?.cells?.length ?? 0));
