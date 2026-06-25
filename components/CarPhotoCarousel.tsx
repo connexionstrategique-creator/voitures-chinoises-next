@@ -98,7 +98,7 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
           }}
         >
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 24px", zIndex: 11 }}>
-            <span style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(15px,3vw,20px)", fontWeight: 700, fontStyle: "italic", color: "rgba(255,255,255,0.85)", letterSpacing: "0.01em" }}>
+            <span style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(15px,3vw,20px)", fontWeight: 700, color: "rgba(255,255,255,0.85)", letterSpacing: "0.01em" }}>
               {alt}
             </span>
             <button

@@ -157,7 +157,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
             </div>
 
             <div className="car-info-block" style={{ flex: "1 1 280px" }}>
-              <div style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(28px,6vw,52px)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.05, marginBottom: 20, color: "#fff", fontStyle: "italic" }}>
+              <div style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(28px,6vw,52px)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.05, marginBottom: 20, color: "#fff" }}>
                 {car!.brand} {car!.model}
               </div>
               <div style={{ fontFamily: "DM Sans, sans-serif", fontSize: "clamp(22px,4vw,32px)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 4, fontVariantNumeric: "tabular-nums lining-nums" }}>
@@ -226,7 +226,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
                 <div style={{ marginBottom: 32 }}>
                   <div style={{ fontSize: 11, letterSpacing: "0.2em", color: "var(--red,#A01414)", fontWeight: 700, marginBottom: 10 }}>POURQUOI CHOISIR CETTE VOITURE</div>
                   <h2 style={{ fontSize: "clamp(22px,3vw,32px)", fontWeight: 900, lineHeight: 1.2 }}>
-                    {reasons.length} raisons d&apos;acheter la {car!.brand} <em style={{ color: "var(--red,#A01414)", fontStyle: "italic" }}>{car!.model}</em>
+                    {reasons.length} raisons d&apos;acheter la {car!.brand} <em style={{ color: "var(--red,#A01414)", fontStyle: "normal" }}>{car!.model}</em>
                   </h2>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>

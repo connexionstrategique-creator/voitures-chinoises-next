@@ -755,7 +755,7 @@ html, body { overflow-x:hidden; max-width:100%; }
     font-size:36px; font-weight:300; line-height:1.0;
     color:var(--black); margin-bottom:6px;
   }
-  .car-name em { font-style:italic; color:var(--red); }
+  .car-name em { font-style:normal; color:var(--red); }
 
   .car-meta {
     font-family:'DM Sans',sans-serif; font-size:12px; color:var(--light);
