@@ -55,7 +55,7 @@ function CarModal({ car, onClose }: { car: Car; onClose: () => void }) {
               <div style={{ display: "flex", height: "100%", transition: "transform .35s ease", transform: `translateX(-${photoIdx * 100}%)` }}>
                 {photos.map((p, i) => (
                   <div key={i} style={{ minWidth: "100%", height: "100%", flexShrink: 0, position: "relative" }}>
-                    <Image src={p.src} alt={p.label} fill style={{ objectFit: "cover", opacity: 0.85 }} unoptimized />
+                    <Image src={p.src} alt={p.label} fill style={{ objectFit: "cover", opacity: 0.85 }} sizes="(max-width: 600px) 100vw, 600px" priority={i === 0} />
                     <span style={{ position: "absolute", top: 12, right: 16, fontFamily: "var(--font-dm-sans)", fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: "0.15em" }}>{i + 1} / {photos.length}</span>
                   </div>
                 ))}
@@ -258,7 +258,7 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                         alt={`${car.brand} ${car.model}`}
                         fill
                         style={{ objectFit: "cover", opacity: 0.85 }}
-                        unoptimized
+                        sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 400px"
                       />
                     ) : (
                       <CarSVG color={car.color} />

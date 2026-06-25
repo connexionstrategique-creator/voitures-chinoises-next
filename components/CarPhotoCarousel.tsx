@@ -30,21 +30,22 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
   return (
     <>
       {/* Carousel */}
-      <div style={{ position: "relative", background: "#111", overflow: "hidden" }}>
-        <div style={{ display: "flex", transition: "transform .35s ease", transform: `translateX(-${photoIdx * 100}%)` }}>
+      <div style={{ position: "relative", background: "#111", overflow: "hidden", width: "100%", borderRadius: 20 }}>
+        <div style={{ display: "flex", transition: "transform .35s ease", transform: `translateX(-${photoIdx * 100}%)`, width: "100%" }}>
           {photos.map((p, i) => (
             <div
               key={i}
               onClick={() => setLightbox(true)}
-              style={{ minWidth: "100%", flexShrink: 0, position: "relative", aspectRatio: "16/10", cursor: "zoom-in", padding: "10px" }}
+              style={{ flex: "0 0 100%", position: "relative", aspectRatio: "4/3", cursor: "zoom-in", padding: "6px" }}
             >
-              <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: 20, overflow: "hidden", border: "1.5px solid rgba(255,255,255,0.22)" }}>
+              <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: 16, overflow: "hidden", border: "1.5px solid rgba(255,255,255,0.15)" }}>
                 <Image
                   src={p.src}
                   alt={p.label || alt}
                   fill
-                  style={{ objectFit: "contain" }}
-                  unoptimized
+                  style={{ objectFit: "cover" }}
+                  sizes="(max-width: 768px) 100vw, 55vw"
+                  priority={i === 0}
                 />
                 {photos.length > 1 && (
                   <span style={{ position: "absolute", top: 10, right: 14, fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: "0.15em" }}>
@@ -112,7 +113,8 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
               alt={photos[photoIdx].label || alt}
               fill
               style={{ objectFit: "contain" }}
-              unoptimized
+              sizes="95vw"
+              priority
             />
           </div>
 
