@@ -157,11 +157,8 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
             </div>
 
             <div className="car-info-block" style={{ flex: "1 1 280px" }}>
-              <div style={{ fontSize: 11, letterSpacing: "0.2em", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", marginBottom: 6 }}>
-                {car!.brand}
-              </div>
-              <div style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(32px,6vw,52px)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.05, marginBottom: 20, color: "#fff", fontStyle: "italic" }}>
-                {car!.model}
+              <div style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(28px,6vw,52px)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.05, marginBottom: 20, color: "#fff", fontStyle: "italic", whiteSpace: "nowrap" }}>
+                {car!.brand} {car!.model}
               </div>
               <div style={{ fontSize: "clamp(22px,4vw,30px)", fontWeight: 800, letterSpacing: "-0.01em", lineHeight: 1, marginBottom: 4 }}>
                 {car!.price} <span style={{ fontSize: 13, fontWeight: 400, opacity: 0.4 }}>FCFA</span>
