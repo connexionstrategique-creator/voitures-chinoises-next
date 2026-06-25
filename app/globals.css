@@ -3225,7 +3225,7 @@ html, body { overflow-x:hidden; max-width:100%; }
 .article-next-card--no-img { grid-template-columns: 1fr; }
 
 @media (max-width: 768px) {
-  .blog-page-hero { padding: 28px 20px 20px; }
+  .blog-page-hero { padding: 40px 20px 36px; }
   .blog-page-inner { padding: 28px 16px 60px; }
   .blog-hero-overlay-text { padding: 20px 20px; }
   .blog-gallery-hero { height: 260px !important; }
