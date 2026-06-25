@@ -30,6 +30,36 @@ function estimateReadTime(body: any[]): number {
   return Math.max(1, Math.round(text.split(/\s+/).length / 200));
 }
 
+function transformBody(body: any[]): any[] {
+  if (!body) return [];
+  const result: any[] = [];
+  let tableRows: string[][] = [];
+
+  const flushTable = () => {
+    if (tableRows.length === 0) return;
+    result.push({
+      _type: "table",
+      _key: `auto-table-${result.length}`,
+      rows: tableRows.map((cells, i) => ({ cells, _key: `row-${i}` })),
+    });
+    tableRows = [];
+  };
+
+  for (const block of body) {
+    if (block._type === "block" && block.style === "normal") {
+      const text = (block.children || []).map((c: any) => c.text || "").join("");
+      if (text.includes("|")) {
+        const cells = text.split("|").map((c: string) => c.trim()).filter(Boolean);
+        if (cells.length > 1) { tableRows.push(cells); continue; }
+      }
+    }
+    flushTable();
+    result.push(block);
+  }
+  flushTable();
+  return result;
+}
+
 export async function generateStaticParams() {
   const posts = await getPosts().catch(() => []);
   return posts.map((p) => ({ slug: p.slug }));
@@ -261,7 +291,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               </p>
             )}
             {post!.body && post!.body.length > 0 && (
-              <PortableText value={post!.body} components={ptComponents} />
+              <PortableText value={transformBody(post!.body)} components={ptComponents} />
             )}
 
             {/* À lire aussi */}
