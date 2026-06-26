@@ -27,6 +27,21 @@ export default function Hero({ line1, line2, line3, subtitle, waNumber }: HeroPr
             <path d="M97 37 L97 16 L216 16 L242 37 Z" stroke="white" strokeWidth="1.4" strokeLinejoin="round"/>
             {/* Phare avant */}
             <rect x="306" y="46" width="6" height="10" rx="2" stroke="white" strokeWidth="1.2"/>
+
+            {/* Famille dans l'habitacle */}
+            {/* Conducteur */}
+            <circle cx="221" cy="25" r="5.5" fill="white"/>
+            <path d="M213 37 Q221 28 229 37" fill="white"/>
+            {/* Passager avant */}
+            <circle cx="199" cy="25" r="5.5" fill="white"/>
+            <path d="M191 37 Q199 28 207 37" fill="white"/>
+            {/* Adulte arrière */}
+            <circle cx="150" cy="25" r="5.5" fill="white"/>
+            <path d="M142 37 Q150 28 158 37" fill="white"/>
+            {/* Enfant arrière (plus petit) */}
+            <circle cx="128" cy="28" r="4" fill="white"/>
+            <path d="M122 37 Q128 31 134 37" fill="white"/>
+
             {/* Roue avant */}
             <circle cx="72" cy="68" r="22" stroke="white" strokeWidth="1.6" className="hero-wheel"/>
             <circle cx="72" cy="68" r="9" stroke="white" strokeWidth="1.4"/>
