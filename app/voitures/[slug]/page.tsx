@@ -145,15 +145,16 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
       />
 
       <main>
-        {/* Hero */}
-        <section style={{ background: "#111", color: "#fff" }}>
-          <div className="section-inner" style={{ padding: "20px 24px 0" }}>
-            <Link href="/catalogue" style={{ textDecoration: "none", fontSize: 11, color: "rgba(255,255,255,0.35)", display: "inline-block", letterSpacing: "0.06em" }}>
-              ← retour
-            </Link>
-          </div>
-          <div className="section-inner car-hero-inner" style={{ display: "flex", gap: 48, alignItems: "center", flexWrap: "wrap", padding: "16px 24px 48px" }}>
-            <div style={{ flex: "1 1 380px" }}>
+        <div className="car-detail-layout">
+
+          {/* LEFT — carousel sticky */}
+          <div className="car-detail-left">
+            <div style={{ padding: "20px 24px 12px" }}>
+              <Link href="/catalogue" style={{ textDecoration: "none", fontSize: 11, color: "rgba(255,255,255,0.35)", display: "inline-block", letterSpacing: "0.06em" }}>
+                ← retour
+              </Link>
+            </div>
+            <div className="car-detail-carousel-wrap">
               <CarPhotoCarousel
                 photos={photos}
                 color={car!.color}
@@ -161,16 +162,20 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
                 colorGroups={car!.colorGroups}
               />
             </div>
+          </div>
 
-            <div className="car-info-block" style={{ flex: "1 1 280px" }}>
-              <div style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(28px,6vw,52px)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.05, marginBottom: 20, color: "#fff" }}>
+          {/* RIGHT — scrollable */}
+          <div className="car-detail-right">
+
+            {/* Title + Price + CTA (dark) */}
+            <div className="car-detail-header">
+              <div style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(22px,3vw,40px)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.1, marginBottom: 20, color: "#fff" }}>
                 {car!.brand} {car!.model}
               </div>
-              <div style={{ fontFamily: "DM Sans, sans-serif", fontSize: "clamp(22px,4vw,32px)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 4, fontVariantNumeric: "tabular-nums lining-nums" }}>
+              <div style={{ fontFamily: "DM Sans, sans-serif", fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 4, fontVariantNumeric: "tabular-nums lining-nums" }}>
                 {car!.price} <span style={{ fontSize: 13, fontWeight: 400, opacity: 0.4 }}>FCFA</span>
               </div>
               <div style={{ fontSize: 10, color: "rgba(255,255,255,0.22)", marginBottom: 24 }}>CIF · Coût + Assurance + Fret inclus</div>
-
               <div className="car-cta-group">
                 <a
                   href={`https://wa.me/${waNumber}?text=${waMsg}`}
@@ -183,12 +188,10 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
                 </a>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* Détails */}
-        <section className="section" style={{ paddingTop: 32 }}>
-          <div className="section-inner">
+            {/* Details (white) */}
+            <div className="car-detail-content">
+          <div style={{ padding: "32px 48px 0" }}>
 
             {/* Couleurs — compact row */}
             {car!.colors && car!.colors.length > 0 && (
@@ -208,7 +211,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
             {/* Fiche technique — full width, 2 columns */}
             <div>
               <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "#A01414", fontWeight: 700, marginBottom: 20 }}>FICHE TECHNIQUE</div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(380px, 1fr))", gap: "0 48px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "0 24px" }}>
                 {Object.entries(car!.specs).map(([k, v]) => (
                   <div className="spec-row" key={k}>
                     <span className="spec-key">
@@ -228,7 +231,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
               .map(s => s.trim())
               .filter(s => s.length > 10);
             return (
-              <div className="section-inner" style={{ marginTop: 64 }}>
+              <div style={{ marginTop: 64, padding: "0 48px" }}>
                 <div style={{ marginBottom: 32 }}>
                   <div style={{ fontSize: 11, letterSpacing: "0.2em", color: "var(--red,#A01414)", fontWeight: 700, marginBottom: 10 }}>POURQUOI CHOISIR CETTE VOITURE</div>
                   <h2 style={{ fontSize: "clamp(22px,3vw,32px)", fontWeight: 900, lineHeight: 1.2 }}>
@@ -273,13 +276,13 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
           })()}
 
           {car!.youtubeId && (
-            <div className="section-inner" style={{ marginTop: 64 }}>
+            <div style={{ marginTop: 64, padding: "0 48px" }}>
               <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "#A01414", fontWeight: 700, marginBottom: 20 }}>VIDÉO</div>
               <YouTubeEmbed youtubeId={car!.youtubeId} title={`${car!.brand} ${car!.model}`} />
             </div>
           )}
 
-          <div className="section-inner" style={{ marginTop: 64 }}>
+          <div style={{ padding: "0 48px 48px" }}>
             <div style={{ background: "var(--yellow, #f5f0e8)", borderRadius: 24, padding: "48px", textAlign: "center" }}>
               <h2 style={{ fontSize: 28, fontWeight: 800, marginBottom: 12 }}>
                 Intéressé par la {car!.brand} {car!.model} ?
@@ -309,7 +312,9 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
               </a>
             </div>
           </div>
-        </section>
+            </div>{/* /car-detail-content */}
+          </div>{/* /car-detail-right */}
+        </div>{/* /car-detail-layout */}
       </main>
       <Footer waNumber={waNumber} phoneDisplay={phoneDisplay} phoneCN={phoneCN} minimal />
     </>

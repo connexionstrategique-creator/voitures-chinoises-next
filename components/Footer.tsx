@@ -97,7 +97,7 @@ export default function Footer({
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d993!2d2.4080165!3d6.3704963!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1023556963c73cdd%3A0xe3c98d6f22b09fe3!2sConnexion%20Strat%C3%A9gique!5e0!3m2!1sfr!2sbj!4v1719000000000"
             width="100%"
-            height="220"
+            height="150"
             style={{ border: 0, display: "block", filter: "grayscale(30%) contrast(1.05)" }}
             allowFullScreen
             loading="lazy"
