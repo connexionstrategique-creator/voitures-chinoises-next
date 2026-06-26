@@ -69,6 +69,7 @@ export const CARS: Car[] = [
     id: 9, brand: "Jetour", model: "DASHING", year: "2026", cat: "suv", badge: "pop", badgeText: "Populaire",
     price: "12 000 000", color: "#5C3A1A",
     colors: ["Noir", "Bleu", "Vert", "Gris", "Rouge"],
+    sketchfabId: "9754e75b22ab4d02ab9c7c828fab5231",
     specs: { Moteur: "1.5T Essence", Places: "5 places", Finition: "Full Option", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique DCT" },
     mini: { v1: "1.5T", k1: "essence", v2: "5", k2: "places", v3: "0", k3: "kilomètre" },
     desc: "Le Jetour Dashing Full Option 2026, le SUV coupé au style remarqué. Silhouette sportive, intérieur technologique avec grand écran numérique, motorisation 1.5T dynamique. Un choix qui fait tourner les têtes, livré neuf en Afrique francophone.",

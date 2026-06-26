@@ -38,6 +38,7 @@ export interface Car {
   photos?: CarPhoto[];
   colorGroups?: CarColorGroup[];
   youtubeId?: string;
+  sketchfabId?: string;
   specs: Record<string, string>;
   mini: CarMini;
   desc: string;

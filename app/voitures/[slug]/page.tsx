@@ -1,6 +1,6 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import CarPhotoCarousel from "@/components/CarPhotoCarousel";
+import CarViewTabs from "@/components/CarViewTabs";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -193,13 +193,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function VoiturePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  let car = CARS.find((c) => carSlug(c.brand, c.model) === slug);
+  const staticCar = CARS.find((c) => carSlug(c.brand, c.model) === slug);
+  let car = staticCar;
   let waNumber = "8619587439774";
   let phoneDisplay = "+229 01 41 76 53 41";
   let phoneCN = "+86 195 8743 9774";
   try {
     const [c, settings] = await Promise.all([getCarBySlug(slug), getSiteSettings()]);
-    if (c) car = c;
+    if (c) car = { ...c, sketchfabId: c.sketchfabId ?? staticCar?.sketchfabId };
     if (settings?.whatsappNumber) waNumber = settings.whatsappNumber;
     if (settings?.phoneDisplay) phoneDisplay = settings.phoneDisplay;
     if (settings?.phoneCN) phoneCN = settings.phoneCN;
@@ -260,11 +261,12 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
               </div>
             </div>
             <div className="car-detail-carousel-wrap">
-              <CarPhotoCarousel
+              <CarViewTabs
                 photos={photos}
                 color={car!.color}
                 alt={`${car!.brand} ${car!.model}`}
                 colorGroups={car!.colorGroups}
+                sketchfabId={car!.sketchfabId}
               />
             </div>
           </div>
