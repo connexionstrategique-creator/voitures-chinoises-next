@@ -20,6 +20,7 @@ export const CARS: Car[] = [
   {
     id: 3, brand: "Changan", model: "UNI-K", year: "2025", cat: "suv", badge: "pop", badgeText: "Populaire",
     price: "13 800 000", color: "#7A0F0F",
+    sketchfabId: "5c230451c0da4e4698dc1ed76b0f2fe1",
     colors: ["Blanc", "Noir", "Argent", "Gris", "Marron"],
     specs: { Moteur: "Essence", Places: "5 places", Année: "2025", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "5", k1: "places", v2: "Essence", k2: "motorisation", v3: "0", k3: "kilomètre" },
@@ -36,6 +37,7 @@ export const CARS: Car[] = [
   {
     id: 5, brand: "Changan", model: "UNI-Z", year: "2026", cat: "suv", badge: "new", badgeText: "Nouveau",
     price: "11 000 000", color: "#1C3A5C",
+    sketchfabId: "a3d052549f2842bea5246fc97a02e9d6",
     colors: ["Gris", "Blanc", "Bleu", "Vert"],
     specs: { Moteur: "Essence", Places: "5 places", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "5", k1: "places", v2: "Essence", k2: "motorisation", v3: "2026", k3: "millésime" },
@@ -52,6 +54,7 @@ export const CARS: Car[] = [
   {
     id: 7, brand: "Changan", model: "CS55", year: "2026", cat: "suv", badge: "new", badgeText: "Nouveau",
     price: "10 000 000", color: "#3A5C1A",
+    sketchfabId: "78b898f2dcdc4d93b546af8ecf7d293d",
     colors: ["Blanc", "Gris Fluorite", "Noir", "Rouge", "Bleu"],
     specs: { Moteur: "Essence", Places: "5 places", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "5", k1: "places", v2: "Essence", k2: "motorisation", v3: "2026", k3: "millésime" },
@@ -117,6 +120,7 @@ export const CARS: Car[] = [
   {
     id: 14, brand: "GAC Motor", model: "GS3", year: "2026", cat: "suv", badge: "pop", badgeText: "Populaire",
     price: "8 300 000", color: "#3A3A3A",
+    sketchfabId: "1ec53ff6b165461b82a0081d6034b842",
     colors: ["Blanc", "Noir", "Gris", "Bleu", "Argent"],
     specs: { Moteur: "Essence", Places: "5 places", Année: "2026", Kilométrage: "0 km — Neuf", Sièges: "Conducteur électrique 6 positions", Audio: "6 haut-parleurs", Couleurs: "Argent, Gris Graphène, Gris Clair de Lune" },
     mini: { v1: "5", k1: "places", v2: "6", k2: "haut-parleurs", v3: "0", k3: "kilomètre" },
