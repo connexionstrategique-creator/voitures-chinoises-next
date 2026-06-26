@@ -18,7 +18,7 @@ export default function Hero({ line1, line2, line3, subtitle, waNumber }: HeroPr
     <>
       <section className="hero" id="hero">
         {/* Voiture animée qui traverse le hero */}
-        <div className="hero-car-wrap" aria-hidden="true">
+        <div className="hero-anim-overlay" aria-hidden="true">
           <div className="hero-car-inner">
           <svg className="hero-car-svg" viewBox="0 0 320 95" width="300" height="89" fill="none" xmlns="http://www.w3.org/2000/svg">
             {/* Carrosserie */}
@@ -35,7 +35,7 @@ export default function Hero({ line1, line2, line3, subtitle, waNumber }: HeroPr
             <circle cx="240" cy="68" r="9" stroke="white" strokeWidth="1.4"/>
           </svg>
           </div>{/* /hero-car-inner */}
-        </div>{/* /hero-car-wrap */}
+        </div>{/* /hero-anim-overlay */}
 
         <div className="hero-inner">
           <div className="hero-eyebrow">
