@@ -305,20 +305,26 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
               </div>
             )}
 
-            {/* Fiche technique — full width, 2 columns */}
+            {/* Fiche technique — tableau */}
             <div>
               <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "#A01414", fontWeight: 700, marginBottom: 20 }}>FICHE TECHNIQUE</div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr" }}>
-                {Object.entries(car!.specs).map(([k, v]) => (
-                  <div className="spec-row" key={k}>
-                    <span className="spec-key">
-                      <span className="spec-icon">{SPEC_ICONS[k] ?? "·"}</span>
-                      {k}
-                    </span>
-                    <span className="spec-val">{v}</span>
-                  </div>
-                ))}
-              </div>
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <tbody>
+                  {Object.entries(car!.specs).map(([k, v], i) => (
+                    <tr key={k} style={{ background: i % 2 === 0 ? "#F5F5F5" : "#fff" }}>
+                      <td style={{ padding: "11px 14px", width: 36, textAlign: "center", fontSize: 17, lineHeight: 1 }}>
+                        {SPEC_ICONS[k] ?? "·"}
+                      </td>
+                      <td style={{ padding: "11px 8px 11px 0", fontSize: 13, fontWeight: 600, color: "#666", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                        {k}
+                      </td>
+                      <td style={{ padding: "11px 16px 11px 12px", fontSize: 14, fontWeight: 500, color: "#111", verticalAlign: "middle" }}>
+                        {v}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
 
