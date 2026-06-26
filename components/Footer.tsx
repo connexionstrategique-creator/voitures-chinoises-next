@@ -87,23 +87,29 @@ export default function Footer({
       </div>
       {/* Google Maps — local SEO */}
       <div className="footer-map-wrap">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d993!2d2.4080165!3d6.3704963!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1023556963c73cdd%3A0xe3c98d6f22b09fe3!2sConnexion%20Strat%C3%A9gique!5e0!3m2!1sfr!2sbj!4v1719000000000"
+          width="100%"
+          height="100%"
+          style={{ border: 0, display: "block", pointerEvents: "none" }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Connexion Stratégique — Cotonou, Étoile Rouge"
+        />
         <a
           href="https://maps.app.goo.gl/C3sk4mXygN2fTNvJA"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Ouvrir notre bureau sur Google Maps"
-          style={{ display: "block" }}
+          className="footer-map-overlay"
+          aria-label="Voir Connexion Stratégique sur Google Maps"
         >
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d993!2d2.4080165!3d6.3704963!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1023556963c73cdd%3A0xe3c98d6f22b09fe3!2sConnexion%20Strat%C3%A9gique!5e0!3m2!1sfr!2sbj!4v1719000000000"
-            width="100%"
-            height="150"
-            style={{ border: 0, display: "block", filter: "grayscale(30%) contrast(1.05)" }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Connexion Stratégique — Cotonou, Étoile Rouge"
-          />
+          <div>
+            <div className="footer-map-tag">NOTRE BUREAU</div>
+            <div className="footer-map-name">Connexion Stratégique</div>
+            <div className="footer-map-addr">Cotonou, Étoile Rouge · Bénin</div>
+          </div>
+          <div className="footer-map-cta">Voir sur Google Maps</div>
         </a>
       </div>
       <footer>
