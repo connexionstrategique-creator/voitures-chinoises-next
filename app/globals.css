@@ -3039,6 +3039,7 @@ html, body { overflow-x:hidden; max-width:100%; }
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
+    object-position: center 60% !important;
     transition: transform .5s ease;
   }
   .blog-gallery-hero:hover .blog-gallery-hero-img { transform: scale(1.04); }
