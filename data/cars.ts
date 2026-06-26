@@ -27,7 +27,7 @@ export const CARS: Car[] = [
   },
   {
     id: 4, brand: "Changan", model: "CS75 PLUS ULTRA", year: "2026", cat: "suv", badge: "new", badgeText: "Nouveau",
-    price: "12 600 000", color: "#8B1A1A", autohomeId: "extseries/52859",
+    price: "12 600 000", color: "#8B1A1A", autohomeId: "extseries/52859", autohomeInteriorId: "pano/75339",
     colors: ["Bleu", "Argent", "Noir", "Blanc", "Gris"],
     specs: { Moteur: "2.0T Essence", Places: "5 places", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "2.0T", k1: "essence", v2: "5", k2: "places", v3: "0", k3: "kilomètre" },
@@ -124,7 +124,7 @@ export const CARS: Car[] = [
   },
   {
     id: 15, brand: "Livan", model: "X3 PRO", year: "2026", cat: "suv", badge: "new", badgeText: "Nouveau",
-    price: "7 100 000", color: "#5C1A5C",
+    price: "7 100 000", color: "#5C1A5C", autohomeId: "ext/67397",
     colors: ["Blanc Ivoire", "Gris Graphène", "Bleu Lac de Sel", "Argent Superstar"],
     specs: { Moteur: "1.5T Essence", Places: "5 places", Toit: "Toit ouvrant", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "1.5T", k1: "essence", v2: "5", k2: "places", v3: "Toit", k3: "ouvrant" },
