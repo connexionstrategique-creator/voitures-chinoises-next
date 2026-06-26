@@ -19,7 +19,7 @@ export default function Hero({ line1, line2, line3, subtitle, waNumber }: HeroPr
       <section className="hero" id="hero">
         <div className="hero-inner">
           <div className="hero-eyebrow">
-            <span>Import automobile neuf · Livré CIF</span>
+            <span>Import automobile neuf · Livré jusqu&apos;au maritime</span>
           </div>
           <h1 className="hero-title">
             <span className="hero-line-1">{t1}</span>
