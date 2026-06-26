@@ -8,6 +8,34 @@ import { carSlug } from "@/lib/slug";
 
 const WA_NUMBER = "8619587439774";
 
+const BASE_COLORS = [
+  { name: "Blanc",  hex: "#F5F5F0", border: "#ccc", keywords: ["blanc", "ivoire", "brillant", "nacré", "neige"] },
+  { name: "Noir",   hex: "#111111", border: "#111", keywords: ["noir", "obsidien", "jais", "crystal", "cristal", "nuit", "noble"] },
+  { name: "Gris",   hex: "#9B9B9B", border: "#999", keywords: ["gris", "graphène", "titanium", "acier", "anthracite", "atomique", "andes", "nebuleuse"] },
+  { name: "Bleu",   hex: "#1565C0", border: "#1565C0", keywords: ["bleu", "cyan", "azure", "capri"] },
+  { name: "Argent", hex: "#C8C8C8", border: "#aaa", keywords: ["argent", "superstar", "étoilé"] },
+  { name: "Rouge",  hex: "#B71C1C", border: "#B71C1C", keywords: ["rouge"] },
+  { name: "Vert",   hex: "#2E7D32", border: "#2E7D32", keywords: ["vert", "paysage", "lac"] },
+  { name: "Sable",  hex: "#C2B280", border: "#a89060", keywords: ["sable", "or ", "aurore", "marron", "kaki", "beige", "highway"] },
+] as const;
+
+function getBaseColor(colorName: string): string | null {
+  const lower = colorName.toLowerCase();
+  for (const base of BASE_COLORS) {
+    if (base.keywords.some(k => lower.includes(k))) return base.name;
+  }
+  return null;
+}
+
+function carBaseColors(colors: string[]): string[] {
+  const found = new Set<string>();
+  for (const col of colors) {
+    const base = getBaseColor(col);
+    if (base) found.add(base);
+  }
+  return Array.from(found);
+}
+
 function waLink(model: string) {
   const msg = encodeURIComponent(`Bonjour, je suis intéressé par la ${model}. Pouvez-vous me donner plus d'informations ?`);
   return `https://wa.me/${WA_NUMBER}?text=${msg}`;
@@ -163,9 +191,19 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
   const router = useRouter();
   const [activeFilter, setActiveFilter] = useState("all");
   const [activeBudget, setActiveBudget] = useState("all");
+  const [activeColor, setActiveColor] = useState("all");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 9;
+
+  // Compute which base colors actually appear across all cars
+  const availableColors = useMemo(() => {
+    const found = new Set<string>();
+    for (const c of cars) {
+      for (const base of carBaseColors(c.colors || [])) found.add(base);
+    }
+    return BASE_COLORS.filter(b => found.has(b.name));
+  }, [cars]);
 
   const filtered = useMemo(() => {
     setPage(1);
@@ -176,10 +214,11 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
         (activeFilter === "7places" && c.specs.Places?.includes("7")) ||
         (activeFilter === "5places" && c.specs.Places?.includes("5") && !c.specs.Places?.includes("7"));
       const budOk = budgetMatch(c, activeBudget);
+      const colorOk = activeColor === "all" || carBaseColors(c.colors || []).includes(activeColor);
       const srchOk = !search || c.brand.toLowerCase().includes(search) || c.model.toLowerCase().includes(search);
-      return catOk && budOk && srchOk;
+      return catOk && budOk && colorOk && srchOk;
     });
-  }, [activeFilter, activeBudget, search]);
+  }, [activeFilter, activeBudget, activeColor, search]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
@@ -236,6 +275,33 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                   onClick={() => setActiveBudget(key)}
                 >
                   {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Color filters */}
+          <div style={{ marginBottom: 36 }}>
+            <span className="filter-label">Couleur</span>
+            <div className="color-filters">
+              <button
+                className={`color-filter-btn${activeColor === "all" ? " active" : ""}`}
+                onClick={() => setActiveColor("all")}
+              >
+                <span className="color-filter-swatch" style={{ background: "linear-gradient(135deg,#111 0%,#fff 50%,#1565C0 100%)", border: "1px solid #ddd" }} />
+                Toutes
+              </button>
+              {availableColors.map((col) => (
+                <button
+                  key={col.name}
+                  className={`color-filter-btn${activeColor === col.name ? " active" : ""}`}
+                  onClick={() => setActiveColor(col.name)}
+                >
+                  <span
+                    className="color-filter-swatch"
+                    style={{ background: col.hex, border: `1px solid ${col.border}` }}
+                  />
+                  {col.name}
                 </button>
               ))}
             </div>

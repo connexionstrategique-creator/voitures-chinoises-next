@@ -1,6 +1,7 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import Image from "next/image";
 import { BRANDS } from "@/data/brands";
 import { getBrands } from "@/sanity/queries";
 import { brandSlug } from "@/lib/slug";
@@ -38,6 +39,18 @@ export default async function MarquesPage() {
                 style={{ textDecoration: "none" }}
               >
                 <div className="brand-item" style={{ cursor: "pointer", transition: "transform .2s", display: "block" }}>
+                  {brand.logo && (
+                    <div className="brand-logo-wrap">
+                      <Image
+                        src={brand.logo}
+                        alt={brand.name}
+                        width={120}
+                        height={44}
+                        style={{ objectFit: "contain", objectPosition: "left center", width: "auto", height: "36px", maxWidth: "110px" }}
+                        unoptimized
+                      />
+                    </div>
+                  )}
                   <span className="brand-name-text">{brand.name}</span>
                   <span className="brand-desc">{brand.desc}</span>
                 </div>
