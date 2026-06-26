@@ -379,9 +379,9 @@ html, body { overflow-x:clip; max-width:100%; }
 
   /* ── BRAND MARQUEE ── */
   .marquee-section {
-    background: #111;
-    border-top: none;
-    border-bottom: none;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
     overflow: hidden;
     padding: 0;
   }
@@ -418,17 +418,17 @@ html, body { overflow-x:clip; max-width:100%; }
   }
   .marquee-name {
     font-family: 'Syne', sans-serif;
-    font-size: 28px;
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #1a1a1a;
+    color: #888;
     white-space: nowrap;
   }
   .marquee-dot {
-    color: #A01414;
-    font-size: 14px;
-    margin: 0 4px;
+    color: #ccc;
+    font-size: 10px;
+    margin: 0 20px;
     flex-shrink: 0;
   }
   @keyframes marquee-scroll {

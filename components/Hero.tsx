@@ -21,33 +21,45 @@ export default function Hero({ line1, line2, line3, subtitle, waNumber }: HeroPr
         <div className="hero-anim-overlay" aria-hidden="true">
           <div className="hero-car-inner">
           <svg className="hero-car-svg" viewBox="0 0 320 95" width="300" height="89" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Carrosserie */}
-            <path d="M8 68 L8 44 Q8 37 15 37 L62 37 L94 14 L218 14 L244 37 L305 37 Q312 37 312 44 L312 68 Z" stroke="white" strokeWidth="1.6" strokeLinejoin="round"/>
-            {/* Vitres */}
-            <path d="M97 37 L97 16 L216 16 L242 37 Z" stroke="white" strokeWidth="1.4" strokeLinejoin="round"/>
-            {/* Phare avant */}
-            <rect x="306" y="46" width="6" height="10" rx="2" stroke="white" strokeWidth="1.2"/>
+            {/* Carrosserie SUV épuré */}
+            <path d="M6 68 L6 46 Q6 38 14 38 L56 38 L88 16 L228 16 L254 38 L306 38 Q314 38 314 46 L314 68 Z" stroke="white" strokeWidth="1.6" strokeLinejoin="round"/>
+            {/* Vitres panoramiques */}
+            <path d="M91 38 L91 18 L226 18 L252 38 Z" stroke="white" strokeWidth="1.3" strokeLinejoin="round"/>
+            {/* Montant central */}
+            <line x1="158" y1="18" x2="158" y2="38" stroke="white" strokeWidth="1"/>
+            {/* Phare avant LED */}
+            <rect x="308" y="46" width="6" height="9" rx="1.5" stroke="white" strokeWidth="1.2"/>
+            <line x1="308" y1="49" x2="314" y2="49" stroke="white" strokeWidth="0.8"/>
+            {/* Feux arrière */}
+            <rect x="6" y="47" width="4" height="7" rx="1" stroke="white" strokeWidth="1"/>
 
-            {/* Famille dans l'habitacle */}
-            {/* Conducteur */}
-            <circle cx="221" cy="25" r="5.5" fill="white"/>
-            <path d="M213 37 Q221 28 229 37" fill="white"/>
-            {/* Passager avant */}
-            <circle cx="199" cy="25" r="5.5" fill="white"/>
-            <path d="M191 37 Q199 28 207 37" fill="white"/>
-            {/* Adulte arrière */}
-            <circle cx="150" cy="25" r="5.5" fill="white"/>
-            <path d="M142 37 Q150 28 158 37" fill="white"/>
-            {/* Enfant arrière (plus petit) */}
-            <circle cx="128" cy="28" r="4" fill="white"/>
-            <path d="M122 37 Q128 31 134 37" fill="white"/>
+            {/* Roue arrière — rayons */}
+            <g className="hero-wheel">
+              <circle cx="72" cy="68" r="22" stroke="white" strokeWidth="1.6"/>
+              <circle cx="72" cy="68" r="6" stroke="white" strokeWidth="1.2"/>
+              <line x1="72" y1="46" x2="72" y2="62" stroke="white" strokeWidth="1.1"/>
+              <line x1="72" y1="74" x2="72" y2="90" stroke="white" strokeWidth="1.1"/>
+              <line x1="50" y1="68" x2="66" y2="68" stroke="white" strokeWidth="1.1"/>
+              <line x1="78" y1="68" x2="94" y2="68" stroke="white" strokeWidth="1.1"/>
+              <line x1="56.4" y1="52.4" x2="67.5" y2="63.5" stroke="white" strokeWidth="1.1"/>
+              <line x1="76.5" y1="72.5" x2="87.6" y2="83.6" stroke="white" strokeWidth="1.1"/>
+              <line x1="87.6" y1="52.4" x2="76.5" y2="63.5" stroke="white" strokeWidth="1.1"/>
+              <line x1="67.5" y1="72.5" x2="56.4" y2="83.6" stroke="white" strokeWidth="1.1"/>
+            </g>
 
-            {/* Roue avant */}
-            <circle cx="72" cy="68" r="22" stroke="white" strokeWidth="1.6" className="hero-wheel"/>
-            <circle cx="72" cy="68" r="9" stroke="white" strokeWidth="1.4"/>
-            {/* Roue arrière */}
-            <circle cx="240" cy="68" r="22" stroke="white" strokeWidth="1.6" className="hero-wheel"/>
-            <circle cx="240" cy="68" r="9" stroke="white" strokeWidth="1.4"/>
+            {/* Roue avant — rayons */}
+            <g className="hero-wheel">
+              <circle cx="240" cy="68" r="22" stroke="white" strokeWidth="1.6"/>
+              <circle cx="240" cy="68" r="6" stroke="white" strokeWidth="1.2"/>
+              <line x1="240" y1="46" x2="240" y2="62" stroke="white" strokeWidth="1.1"/>
+              <line x1="240" y1="74" x2="240" y2="90" stroke="white" strokeWidth="1.1"/>
+              <line x1="218" y1="68" x2="234" y2="68" stroke="white" strokeWidth="1.1"/>
+              <line x1="246" y1="68" x2="262" y2="68" stroke="white" strokeWidth="1.1"/>
+              <line x1="224.4" y1="52.4" x2="235.5" y2="63.5" stroke="white" strokeWidth="1.1"/>
+              <line x1="244.5" y1="72.5" x2="255.6" y2="83.6" stroke="white" strokeWidth="1.1"/>
+              <line x1="255.6" y1="52.4" x2="244.5" y2="63.5" stroke="white" strokeWidth="1.1"/>
+              <line x1="235.5" y1="72.5" x2="224.4" y2="83.6" stroke="white" strokeWidth="1.1"/>
+            </g>
           </svg>
           </div>{/* /hero-car-inner */}
         </div>{/* /hero-anim-overlay */}
