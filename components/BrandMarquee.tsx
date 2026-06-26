@@ -1,27 +1,28 @@
 import { BRANDS } from "@/data/brands";
 
-// Hauteur individuelle par marque (px) — ajuster ici si besoin
+// Logos carrés (600×600) → grande hauteur pour visibilité
+// Logos wordmarks larges → hauteur réduite (ils sont déjà visuellement larges)
 const LOGO_HEIGHTS: Record<string, number> = {
-  "BYD":       32,
-  "Changan":   32,
-  "Jetour":    32,
-  "GAC Motor": 32,
-  "Livan":     20,
-  "G700":      32,
-  "Geely":     28,
-  "Haval":     32,
-  "Chery":     32,
-  "MG":        36,
-  "GWM":       32,
-  "Omoda":     32,
-  "Li Auto":   32,
-  "Deepal":    32,
-  "Nio":       32,
-  "BAIC":      36,
-  "Dongfeng":  32,
-  "Voyah":     32,
-  "Zeekr":     18,
-  "SAIC":      40,
+  "BYD":       48,
+  "Changan":   26,  // wordmark 2000×352 → 182px wide à 32px, trop dominant
+  "Jetour":    48,
+  "GAC Motor": 48,
+  "Livan":     30,  // wordmark 330×116
+  "G700":      48,
+  "Geely":     40,  // wordmark 2000×1075
+  "Haval":     48,
+  "Chery":     48,
+  "MG":        48,
+  "GWM":       48,
+  "Omoda":     48,
+  "Li Auto":   48,
+  "Deepal":    48,
+  "Nio":       48,
+  "BAIC":      48,
+  "Dongfeng":  48,
+  "Voyah":     48,
+  "Zeekr":     48,
+  "SAIC":      48,
 };
 
 export default function BrandMarquee() {
