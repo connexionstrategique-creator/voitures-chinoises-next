@@ -17,8 +17,9 @@ export default function Hero({ line1, line2, line3, subtitle, waNumber }: HeroPr
   return (
     <>
       <section className="hero" id="hero">
-        {/* Voiture animée en arrière-plan */}
+        {/* Voiture animée qui traverse le hero */}
         <div className="hero-car-wrap" aria-hidden="true">
+          <div className="hero-car-inner">
           <svg className="hero-car-svg" viewBox="0 0 320 95" width="300" height="89" fill="none" xmlns="http://www.w3.org/2000/svg">
             {/* Carrosserie */}
             <path d="M8 68 L8 44 Q8 37 15 37 L62 37 L94 14 L218 14 L244 37 L305 37 Q312 37 312 44 L312 68 Z" stroke="white" strokeWidth="1.6" strokeLinejoin="round"/>
@@ -33,7 +34,8 @@ export default function Hero({ line1, line2, line3, subtitle, waNumber }: HeroPr
             <circle cx="240" cy="68" r="22" stroke="white" strokeWidth="1.6" className="hero-wheel"/>
             <circle cx="240" cy="68" r="9" stroke="white" strokeWidth="1.4"/>
           </svg>
-        </div>
+          </div>{/* /hero-car-inner */}
+        </div>{/* /hero-car-wrap */}
 
         <div className="hero-inner">
           <div className="hero-eyebrow">
