@@ -1,6 +1,7 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import CarPhotoCarousel from "@/components/CarPhotoCarousel";
+import YouTubeEmbed from "@/components/YouTubeEmbed";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CARS } from "@/data/cars";
@@ -153,7 +154,12 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
           </div>
           <div className="section-inner car-hero-inner" style={{ display: "flex", gap: 48, alignItems: "center", flexWrap: "wrap", padding: "16px 24px 48px" }}>
             <div style={{ flex: "1 1 380px" }}>
-              <CarPhotoCarousel photos={photos} color={car!.color} alt={`${car!.brand} ${car!.model}`} />
+              <CarPhotoCarousel
+                photos={photos}
+                color={car!.color}
+                alt={`${car!.brand} ${car!.model}`}
+                colorGroups={car!.colorGroups}
+              />
             </div>
 
             <div className="car-info-block" style={{ flex: "1 1 280px" }}>
@@ -265,6 +271,13 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
               </div>
             );
           })()}
+
+          {car!.youtubeId && (
+            <div className="section-inner" style={{ marginTop: 64 }}>
+              <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "#A01414", fontWeight: 700, marginBottom: 20 }}>VIDÉO</div>
+              <YouTubeEmbed youtubeId={car!.youtubeId} title={`${car!.brand} ${car!.model}`} />
+            </div>
+          )}
 
           <div className="section-inner" style={{ marginTop: 64 }}>
             <div style={{ background: "var(--yellow, #f5f0e8)", borderRadius: 24, padding: "48px", textAlign: "center" }}>

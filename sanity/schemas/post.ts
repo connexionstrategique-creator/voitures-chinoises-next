@@ -93,6 +93,16 @@ export const postSchema = defineType({
           ],
         },
         { type: "table" },
+        {
+          type: "object",
+          name: "youtubeEmbed",
+          title: "Vidéo YouTube",
+          fields: [
+            defineField({ name: "videoId", title: "ID YouTube (ex: dQw4w9WgXcQ)", type: "string" }),
+            defineField({ name: "caption", title: "Légende (optionnel)", type: "string" }),
+          ],
+          preview: { select: { title: "videoId" }, prepare: ({ title }: any) => ({ title: `▶ YouTube: ${title}` }) },
+        },
       ],
     }),
     defineField({

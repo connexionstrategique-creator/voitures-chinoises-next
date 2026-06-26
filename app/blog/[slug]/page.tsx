@@ -141,6 +141,24 @@ const ptComponents = {
     ),
   },
   types: {
+    youtubeEmbed: ({ value }: any) => value?.videoId ? (
+      <figure style={{ margin: "40px 0" }}>
+        <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, borderRadius: 12, overflow: "hidden", background: "#111" }}>
+          <iframe
+            src={`https://www.youtube.com/embed/${value.videoId}?rel=0`}
+            title={value.caption || "Vidéo YouTube"}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+          />
+        </div>
+        {value.caption && (
+          <figcaption style={{ fontFamily: "DM Sans, sans-serif", fontSize: 12, color: "#aaa", textAlign: "center", marginTop: 10 }}>
+            {value.caption}
+          </figcaption>
+        )}
+      </figure>
+    ) : null,
     image: ({ value }: any) => value?.url ? (
       <figure style={{ margin: "32px 0" }}>
         <img src={value.url} alt={value.alt || ""} style={{ width: "100%", borderRadius: 8, display: "block" }} />

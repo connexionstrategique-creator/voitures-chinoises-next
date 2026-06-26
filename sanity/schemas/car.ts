@@ -100,6 +100,35 @@ export const carSchema = defineType({
       description: "Couleur principale de la silhouette SVG sur les cartes.",
     }),
 
+    defineField({
+      name: "colorGroups",
+      title: "Photos par couleur (filtrage)",
+      type: "array",
+      group: "visuels",
+      description: "Si renseigné, les visiteurs peuvent filtrer les photos par couleur sur la page voiture.",
+      of: [{
+        type: "object",
+        name: "colorGroup",
+        title: "Groupe couleur",
+        fields: [
+          defineField({ name: "colorName", title: "Couleur (ex : Noire, Blanche…)", type: "string" }),
+          defineField({
+            name: "photos", title: "Photos de cette couleur", type: "array",
+            of: [{ type: "image", options: { hotspot: true } }],
+            options: { layout: "grid" },
+          }),
+        ],
+        preview: { select: { title: "colorName" } },
+      }],
+    }),
+    defineField({
+      name: "youtubeId",
+      title: "Vidéo YouTube (ID)",
+      type: "string",
+      group: "visuels",
+      description: "L'ID de la vidéo YouTube (ex : dQw4w9WgXcQ pour https://youtu.be/dQw4w9WgXcQ).",
+    }),
+
     // ── FICHE TECHNIQUE ──
     defineField({
       name: "mini_v1", title: "Valeur", type: "string",

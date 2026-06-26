@@ -1,5 +1,5 @@
 import { sanityClient } from "./client";
-import type { Car, Brand } from "@/data/types";
+import type { Car, Brand, CarColorGroup } from "@/data/types";
 import { carSlug as makeCarSlug, brandSlug as makeBrandSlug } from "@/lib/slug";
 
 function transformCar(raw: any): Car {
@@ -27,6 +27,15 @@ function transformCar(raw: any): Car {
           src: p.asset?.url || p.image?.asset?.url || p.src || "",
         })).filter((p: any) => p.src)
       : [],
+    colorGroups: Array.isArray(raw.colorGroups)
+      ? (raw.colorGroups as any[]).map((g): CarColorGroup => ({
+          colorName: g.colorName || "",
+          photos: Array.isArray(g.photos)
+            ? g.photos.map((p: any) => ({ label: "", src: p.asset?.url || "" })).filter((p: any) => p.src)
+            : [],
+        })).filter((g) => g.photos.length > 0)
+      : [],
+    youtubeId: raw.youtubeId || "",
     specs: specsRecord,
     mini: {
       v1: raw.mini_v1 || "",
@@ -55,6 +64,8 @@ export async function getCars(): Promise<Car[]> {
       _id, brand, model, year, cat, badge, badgeText, featured,
       price, color, colors,
       "photos": photos[]{ "asset": asset->{ url } },
+      "colorGroups": colorGroups[]{ colorName, "photos": photos[]{ "asset": asset->{ url } } },
+      youtubeId,
       specs,
       mini_v1, mini_k1, mini_v2, mini_k2, mini_v3, mini_k3, desc,
       "reasons": reasons[]{ title, body }
@@ -139,7 +150,7 @@ export async function getPosts(category?: string): Promise<BlogPost[]> {
     `*[${filter}] | order(orderRank asc, publishedAt desc) {
       _id, title,
       "slug": slug.current,
-      "imageUrl": mainImage.asset->url + "?w=900&auto=format&q=78",
+      "imageUrl": mainImage.asset->url + "?auto=format&q=80",
       "imageAlt": mainImage.alt,
       publishedAt, category, excerpt
     }`,

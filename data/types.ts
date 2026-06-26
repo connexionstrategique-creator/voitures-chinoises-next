@@ -9,6 +9,11 @@ export interface CarPhoto {
   src: string;
 }
 
+export interface CarColorGroup {
+  colorName: string;
+  photos: CarPhoto[];
+}
+
 export interface CarMini {
   v1: string;
   k1: string;
@@ -31,6 +36,8 @@ export interface Car {
   color: string;
   colors?: string[];
   photos?: CarPhoto[];
+  colorGroups?: CarColorGroup[];
+  youtubeId?: string;
   specs: Record<string, string>;
   mini: CarMini;
   desc: string;
@@ -83,7 +90,6 @@ export const COLOR_HEX: Record<string, string> = {
   "Gris Acier": "#6E7A8A",
   "Orange": "#E8672A",
   "Jaune": "#EAC317",
-  "Rouge": "#B71C1C",
 };
 
 export function getColorHex(name: string): string {

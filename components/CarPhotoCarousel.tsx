@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
 import Image from "next/image";
-import type { CarPhoto } from "@/data/types";
+import type { CarPhoto, CarColorGroup } from "@/data/types";
 
 function CarSVG({ color }: { color: string }) {
   return (
@@ -15,12 +15,35 @@ function CarSVG({ color }: { color: string }) {
   );
 }
 
-export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPhoto[]; color: string; alt: string }) {
+export default function CarPhotoCarousel({
+  photos,
+  color,
+  alt,
+  colorGroups,
+}: {
+  photos: CarPhoto[];
+  color: string;
+  alt: string;
+  colorGroups?: CarColorGroup[];
+}) {
+  const hasGroups = colorGroups && colorGroups.length > 0;
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [photoIdx, setPhotoIdx] = useState(0);
   const [lightbox, setLightbox] = useState(false);
   const touchStartX = useRef<number | null>(null);
 
-  if (photos.length === 0) {
+  const displayedPhotos: CarPhoto[] = hasGroups
+    ? selectedColor
+      ? colorGroups!.find((g) => g.colorName === selectedColor)?.photos || []
+      : colorGroups!.flatMap((g) => g.photos)
+    : photos;
+
+  function switchColor(c: string | null) {
+    setSelectedColor(c);
+    setPhotoIdx(0);
+  }
+
+  if (displayedPhotos.length === 0 && photos.length === 0) {
     return (
       <div style={{ height: 400, display: "flex", alignItems: "center", justifyContent: "center", background: "#1a1a1a", borderRadius: 20, border: "1px solid rgba(255,255,255,0.06)" }}>
         <CarSVG color={color} />
@@ -30,7 +53,40 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
 
   return (
     <>
-      {/* Carousel */}
+      {hasGroups && (
+        <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap" }}>
+          <button
+            onClick={() => switchColor(null)}
+            style={{
+              padding: "6px 16px", borderRadius: 100,
+              border: "1.5px solid rgba(255,255,255,0.18)",
+              background: selectedColor === null ? "#fff" : "transparent",
+              color: selectedColor === null ? "#0d0d0d" : "rgba(255,255,255,0.7)",
+              fontSize: 12, fontWeight: 700, letterSpacing: "0.06em",
+              cursor: "pointer", transition: "all .15s",
+            }}
+          >
+            TOUTES
+          </button>
+          {colorGroups!.map((g) => (
+            <button
+              key={g.colorName}
+              onClick={() => switchColor(g.colorName)}
+              style={{
+                padding: "6px 16px", borderRadius: 100,
+                border: "1.5px solid " + (selectedColor === g.colorName ? "#fff" : "rgba(255,255,255,0.18)"),
+                background: selectedColor === g.colorName ? "#fff" : "transparent",
+                color: selectedColor === g.colorName ? "#0d0d0d" : "rgba(255,255,255,0.7)",
+                fontSize: 12, fontWeight: 700, letterSpacing: "0.06em",
+                cursor: "pointer", transition: "all .15s",
+              }}
+            >
+              {g.colorName.toUpperCase()}
+            </button>
+          ))}
+        </div>
+      )}
+
       <div
         style={{ position: "relative", background: "#111", overflow: "hidden", width: "100%", borderRadius: 20, aspectRatio: "4/3" }}
         onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
@@ -39,12 +95,12 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
           const dx = touchStartX.current - e.changedTouches[0].clientX;
           touchStartX.current = null;
           if (Math.abs(dx) < 40) return;
-          if (dx > 0) setPhotoIdx((i) => (i + 1) % photos.length);
-          else setPhotoIdx((i) => (i - 1 + photos.length) % photos.length);
+          if (dx > 0) setPhotoIdx((i) => (i + 1) % displayedPhotos.length);
+          else setPhotoIdx((i) => (i - 1 + displayedPhotos.length) % displayedPhotos.length);
         }}
       >
-        <div style={{ position: "absolute", inset: 0, display: "flex", transition: "transform .35s ease", transform: `translateX(-${photoIdx * 100}%)` }}>
-          {photos.map((p, i) => (
+        <div style={{ position: "absolute", inset: 0, display: "flex", transition: "transform .35s ease", transform: "translateX(-" + (photoIdx * 100) + "%)" }}>
+          {displayedPhotos.map((p, i) => (
             <div
               key={i}
               onClick={() => setLightbox(true)}
@@ -60,9 +116,9 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
                   loading="eager"
                   priority={i === 0}
                 />
-                {photos.length > 1 && (
+                {displayedPhotos.length > 1 && (
                   <span style={{ position: "absolute", top: 10, right: 14, fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: "0.15em" }}>
-                    {i + 1} / {photos.length}
+                    {i + 1} / {displayedPhotos.length}
                   </span>
                 )}
                 <span style={{ position: "absolute", bottom: 10, right: 14, fontSize: 10, color: "rgba(255,255,255,0.25)", letterSpacing: "0.1em" }}>
@@ -73,20 +129,19 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
           ))}
         </div>
 
-        {photos.length > 1 && (
+        {displayedPhotos.length > 1 && (
           <>
-            <button onClick={(e) => { e.stopPropagation(); setPhotoIdx((photoIdx - 1 + photos.length) % photos.length); }} className="modal-carousel-prev">‹</button>
-            <button onClick={(e) => { e.stopPropagation(); setPhotoIdx((photoIdx + 1) % photos.length); }} className="modal-carousel-next">›</button>
+            <button onClick={(e) => { e.stopPropagation(); setPhotoIdx((photoIdx - 1 + displayedPhotos.length) % displayedPhotos.length); }} className="modal-carousel-prev">‹</button>
+            <button onClick={(e) => { e.stopPropagation(); setPhotoIdx((photoIdx + 1) % displayedPhotos.length); }} className="modal-carousel-next">›</button>
             <div className="modal-carousel-dots">
-              {photos.map((_, i) => (
-                <div key={i} className={`modal-carousel-dot${i === photoIdx ? " active" : ""}`} onClick={() => setPhotoIdx(i)} />
+              {displayedPhotos.map((_, i) => (
+                <div key={i} className={"modal-carousel-dot" + (i === photoIdx ? " active" : "")} onClick={() => setPhotoIdx(i)} />
               ))}
             </div>
           </>
         )}
       </div>
 
-      {/* Lightbox */}
       {lightbox && (
         <div
           onClick={() => setLightbox(false)}
@@ -101,20 +156,17 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
             <span style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(15px,3vw,20px)", fontWeight: 700, color: "rgba(255,255,255,0.85)", letterSpacing: "0.01em" }}>
               {alt}
             </span>
-            <button
-              onClick={() => setLightbox(false)}
-              style={{ background: "none", border: "none", color: "#fff", fontSize: 28, cursor: "pointer", lineHeight: 1, opacity: 0.7 }}
-            >✕</button>
+            <button onClick={() => setLightbox(false)} style={{ background: "none", border: "none", color: "#fff", fontSize: 28, cursor: "pointer", lineHeight: 1, opacity: 0.7 }}>✕</button>
           </div>
 
-          {photos.length > 1 && (
+          {displayedPhotos.length > 1 && (
             <>
               <button
-                onClick={(e) => { e.stopPropagation(); setPhotoIdx((photoIdx - 1 + photos.length) % photos.length); }}
+                onClick={(e) => { e.stopPropagation(); setPhotoIdx((photoIdx - 1 + displayedPhotos.length) % displayedPhotos.length); }}
                 style={{ position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(255,255,255,0.22)", border: "1px solid rgba(255,255,255,0.4)", color: "#fff", fontSize: 28, width: 48, height: 48, borderRadius: "50%", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
               >‹</button>
               <button
-                onClick={(e) => { e.stopPropagation(); setPhotoIdx((photoIdx + 1) % photos.length); }}
+                onClick={(e) => { e.stopPropagation(); setPhotoIdx((photoIdx + 1) % displayedPhotos.length); }}
                 style={{ position: "absolute", right: 16, top: "50%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(255,255,255,0.22)", border: "1px solid rgba(255,255,255,0.4)", color: "#fff", fontSize: 28, width: 48, height: 48, borderRadius: "50%", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
               >›</button>
             </>
@@ -122,8 +174,8 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
 
           <div style={{ position: "relative", width: "90vw", height: "85vh", borderRadius: 20, overflow: "hidden" }} onClick={(e) => e.stopPropagation()}>
             <Image
-              src={photos[photoIdx].src}
-              alt={photos[photoIdx].label || alt}
+              src={displayedPhotos[photoIdx]?.src || displayedPhotos[0].src}
+              alt={displayedPhotos[photoIdx]?.label || alt}
               fill
               style={{ objectFit: "contain" }}
               sizes="95vw"
@@ -131,9 +183,9 @@ export default function CarPhotoCarousel({ photos, color, alt }: { photos: CarPh
             />
           </div>
 
-          {photos.length > 1 && (
+          {displayedPhotos.length > 1 && (
             <span style={{ position: "absolute", bottom: 20, color: "rgba(255,255,255,0.4)", fontSize: 13, letterSpacing: "0.15em" }}>
-              {photoIdx + 1} / {photos.length}
+              {photoIdx + 1} / {displayedPhotos.length}
             </span>
           )}
         </div>

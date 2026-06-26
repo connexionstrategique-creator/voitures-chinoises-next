@@ -112,7 +112,8 @@ export default async function BlogPage({
                         src={featured.imageUrl}
                         alt={featured.imageAlt || featured.title}
                         fill
-                        style={{ objectFit: "cover", transition: "transform .5s ease" }}
+                        priority
+                        sizes="(max-width: 768px) 100vw, 1200px"
                         className="blog-gallery-hero-img"
                       />
                     )}
