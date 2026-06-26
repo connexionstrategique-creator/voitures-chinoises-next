@@ -3,16 +3,11 @@ import { useState } from "react";
 
 interface Car3DViewerProps {
   title: string;
-  autohomeId?: string;
-  sketchfabId?: string;
+  src: string;
 }
 
-export default function Car3DViewer({ title, autohomeId, sketchfabId }: Car3DViewerProps) {
+export default function Car3DViewer({ title, src }: Car3DViewerProps) {
   const [loaded, setLoaded] = useState(false);
-
-  const src = autohomeId
-    ? `https://pano.autohome.com.cn/car/${autohomeId}?bg=99&spin=1&click=1&noswitch=1&nocolor=1`
-    : `https://sketchfab.com/models/${sketchfabId}/embed?autostart=1&preload=1&ui_controls=1&ui_infos=0&ui_watermark=1&ui_vr=0&ui_fullscreen=1&ui_help=0&ui_settings=0&ui_annotations=0`;
 
   return (
     <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", background: "#0a0a0a", borderRadius: 20, overflow: "hidden" }}>
@@ -29,7 +24,7 @@ export default function Car3DViewer({ title, autohomeId, sketchfabId }: Car3DVie
         </div>
       )}
       <iframe
-        title={`${title} — Vue 360°`}
+        title={title}
         src={src}
         allow="autoplay; fullscreen; xr-spatial-tracking"
         allowFullScreen

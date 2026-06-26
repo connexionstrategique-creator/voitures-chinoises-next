@@ -40,6 +40,7 @@ export interface Car {
   youtubeId?: string;
   sketchfabId?: string;
   autohomeId?: string;
+  autohomeInteriorId?: string;
   specs: Record<string, string>;
   mini: CarMini;
   desc: string;
