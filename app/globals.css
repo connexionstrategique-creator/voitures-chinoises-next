@@ -404,18 +404,12 @@ html, body { overflow-x:clip; max-width:100%; }
   .marquee-logo-box {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 90px;
-    height: 32px;
     flex-shrink: 0;
   }
   .marquee-logo {
-    max-height: 28px;
-    max-width: 84px;
+    height: 28px;
     width: auto;
-    height: auto;
     display: block;
-    object-fit: contain;
     filter: grayscale(1) opacity(0.5);
     transition: filter .25s;
   }
