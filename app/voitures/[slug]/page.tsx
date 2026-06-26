@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 import { CARS } from "@/data/cars";
 import { getColorHex } from "@/data/types";
 import { carSlug } from "@/lib/slug";
-import { getCarBySlug, getCars, getSiteSettings } from "@/sanity/queries";
+import { getCarBySlug, getCars, getSiteSettings, getPosts } from "@/sanity/queries";
 import type { Metadata } from "next";
 
 export const revalidate = 10;
@@ -70,6 +70,100 @@ const SPEC_ICONS: Record<string, string> = {
   Portes: "🚪",
 };
 
+function buildEmotionalReasons(
+  brand: string,
+  model: string,
+  specs: Record<string, string>
+): { title: string; body: string }[] {
+  const s = specs || {};
+  const places = s["Places"] || s["Sièges"] || "";
+  const power = s["Puissance"] || "";
+  const conso = s["Consommation"] || "";
+  const boite = s["Boîte"] || "";
+  const coffre = s["Coffre"] || "";
+  const toit = s["Toit ouvrant"] || s["Toit"] || "";
+  const airbags = s["Airbags"] || "";
+  const isAutomatic = !!boite && (
+    boite.toLowerCase().includes("dct") ||
+    boite.toLowerCase().includes("automatique") ||
+    boite.toLowerCase().includes("cvt") ||
+    /\bat\b/i.test(boite)
+  );
+
+  const out: { title: string; body: string }[] = [];
+
+  if (places.includes("7") || places.includes("8")) {
+    out.push({
+      title: "Toute la famille embarque",
+      body: `7 places — personne ne reste à la maison. La ${brand} ${model} est faite pour les familles qui n'abandonnent jamais les leurs : le marché du dimanche, le voyage au village, la rentrée des enfants.`,
+    });
+  } else {
+    out.push({
+      title: "Un espace pensé pour les vôtres",
+      body: `Chaque matin, chaque soir, la ${brand} ${model} vous ramène à ceux que vous aimez. Un habitacle conçu pour le confort de toute la famille — parce que chaque trajet compte.`,
+    });
+  }
+
+  if (power) {
+    out.push({
+      title: "Une puissance qui impose le respect",
+      body: `${power} sous le capot. Dans les rues de Cotonou comme sur les routes de l'intérieur, vous conduisez avec assurance. Les dépassements se font naturellement, sans à-coups, sans stress.`,
+    });
+  }
+
+  out.push({
+    title: "Neuf. 0 km. Jamais immatriculé.",
+    body: "Vous êtes le premier à poser les mains sur ce volant. Aucun kilomètre inconnu, aucune réparation cachée. Une virginité mécanique totale, documentée et garantie d'usine.",
+  });
+
+  if (isAutomatic) {
+    out.push({
+      title: "Fini le stress des embouteillages",
+      body: `Boîte ${boite} — vos jambes se reposent, votre concentration reste sur la route. Dans les bouchons de Cotonou ou d'Abidjan, vous avancez sereinement pendant que les autres s'épuisent sur leur embrayage.`,
+    });
+  }
+
+  if (conso) {
+    out.push({
+      title: "Votre budget carburant s'allège",
+      body: `${conso} de consommation moyenne. Sur 3 ans, la différence se chiffre en centaines de milliers de FCFA — de l'argent qui reste dans votre poche, pas à la pompe.`,
+    });
+  }
+
+  out.push({
+    title: "Livré jusqu'à votre port, sans surprise",
+    body: "CIF inclus — Coût, Assurance, Fret pris en charge. Cotonou, Lomé, Abidjan ou Dakar : même prix, même service. Vous payez une fois, vous recevez votre véhicule prêt à rouler.",
+  });
+
+  out.push({
+    title: `${brand} : technologie mondiale, prix africain`,
+    body: `${brand} investit des milliards en R&D chaque année. Ce que vous achetez n'est pas une "voiture chinoise bon marché" — c'est une technologie mondiale vendue à un prix que l'Afrique peut se permettre. La différence, c'est nous.`,
+  });
+
+  if (airbags) {
+    out.push({
+      title: "Votre famille protégée à chaque trajet",
+      body: `${airbags} airbags, freinage ABS, aide au freinage d'urgence. Parce que la voiture que vous choisissez, c'est aussi celle dans laquelle vous mettez vos enfants. La sécurité n'est pas un luxe.`,
+    });
+  }
+
+  if (coffre) {
+    out.push({
+      title: "Assez de place pour tout",
+      body: `${coffre} de volume de coffre. Les bagages du mois, les achats du marché, l'équipement du week-end — tout rentre. Vous ne faites plus de compromis entre confort et capacité.`,
+    });
+  }
+
+  if (toit) {
+    out.push({
+      title: "Le luxe, enfin accessible",
+      body: `Toit ${toit.toLowerCase()} — des équipements réservés aux véhicules premium, désormais à portée de main. La ${brand} ${model} vous offre le prestige sans le prix du prestige.`,
+    });
+  }
+
+  return out.slice(0, 6);
+}
+
 export async function generateStaticParams() {
   return CARS.map((c) => ({ slug: carSlug(c.brand, c.model) }));
 }
@@ -110,6 +204,9 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
     if (settings?.phoneDisplay) phoneDisplay = settings.phoneDisplay;
     if (settings?.phoneCN) phoneCN = settings.phoneCN;
   } catch {}
+
+  let posts: Awaited<ReturnType<typeof getPosts>> = [];
+  try { posts = (await getPosts()).slice(0, 3); } catch {}
 
   if (!car) notFound();
 
@@ -211,7 +308,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
             {/* Fiche technique — full width, 2 columns */}
             <div>
               <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "#A01414", fontWeight: 700, marginBottom: 20 }}>FICHE TECHNIQUE</div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "0 24px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr" }}>
                 {Object.entries(car!.specs).map(([k, v]) => (
                   <div className="spec-row" key={k}>
                     <span className="spec-key">
@@ -225,33 +322,33 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
 
-          {car!.desc && (() => {
-            const reasons = car!.desc
-              .split(/(?<=[.!?])\s+/)
-              .map(s => s.trim())
-              .filter(s => s.length > 10);
+          {(() => {
+            const reasons = (car!.reasons && car!.reasons.length > 0)
+              ? car!.reasons
+              : buildEmotionalReasons(car!.brand, car!.model, car!.specs);
             return (
               <div style={{ marginTop: 64, padding: "0 48px" }}>
                 <div style={{ marginBottom: 32 }}>
                   <div style={{ fontSize: 11, letterSpacing: "0.2em", color: "var(--red,#A01414)", fontWeight: 700, marginBottom: 10 }}>POURQUOI CHOISIR CETTE VOITURE</div>
                   <h2 style={{ fontSize: "clamp(22px,3vw,32px)", fontWeight: 900, lineHeight: 1.2 }}>
-                    {reasons.length} raisons d&apos;acheter la {car!.brand} <em style={{ color: "var(--red,#A01414)", fontStyle: "normal" }}>{car!.model}</em>
+                    {reasons.length} raisons d&apos;acheter la {car!.brand}{" "}
+                    <em style={{ color: "var(--red,#A01414)", fontStyle: "normal" }}>{car!.model}</em>
                   </h2>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
+                <div style={{ display: "grid", gap: 16 }}>
                   {reasons.map((reason, i) => (
                     <div key={i} style={{
-                      background: "#fff",
+                      background: "var(--yellow,#F5F5F5)",
                       borderRadius: 16,
-                      padding: "24px 28px",
+                      padding: "28px 32px",
                       display: "flex",
-                      gap: 20,
+                      gap: 24,
                       alignItems: "flex-start",
                     }}>
                       <div style={{
                         flexShrink: 0,
-                        width: 40,
-                        height: 40,
+                        width: 44,
+                        height: 44,
                         borderRadius: "50%",
                         background: "var(--red,#A01414)",
                         color: "#fff",
@@ -259,15 +356,20 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
                         alignItems: "center",
                         justifyContent: "center",
                         fontFamily: "Syne, sans-serif",
-                        fontSize: 20,
-                        fontWeight: 700,
+                        fontSize: 18,
+                        fontWeight: 800,
                         lineHeight: 1,
                       }}>
                         {i + 1}
                       </div>
-                      <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "#333" }}>
-                        {reason.replace(/\.$/, "").replace(/^Découvrez la [^.]+\.\s*/, "")}
-                      </p>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 6, color: "#111" }}>
+                          {reason.title}
+                        </div>
+                        <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "#555" }}>
+                          {reason.body}
+                        </p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -312,6 +414,37 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
               </a>
             </div>
           </div>
+
+          {/* Articles de blog */}
+          {posts.length > 0 && (
+            <div style={{ padding: "48px 48px 64px", borderTop: "1px solid var(--border,#E0E0E0)" }}>
+              <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "#A01414", fontWeight: 700, marginBottom: 12 }}>POUR ALLER PLUS LOIN</div>
+              <h2 style={{ fontSize: "clamp(18px,2.5vw,24px)", fontWeight: 900, marginBottom: 28, lineHeight: 1.2 }}>
+                Les marques chinoises sous la loupe
+              </h2>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 18 }}>
+                {posts.map((post) => (
+                  <Link key={post._id} href={`/blog/${post.slug}`} className="blog-article-card">
+                    {post.imageUrl && (
+                      <div style={{ height: 130, background: "#111", overflow: "hidden" }}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={post.imageUrl} alt={post.imageAlt || post.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
+                      </div>
+                    )}
+                    <div style={{ padding: "14px 16px 18px" }}>
+                      {(post as any).categoryLabel && (
+                        <div style={{ fontSize: 9, letterSpacing: "0.15em", color: "#A01414", fontWeight: 700, marginBottom: 6, textTransform: "uppercase" }}>{(post as any).categoryLabel}</div>
+                      )}
+                      <div style={{ fontSize: 13, fontWeight: 700, lineHeight: 1.4, color: "#111" }}>{post.title}</div>
+                      {post.excerpt && (
+                        <div style={{ fontSize: 12, color: "var(--mid,#666)", lineHeight: 1.5, marginTop: 5 }}>{post.excerpt.slice(0, 80)}…</div>
+                      )}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
             </div>{/* /car-detail-content */}
           </div>{/* /car-detail-right */}
         </div>{/* /car-detail-layout */}

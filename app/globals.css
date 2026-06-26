@@ -328,12 +328,28 @@ html, body { overflow-x:hidden; max-width:100%; }
   .brand-item:hover .brand-logo-wrap img { filter:grayscale(0%) opacity(1); }
   .brand-name-text {
     font-family:'Syne', sans-serif;
-    font-size:28px; font-weight:700;
-    letter-spacing:0.06em; text-transform:uppercase;
-    color:#0D0D0D; display:block; line-height:1.1;
+    font-size:18px; font-weight:700;
+    letter-spacing:0.04em; text-transform:uppercase;
+    color:#0D0D0D; display:block; line-height:1.2;
     transition:color .2s;
+    word-break:break-word; overflow-wrap:break-word;
   }
   .brand-desc { font-size:12px; color:var(--mid); letter-spacing:0.06em; text-transform:uppercase; display:block; line-height:1.4; }
+  .brand-discover {
+    display:inline-block; margin-top:auto; padding-top:8px;
+    font-size:11px; font-weight:700; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--red,#A01414);
+    transition:opacity .2s;
+  }
+  .brand-item:hover .brand-discover { opacity:0.7; }
+  .blog-article-card {
+    border-radius:10px; overflow:hidden;
+    border:1px solid var(--border,#E0E0E0);
+    background:#fff;
+    transition:box-shadow .18s, transform .18s;
+    text-decoration:none; color:inherit; display:block;
+  }
+  .blog-article-card:hover { box-shadow:0 6px 24px rgba(0,0,0,0.10); transform:translateY(-2px); }
 
   /* ── BRAND MARQUEE ── */
   .marquee-section {

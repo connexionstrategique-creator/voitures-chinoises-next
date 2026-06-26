@@ -53,6 +53,7 @@ export default async function MarquesPage() {
                   )}
                   <span className="brand-name-text">{brand.name}</span>
                   <span className="brand-desc">{brand.desc}</span>
+                  <span className="brand-discover">Découvrir →</span>
                 </div>
               </Link>
             ))}
