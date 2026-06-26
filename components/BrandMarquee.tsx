@@ -5,23 +5,23 @@ import { BRANDS } from "@/data/brands";
 const LOGO_HEIGHTS: Record<string, number> = {
   "BYD":       48,
   "Changan":   26,  // wordmark 2000×352 → 182px wide à 32px, trop dominant
-  "Jetour":    48,
-  "GAC Motor": 48,
+  "Jetour":    64,
+  "GAC Motor": 64,
   "Livan":     30,  // wordmark 330×116
   "G700":      48,
   "Geely":     40,  // wordmark 2000×1075
-  "Haval":     48,
+  "Haval":     64,
   "Chery":     48,
   "MG":        48,
   "GWM":       48,
-  "Omoda":     48,
+  "Omoda":     64,
   "Li Auto":   48,
   "Deepal":    48,
   "Nio":       48,
   "BAIC":      48,
-  "Dongfeng":  48,
+  "Dongfeng":  64,
   "Voyah":     48,
-  "Zeekr":     48,
+  "Zeekr":     64,
   "SAIC":      48,
 };
 
