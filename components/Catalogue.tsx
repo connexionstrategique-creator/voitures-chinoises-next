@@ -280,33 +280,6 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
             </div>
           </div>
 
-          {/* Color filters */}
-          <div style={{ marginBottom: 36 }}>
-            <span className="filter-label">Couleur</span>
-            <div className="color-filters">
-              <button
-                className={`color-filter-btn${activeColor === "all" ? " active" : ""}`}
-                onClick={() => setActiveColor("all")}
-              >
-                <span className="color-filter-swatch" style={{ background: "linear-gradient(135deg,#111 0%,#fff 50%,#1565C0 100%)", border: "1px solid #ddd" }} />
-                Toutes
-              </button>
-              {availableColors.map((col) => (
-                <button
-                  key={col.name}
-                  className={`color-filter-btn${activeColor === col.name ? " active" : ""}`}
-                  onClick={() => setActiveColor(col.name)}
-                >
-                  <span
-                    className="color-filter-swatch"
-                    style={{ background: col.hex, border: `1px solid ${col.border}` }}
-                  />
-                  {col.name}
-                </button>
-              ))}
-            </div>
-          </div>
-
           {/* Cars grid */}
           <div className="cars-grid">
             {paginated.map((car) => {
