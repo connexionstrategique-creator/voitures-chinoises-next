@@ -170,8 +170,10 @@ export default function CarPhotoCarousel({
             </span>
             <button
               onClick={(e) => { e.stopPropagation(); setLightbox(false); }}
-              style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", color: "#fff", fontSize: 18, fontWeight: 700, cursor: "pointer", lineHeight: 1, borderRadius: 8, padding: "8px 16px", letterSpacing: "0.05em", display: "flex", alignItems: "center", gap: 8 }}
-            >✕ FERMER</button>
+              style={{ background: "none", border: "none", color: "rgba(255,255,255,0.6)", fontSize: 28, fontWeight: 300, cursor: "pointer", lineHeight: 1, width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", transition: "color .2s, background .2s" }}
+              onMouseEnter={e => { (e.target as HTMLButtonElement).style.color = "#fff"; (e.target as HTMLButtonElement).style.background = "rgba(255,255,255,0.08)"; }}
+              onMouseLeave={e => { (e.target as HTMLButtonElement).style.color = "rgba(255,255,255,0.6)"; (e.target as HTMLButtonElement).style.background = "none"; }}
+            >✕</button>
           </div>
 
           {displayedPhotos.length > 1 && (
