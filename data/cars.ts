@@ -3,7 +3,7 @@ import type { Car, CarPhoto } from "./types";
 export const CARS: Car[] = [
   {
     id: 1, brand: "BYD", model: "TITANIUM 7", year: "2026", cat: "hybride", badge: "new", badgeText: "Nouveau", featured: true,
-    price: "24 900 000", color: "#1A3A5C",
+    price: "24 900 000", color: "#1A3A5C", autohomeId: "panoseries/73386",
     colors: ["Vert Paysage", "Argent Étoilé", "Bleu Matin", "Or Aurore", "Noir Obsidien"],
     specs: { Moteur: "2.0 Turbo Hybride Plug-in", Type: "Hybride rechargeable PHEV", Places: "5 places", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "2.0T", k1: "hybride plug-in", v2: "5", k2: "places", v3: "0", k3: "kilomètre" },
@@ -11,7 +11,7 @@ export const CARS: Car[] = [
   },
   {
     id: 2, brand: "BYD", model: "LÉOPARD 8", year: "2026", cat: "hybride", badge: "new", badgeText: "Full Option",
-    price: "36 900 000", color: "#2A2A2A",
+    price: "36 900 000", color: "#2A2A2A", autohomeId: "ext/75359",
     colors: ["Noir", "Blanc", "Gris", "Bleu Nuit", "Argent"],
     specs: { Moteur: "2.0 Turbo Hybride Plug-in", Type: "Hybride rechargeable PHEV", Places: "5 places", Finition: "Full Option", Année: "2026", Kilométrage: "0 km — Neuf" },
     mini: { v1: "2.0T", k1: "hybride plug-in", v2: "5", k2: "places", v3: "Full", k3: "option" },
@@ -19,8 +19,7 @@ export const CARS: Car[] = [
   },
   {
     id: 3, brand: "Changan", model: "UNI-K", year: "2025", cat: "suv", badge: "pop", badgeText: "Populaire",
-    price: "13 800 000", color: "#7A0F0F",
-    sketchfabId: "5c230451c0da4e4698dc1ed76b0f2fe1",
+    price: "13 800 000", color: "#7A0F0F", autohomeId: "extseries/65566",
     colors: ["Blanc", "Noir", "Argent", "Gris", "Marron"],
     specs: { Moteur: "Essence", Places: "5 places", Année: "2025", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "5", k1: "places", v2: "Essence", k2: "motorisation", v3: "0", k3: "kilomètre" },
@@ -28,7 +27,7 @@ export const CARS: Car[] = [
   },
   {
     id: 4, brand: "Changan", model: "CS75 PLUS ULTRA", year: "2026", cat: "suv", badge: "new", badgeText: "Nouveau",
-    price: "12 600 000", color: "#8B1A1A",
+    price: "12 600 000", color: "#8B1A1A", autohomeId: "extseries/52859",
     colors: ["Bleu", "Argent", "Noir", "Blanc", "Gris"],
     specs: { Moteur: "2.0T Essence", Places: "5 places", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "2.0T", k1: "essence", v2: "5", k2: "places", v3: "0", k3: "kilomètre" },
@@ -36,8 +35,7 @@ export const CARS: Car[] = [
   },
   {
     id: 5, brand: "Changan", model: "UNI-Z", year: "2026", cat: "suv", badge: "new", badgeText: "Nouveau",
-    price: "11 000 000", color: "#1C3A5C",
-    sketchfabId: "a3d052549f2842bea5246fc97a02e9d6",
+    price: "11 000 000", color: "#1C3A5C", autohomeId: "extseries/73190",
     colors: ["Gris", "Blanc", "Bleu", "Vert"],
     specs: { Moteur: "Essence", Places: "5 places", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "5", k1: "places", v2: "Essence", k2: "motorisation", v3: "2026", k3: "millésime" },
@@ -45,7 +43,7 @@ export const CARS: Car[] = [
   },
   {
     id: 6, brand: "Changan", model: "X5 PLUS", year: "2026", cat: "suv", badge: "pop", badgeText: "Populaire",
-    price: "8 976 150", color: "#2A4A6E",
+    price: "8 976 150", color: "#2A4A6E", autohomeId: "extseries/70461",
     colors: ["Blanc", "Gris", "Noir", "Bleu", "Argent"],
     specs: { Moteur: "Essence", Places: "5 places", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "5", k1: "places", v2: "Essence", k2: "motorisation", v3: "0", k3: "kilomètre" },
@@ -53,8 +51,7 @@ export const CARS: Car[] = [
   },
   {
     id: 7, brand: "Changan", model: "CS55", year: "2026", cat: "suv", badge: "new", badgeText: "Nouveau",
-    price: "10 000 000", color: "#3A5C1A",
-    sketchfabId: "78b898f2dcdc4d93b546af8ecf7d293d",
+    price: "10 000 000", color: "#3A5C1A", autohomeId: "ext/45924",
     colors: ["Blanc", "Gris Fluorite", "Noir", "Rouge", "Bleu"],
     specs: { Moteur: "Essence", Places: "5 places", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "5", k1: "places", v2: "Essence", k2: "motorisation", v3: "2026", k3: "millésime" },
@@ -62,7 +59,7 @@ export const CARS: Car[] = [
   },
   {
     id: 8, brand: "Jetour", model: "T1", year: "2026", cat: "suv", badge: "new", badgeText: "Full Option",
-    price: "14 000 000", color: "#1C5E3F",
+    price: "14 000 000", color: "#1C5E3F", autohomeId: "ext/72109",
     colors: ["Blanc", "Noir", "Gris", "Bleu", "Rouge"],
     specs: { Moteur: "1.5 Turbo Essence", Places: "5 places", Finition: "Full Option", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "1.5T", k1: "turbo essence", v2: "5", k2: "places", v3: "Full", k3: "option" },
@@ -72,14 +69,14 @@ export const CARS: Car[] = [
     id: 9, brand: "Jetour", model: "DASHING", year: "2026", cat: "suv", badge: "pop", badgeText: "Populaire",
     price: "12 000 000", color: "#5C3A1A",
     colors: ["Noir", "Bleu", "Vert", "Gris", "Rouge"],
-    sketchfabId: "9754e75b22ab4d02ab9c7c828fab5231",
+    sketchfabId: "9754e75b22ab4d02ab9c7c828fab5231", autohomeId: "extseries/65303",
     specs: { Moteur: "1.5T Essence", Places: "5 places", Finition: "Full Option", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique DCT" },
     mini: { v1: "1.5T", k1: "essence", v2: "5", k2: "places", v3: "0", k3: "kilomètre" },
     desc: "Le Jetour Dashing Full Option 2026, le SUV coupé au style remarqué. Silhouette sportive, intérieur technologique avec grand écran numérique, motorisation 1.5T dynamique. Un choix qui fait tourner les têtes, livré neuf en Afrique francophone.",
   },
   {
     id: 10, brand: "Jetour", model: "TRAVELER T2 — 5 Places", year: "2026", cat: "suv", badge: "new", badgeText: "Full Option",
-    price: "19 800 000", color: "#2A2A4A",
+    price: "19 800 000", color: "#2A2A4A", autohomeId: "extseries/72102",
     colors: ["Blanc", "Sable", "Noir Highway", "Gris Highway", "Cyan Brumeux"],
     specs: { Moteur: "2.0 Turbo Essence", Places: "5 places", Finition: "Full Option", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "2.0T", k1: "turbo essence", v2: "5", k2: "places", v3: "Full", k3: "option" },
@@ -87,7 +84,7 @@ export const CARS: Car[] = [
   },
   {
     id: 11, brand: "Jetour", model: "TRAVELER T2 — 7 Places", year: "2026", cat: "suv", badge: "new", badgeText: "Full Option",
-    price: "20 216 000", color: "#1A3A2A",
+    price: "20 216 000", color: "#1A3A2A", autohomeId: "extseries/72102",
     colors: ["Blanc", "Sable", "Noir Highway", "Gris Highway", "Cyan Brumeux"],
     specs: { Moteur: "2.0 Turbo Essence", Places: "7 places", Finition: "Full Option", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "2.0T", k1: "turbo essence", v2: "7", k2: "places", v3: "Full", k3: "option" },
@@ -95,7 +92,7 @@ export const CARS: Car[] = [
   },
   {
     id: 17, brand: "Jetour", model: "TRAVELER T2 — 7 Pl. Premium", year: "2026", cat: "suv", badge: "new", badgeText: "Full Option",
-    price: "20 744 000", color: "#2A1A3A",
+    price: "20 744 000", color: "#2A1A3A", autohomeId: "extseries/72102",
     colors: ["Blanc", "Sable", "Noir Highway", "Gris Highway", "Cyan Brumeux"],
     specs: { Moteur: "2.0 Turbo Essence", Places: "7 places", Finition: "Full Option Premium", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "2.0T", k1: "turbo essence", v2: "7", k2: "places", v3: "Premium", k3: "finition" },
@@ -103,7 +100,7 @@ export const CARS: Car[] = [
   },
   {
     id: 12, brand: "Jetour", model: "X70 PLUS — 7 Places", year: "2026", cat: "suv", badge: "pop", badgeText: "Populaire",
-    price: "13 935 000", color: "#4A1A1A",
+    price: "13 935 000", color: "#4A1A1A", autohomeId: "extseries/69092",
     colors: ["Blanc", "Sable", "Noir Highway", "Gris Highway", "Cyan Brumeux", "Bleu Gris"],
     specs: { Moteur: "Essence", Places: "7 places", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "7", k1: "places", v2: "Essence", k2: "motorisation", v3: "0", k3: "kilomètre" },
@@ -111,7 +108,7 @@ export const CARS: Car[] = [
   },
   {
     id: 13, brand: "GAC Motor", model: "S7", year: "2026", cat: "hybride", badge: "new", badgeText: "Full Option",
-    price: "15 700 000", color: "#1A2A5C",
+    price: "15 700 000", color: "#1A2A5C", autohomeId: "ext/71237",
     colors: ["Blanc Ivoire", "Gris Graphène", "Bleu Lac de Sel", "Argent Superstar"],
     specs: { Moteur: "1.5T Hybride", Places: "7 places", Finition: "Full Option", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
     mini: { v1: "1.5T", k1: "hybride", v2: "7", k2: "places", v3: "Full", k3: "option" },
@@ -119,8 +116,7 @@ export const CARS: Car[] = [
   },
   {
     id: 14, brand: "GAC Motor", model: "GS3", year: "2026", cat: "suv", badge: "pop", badgeText: "Populaire",
-    price: "8 300 000", color: "#3A3A3A",
-    sketchfabId: "1ec53ff6b165461b82a0081d6034b842",
+    price: "8 300 000", color: "#3A3A3A", autohomeId: "ext/60609",
     colors: ["Blanc", "Noir", "Gris", "Bleu", "Argent"],
     specs: { Moteur: "Essence", Places: "5 places", Année: "2026", Kilométrage: "0 km — Neuf", Sièges: "Conducteur électrique 6 positions", Audio: "6 haut-parleurs", Couleurs: "Argent, Gris Graphène, Gris Clair de Lune" },
     mini: { v1: "5", k1: "places", v2: "6", k2: "haut-parleurs", v3: "0", k3: "kilomètre" },

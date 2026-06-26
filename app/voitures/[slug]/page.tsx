@@ -200,7 +200,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
   let phoneCN = "+86 195 8743 9774";
   try {
     const [c, settings] = await Promise.all([getCarBySlug(slug), getSiteSettings()]);
-    if (c) car = { ...c, sketchfabId: c.sketchfabId ?? staticCar?.sketchfabId };
+    if (c) car = { ...c, sketchfabId: c.sketchfabId ?? staticCar?.sketchfabId, autohomeId: c.autohomeId ?? staticCar?.autohomeId };
     if (settings?.whatsappNumber) waNumber = settings.whatsappNumber;
     if (settings?.phoneDisplay) phoneDisplay = settings.phoneDisplay;
     if (settings?.phoneCN) phoneCN = settings.phoneCN;
@@ -267,6 +267,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
                 alt={`${car!.brand} ${car!.model}`}
                 colorGroups={car!.colorGroups}
                 sketchfabId={car!.sketchfabId}
+                autohomeId={car!.autohomeId}
               />
             </div>
           </div>

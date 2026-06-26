@@ -10,11 +10,12 @@ interface CarViewTabsProps {
   alt: string;
   colorGroups?: CarColorGroup[];
   sketchfabId?: string;
+  autohomeId?: string;
 }
 
-export default function CarViewTabs({ photos, color, alt, colorGroups, sketchfabId }: CarViewTabsProps) {
+export default function CarViewTabs({ photos, color, alt, colorGroups, sketchfabId, autohomeId }: CarViewTabsProps) {
   const [tab, setTab] = useState<"photos" | "3d">("photos");
-  const has3D = !!sketchfabId;
+  const has3D = !!(autohomeId || sketchfabId);
 
   return (
     <div>
@@ -40,7 +41,7 @@ export default function CarViewTabs({ photos, color, alt, colorGroups, sketchfab
               fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", transition: "all .2s",
             }}
           >
-            VUE 3D
+            VUE 360°
           </button>
         </div>
       )}
@@ -48,7 +49,7 @@ export default function CarViewTabs({ photos, color, alt, colorGroups, sketchfab
       {tab === "photos" ? (
         <CarPhotoCarousel photos={photos} color={color} alt={alt} colorGroups={colorGroups} />
       ) : (
-        <Car3DViewer sketchfabId={sketchfabId!} title={alt} />
+        <Car3DViewer autohomeId={autohomeId} sketchfabId={sketchfabId} title={alt} />
       )}
     </div>
   );

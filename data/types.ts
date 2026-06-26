@@ -39,6 +39,7 @@ export interface Car {
   colorGroups?: CarColorGroup[];
   youtubeId?: string;
   sketchfabId?: string;
+  autohomeId?: string;
   specs: Record<string, string>;
   mini: CarMini;
   desc: string;
