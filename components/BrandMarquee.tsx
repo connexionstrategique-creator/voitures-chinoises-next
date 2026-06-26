@@ -1,28 +1,27 @@
 import { BRANDS } from "@/data/brands";
 
-// Logos carrés (600×600) → grande hauteur pour visibilité
-// Logos wordmarks larges → hauteur réduite (ils sont déjà visuellement larges)
+// SVG worldvectorlogo = propres, pas de marge → hauteur normale
+// PNG Cloudinary = marge excessive → hauteur augmentée pour compenser
 const LOGO_HEIGHTS: Record<string, number> = {
-  "BYD":       72,
-  "Changan":   32,
-  "Jetour":    80,
-  "GAC Motor": 80,
-  "Livan":     38,
-  "G700":      72,
-  "Geely":     52,
-  "Haval":     80,
-  "Chery":     72,
-  "MG":        72,
-  "GWM":       72,
-  "Omoda":     80,
-  "Li Auto":   72,
-  "Deepal":    72,
-  "Nio":       72,
-  "BAIC":      72,
-  "Dongfeng":  80,
-  "Voyah":     72,
-  "Zeekr":     80,
-  "SAIC":      72,
+  "BYD":       36,  // SVG propre
+  "Changan":   28,  // SVG wordmark large
+  "Jetour":    80,  // PNG padded
+  "GAC Motor": 34,  // SVG propre
+  "Livan":     36,  // PNG wordmark
+  "Geely":     38,  // SVG propre
+  "Haval":     80,  // PNG padded
+  "Chery":     50,  // SVG propre (emblème étoile)
+  "MG":        48,  // SVG propre
+  "GWM":       38,  // SVG propre
+  "Omoda":     80,  // PNG padded
+  "Li Auto":   72,  // PNG padded
+  "Deepal":    72,  // PNG padded
+  "Nio":       36,  // SVG propre
+  "BAIC":      72,  // PNG padded
+  "Dongfeng":  80,  // PNG padded
+  "Voyah":     80,  // PNG padded
+  "Zeekr":     80,  // PNG padded
+  "SAIC":      72,  // PNG padded
 };
 
 export default function BrandMarquee() {
