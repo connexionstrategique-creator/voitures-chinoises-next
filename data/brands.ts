@@ -9,7 +9,7 @@ export const BRANDS: Brand[] = [
   { name: "Geely",     desc: "Technologie Volvo",        logo: "https://cdn.worldvectorlogo.com/logos/geely-logo-2.svg" },
   { name: "Haval",     desc: "SUV robustes",             logo: "https://res.cloudinary.com/daol8mzeg/image/upload/v1772673678/haval-logo-png_seeklogo-316169_lujkw4.png" },
   { name: "Chery",     desc: "Tiggo Series",             logo: "https://cdn.worldvectorlogo.com/logos/chery-3.svg" },
-  { name: "MG",        desc: "Design moderne",           logo: "https://cdn.worldvectorlogo.com/logos/mg-cars.svg" },
+  { name: "MG",        desc: "Design moderne",           logo: "https://res.cloudinary.com/daol8mzeg/image/upload/v1772673758/mg-logo-png_seeklogo-91883_bjqmra.png" },
   { name: "GWM",       desc: "Pickups premium",          logo: "https://cdn.worldvectorlogo.com/logos/gwm-2.svg" },
   { name: "Omoda",     desc: "Chery premium",            logo: "https://res.cloudinary.com/daol8mzeg/image/upload/v1772673856/omoda-logo-png_seeklogo-483702_nqjtlu.png" },
   { name: "Li Auto",   desc: "SUV hybrides",             logo: "https://res.cloudinary.com/daol8mzeg/image/upload/v1772673894/li-auto-logo-png_seeklogo-473371_eqosmv.png" },
