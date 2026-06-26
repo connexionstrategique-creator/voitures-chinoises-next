@@ -938,6 +938,15 @@ html, body { overflow-x:hidden; max-width:100%; }
   .contact-info { font-size:14px; color:rgba(255,255,255,.4); line-height:1.65; }
   .contact-info strong { color:rgba(255,255,255,.75); font-weight:500; display:block; }
 
+  .footer-map-wrap {
+    background:var(--black);
+    border-top:1px solid rgba(255,255,255,.06);
+    overflow:hidden;
+    cursor:pointer;
+  }
+  .footer-map-wrap:hover iframe {
+    filter:grayscale(0%) contrast(1.05) !important;
+  }
   footer {
     background:var(--black); padding:20px 60px;
     display:flex; justify-content:space-between; align-items:center;
