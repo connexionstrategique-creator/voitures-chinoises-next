@@ -63,8 +63,8 @@ export async function getCars(): Promise<Car[]> {
     `*[_type == "car"] | order(orderRank asc) {
       _id, brand, model, year, cat, badge, badgeText, featured,
       price, color, colors,
-      "photos": photos[]{ "asset": asset->{ url } },
-      "colorGroups": colorGroups[]{ colorName, "photos": photos[]{ "asset": asset->{ url } } },
+      "photos": photos[]{ "asset": asset->{ "url": url + "?auto=format&w=1200&q=78" } },
+      "colorGroups": colorGroups[]{ colorName, "photos": photos[]{ "asset": asset->{ "url": url + "?auto=format&w=1200&q=78" } } },
       youtubeId,
       specs,
       mini_v1, mini_k1, mini_v2, mini_k2, mini_v3, mini_k3, desc,
