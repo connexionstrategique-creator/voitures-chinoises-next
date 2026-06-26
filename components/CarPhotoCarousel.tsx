@@ -32,22 +32,23 @@ export default function CarPhotoCarousel({
   const [lightbox, setLightbox] = useState(false);
   const touchStartX = useRef<number | null>(null);
 
-  useEffect(() => {
-    if (!lightbox) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setLightbox(false);
-      if (e.key === "ArrowRight") setPhotoIdx((i) => (i + 1) % displayedPhotos.length);
-      if (e.key === "ArrowLeft") setPhotoIdx((i) => (i - 1 + displayedPhotos.length) % displayedPhotos.length);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [lightbox, displayedPhotos.length]);
-
   const displayedPhotos: CarPhoto[] = hasGroups
     ? selectedColor
       ? colorGroups!.find((g) => g.colorName === selectedColor)?.photos || []
       : colorGroups!.flatMap((g) => g.photos)
     : photos;
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const total = displayedPhotos.length;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightbox(false);
+      if (e.key === "ArrowRight") setPhotoIdx((i) => (i + 1) % total);
+      if (e.key === "ArrowLeft") setPhotoIdx((i) => (i - 1 + total) % total);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightbox, displayedPhotos.length]);
 
   function switchColor(c: string | null) {
     setSelectedColor(c);
