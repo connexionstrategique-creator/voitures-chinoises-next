@@ -246,10 +246,18 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
 
           {/* LEFT — carousel sticky */}
           <div className="car-detail-left">
-            <div style={{ padding: "20px 24px 12px" }}>
+            <div style={{ padding: "20px 24px 8px" }}>
               <Link href="/catalogue" style={{ textDecoration: "none", fontSize: 11, color: "rgba(255,255,255,0.35)", display: "inline-block", letterSpacing: "0.06em" }}>
                 ← retour
               </Link>
+            </div>
+            <div className="car-detail-left-title">
+              <div style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(18px,2vw,26px)", fontWeight: 700, color: "#fff", letterSpacing: "-0.01em", lineHeight: 1.15 }}>
+                {car!.brand} {car!.model}
+              </div>
+              <div style={{ fontFamily: "DM Sans, sans-serif", fontSize: 13, fontWeight: 600, color: "var(--red)", marginTop: 4, letterSpacing: "0.01em" }}>
+                {car!.price} FCFA
+              </div>
             </div>
             <div className="car-detail-carousel-wrap">
               <CarPhotoCarousel
