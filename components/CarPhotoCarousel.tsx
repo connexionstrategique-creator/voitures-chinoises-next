@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import type { CarPhoto, CarColorGroup } from "@/data/types";
 
@@ -31,6 +31,17 @@ export default function CarPhotoCarousel({
   const [photoIdx, setPhotoIdx] = useState(0);
   const [lightbox, setLightbox] = useState(false);
   const touchStartX = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightbox(false);
+      if (e.key === "ArrowRight") setPhotoIdx((i) => (i + 1) % displayedPhotos.length);
+      if (e.key === "ArrowLeft") setPhotoIdx((i) => (i - 1 + displayedPhotos.length) % displayedPhotos.length);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightbox, displayedPhotos.length]);
 
   const displayedPhotos: CarPhoto[] = hasGroups
     ? selectedColor
@@ -156,7 +167,10 @@ export default function CarPhotoCarousel({
             <span style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(15px,3vw,20px)", fontWeight: 700, color: "rgba(255,255,255,0.85)", letterSpacing: "0.01em" }}>
               {alt}
             </span>
-            <button onClick={() => setLightbox(false)} style={{ background: "none", border: "none", color: "#fff", fontSize: 28, cursor: "pointer", lineHeight: 1, opacity: 0.7 }}>✕</button>
+            <button
+              onClick={(e) => { e.stopPropagation(); setLightbox(false); }}
+              style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", color: "#fff", fontSize: 18, fontWeight: 700, cursor: "pointer", lineHeight: 1, borderRadius: 8, padding: "8px 16px", letterSpacing: "0.05em", display: "flex", alignItems: "center", gap: 8 }}
+            >✕ FERMER</button>
           </div>
 
           {displayedPhotos.length > 1 && (
