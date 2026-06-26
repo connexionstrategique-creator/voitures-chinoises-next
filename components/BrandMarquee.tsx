@@ -10,12 +10,14 @@ export default function BrandMarquee() {
           {items.map((brand, i) => (
             <span key={i} className="marquee-item">
               {brand.logo ? (
-                <img
-                  src={brand.logo}
-                  alt={brand.name}
-                  className="marquee-logo"
-                  loading={i < 10 ? "eager" : "lazy"}
-                />
+                <span className="marquee-logo-box">
+                  <img
+                    src={brand.logo}
+                    alt={brand.name}
+                    className="marquee-logo"
+                    loading={i < 10 ? "eager" : "lazy"}
+                  />
+                </span>
               ) : (
                 <span className="marquee-name">{brand.name.toUpperCase()}</span>
               )}

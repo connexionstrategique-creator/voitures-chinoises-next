@@ -401,12 +401,21 @@ html, body { overflow-x:clip; max-width:100%; }
     align-items: center;
     gap: 24px;
   }
+  .marquee-logo-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 32px;
+    flex-shrink: 0;
+  }
   .marquee-logo {
-    height: 30px;
+    max-height: 28px;
+    max-width: 84px;
     width: auto;
-    max-width: 100px;
-    object-fit: contain;
+    height: auto;
     display: block;
+    object-fit: contain;
     filter: grayscale(1) opacity(0.5);
     transition: filter .25s;
   }
