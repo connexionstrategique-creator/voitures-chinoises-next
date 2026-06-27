@@ -343,6 +343,7 @@ export async function runBlog() {
   const jsonPath = await saveArticleJson(article)
   console.log(`   JSON sauvegardé : ${jsonPath}`)
 
+
   // Tenter la publication directe (peut être bloquée par proxy)
   let published = null
   try {

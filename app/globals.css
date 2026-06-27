@@ -1063,16 +1063,11 @@ html, body { overflow-x:clip; max-width:100%; }
     .car-detail-left-title { display: none; }
     .car-detail-header { padding: 24px 20px; }
     .car-detail-content { padding-bottom: 40px; }
-    /* Re-enable 3D viewer masks on mobile */
-    .viewer-mask-left, .viewer-mask-bl, .viewer-mask-right { display: block; }
-    /* Exterior: 38% cachait la voiture — 12% couvre juste la barre AutoHome */
-    .viewer-mask-left { width: 12% !important; }
-    .viewer-mask-bl   { width: 12% !important; }
-    /* Interior: supprimer tous les masques latéraux + masque haut */
-    .viewer-is-interior .viewer-mask-left,
-    .viewer-is-interior .viewer-mask-bl,
-    .viewer-is-interior .viewer-mask-right { display: none; }
-    .viewer-is-interior .viewer-mask-top { height: 0 !important; }
+    /* Mobile: supprimer tous les masques — le viewer AutoHome s'affiche en plein */
+    .viewer-mask-left,
+    .viewer-mask-bl,
+    .viewer-mask-right,
+    .viewer-mask-top { display: none !important; }
   }
 
   /* ── Footer map ────────────────────────────────────────────────── */
