@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
-import { getCars } from "@/sanity/queries";
+import { getCars, getPosts } from "@/sanity/queries";
 import { carSlug } from "@/lib/slug";
 
 export const revalidate = 60;
 
 export async function GET() {
   try {
-    const cars = await getCars();
-    const results = cars.map((c) => ({
+    const [cars, posts] = await Promise.all([getCars(), getPosts()]);
+
+    const carResults = cars.map((c) => ({
+      type: "car" as const,
       brand: c.brand,
       model: c.model,
       slug: carSlug(c.brand, c.model),
@@ -18,8 +20,18 @@ export async function GET() {
         c.photos?.[0]?.src ||
         null,
     }));
-    return NextResponse.json(results);
+
+    const postResults = posts.map((p) => ({
+      type: "post" as const,
+      title: p.title,
+      slug: p.slug,
+      excerpt: p.excerpt,
+      category: p.category,
+      thumb: p.imageUrl || null,
+    }));
+
+    return NextResponse.json({ cars: carResults, posts: postResults });
   } catch {
-    return NextResponse.json([]);
+    return NextResponse.json({ cars: [], posts: [] });
   }
 }
