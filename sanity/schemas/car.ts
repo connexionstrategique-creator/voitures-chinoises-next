@@ -128,6 +128,20 @@ export const carSchema = defineType({
       group: "visuels",
       description: "L'ID de la vidéo YouTube (ex : dQw4w9WgXcQ pour https://youtu.be/dQw4w9WgXcQ).",
     }),
+    defineField({
+      name: "autohomeId",
+      title: "Viewer 3D AutoHome — Extérieur",
+      type: "string",
+      group: "visuels",
+      description: "Chemin pano extérieur AutoHome (ex : ext/69960 → pano.autohome.com.cn/car/ext/69960).",
+    }),
+    defineField({
+      name: "autohomeInteriorId",
+      title: "Viewer 3D AutoHome — Intérieur",
+      type: "string",
+      group: "visuels",
+      description: "Chemin pano intérieur AutoHome (ex : pano/61568).",
+    }),
 
     // ── FICHE TECHNIQUE ──
     defineField({

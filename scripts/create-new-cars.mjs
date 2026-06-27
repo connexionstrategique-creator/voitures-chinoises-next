@@ -1,8 +1,11 @@
 import { createClient } from '@sanity/client'
+import { loadEnvConfig } from '@next/env'
+
+loadEnvConfig(process.cwd())
 
 const sanity = createClient({
   projectId: 't3ow1rmc', dataset: 'production',
-  token: 'skppIgFUdRtUB9FxmUAxz04dq2FoYF4E34Xvvt8NLYV4lBler9qRsyz3jFWheTAUAaGTYqGzgUN4VreFbkHD68xoBi73qPpSYYpLqqnsVcHrLmFTnyDfLFhvgZsGd0qVAcMIenInUBnAOtRvGxgFDJ6KL0FeruY9dt88UbAusIgAZMDB8hVU',
+  token: process.env.SANITY_TOKEN,
   apiVersion: '2024-01-01', useCdn: false,
 })
 
