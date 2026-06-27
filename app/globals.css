@@ -2463,7 +2463,7 @@ html, body { overflow-x:clip; max-width:100%; }
     section.catalogue-section { padding-top:28px !important; }
     .catalogue-header { margin-bottom:20px; }
     .catalogue-controls { gap:12px; margin-bottom:20px; }
-    .search-wrap { display:none; }
+    .search-wrap { display:block; }
     .hero-cta-wrap { flex-direction:column; gap:10px; }
     .btn-red, .btn-outline { width:100%; text-align:center; padding:14px 20px; }
     .hero-bestseller-wrap { padding:0; width:100%; }
