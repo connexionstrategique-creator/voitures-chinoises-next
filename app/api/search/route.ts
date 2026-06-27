@@ -27,7 +27,7 @@ export async function GET() {
       slug: p.slug,
       excerpt: p.excerpt,
       category: p.category,
-      thumb: p.imageUrl || null,
+      thumb: p.imageUrl ? p.imageUrl.split("?")[0] : null,
     }));
 
     return NextResponse.json({ cars: carResults, posts: postResults });
