@@ -4,7 +4,8 @@ import type { Car } from "@/data/types";
 import { carSlug } from "@/lib/slug";
 
 export default function Nouveautes({ cars }: { cars: Car[] }) {
-  if (!cars.length) return null;
+  const display = cars.slice(0, 5);
+  if (!display.length) return null;
   return (
     <section className="nouveautes-section">
       <div className="nouveautes-inner">
@@ -14,9 +15,9 @@ export default function Nouveautes({ cars }: { cars: Car[] }) {
           <Link href="/catalogue" className="nouveautes-see-all">Voir tout le catalogue →</Link>
         </div>
         <div className="nouveautes-grid">
-          {cars.map(car => {
+          {display.map(car => {
             const slug = carSlug(car.brand, car.model);
-            const photo = car.photos?.[0]?.src;
+            const photo = car.photos?.[0]?.src || car.colorGroups?.[0]?.photos?.[0]?.src;
             return (
               <Link key={car.id} href={`/voitures/${slug}`} className="nouveaute-card">
                 <div className="nouveaute-img-wrap">

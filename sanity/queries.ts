@@ -115,12 +115,13 @@ export async function getNewestCars(n = 5): Promise<Car[]> {
       _id, brand, model, year, cat, badge, badgeText, featured,
       price, color, colors,
       "photos": photos[]{ "asset": asset->{ "url": url + "?auto=format&w=800&q=78" } },
+      "colorGroups": colorGroups[]{ colorName, "photos": photos[]{ "asset": asset->{ "url": url + "?auto=format&w=800&q=78" } } },
       specs, mini_v1, mini_k1, mini_v2, mini_k2, mini_v3, mini_k3
     }`,
     { n },
     { next: { revalidate: 60 } }
   );
-  return (raw || []).map(transformCar);
+  return (raw || []).map(transformCar).filter(c => c.photos.length > 0 || (c.colorGroups ?? []).some(g => g.photos?.length > 0));
 }
 
 export async function getCarBySlug(slug: string): Promise<Car | null> {
