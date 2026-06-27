@@ -24,7 +24,7 @@ export default async function MarquesPage() {
   return (
     <>
       <Nav />
-      <section className="section brands-section" id="marques" style={{ paddingTop: "120px" }}>
+      <section className="section brands-section" id="marques">
         <div className="section-inner">
           <div className="tag">20 marques disponibles</div>
           <h1 className="h2">

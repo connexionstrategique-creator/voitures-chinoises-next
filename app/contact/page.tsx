@@ -23,11 +23,6 @@ export default async function ContactPage() {
       <section className="section">
         <div className="section-inner" style={{ maxWidth: 680 }}>
 
-          <div className="page-eyebrow">
-            <span className="page-eyebrow-line" />
-            NOUS CONTACTER
-          </div>
-
           <h1 className="page-title">
             Une question ?<br />
             <em>On vous répond.</em>

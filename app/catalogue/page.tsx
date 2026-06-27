@@ -22,7 +22,7 @@ export default async function CataloguePage() {
   return (
     <>
       <Nav />
-      <main style={{ paddingTop: 56 }}>
+      <main>
         <Catalogue cars={cars} />
       </main>
       <Footer minimal />

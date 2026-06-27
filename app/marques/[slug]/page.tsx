@@ -49,25 +49,25 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
   return (
     <>
       <Nav />
-      <section style={{ paddingTop: "100px", paddingBottom: "60px", background: "var(--yellow, #f5f0e8)" }}>
-        <div className="section-inner" style={{ display: "flex", alignItems: "center", gap: "40px", flexWrap: "wrap" }}>
-          <div style={{ background: "#fff", borderRadius: 16, padding: "24px 32px", boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}>
-            <Image
-              src={brand!.logo}
-              alt={brand!.name}
-              width={180}
-              height={80}
-              style={{ height: 80, width: "auto", objectFit: "contain" }}
-              unoptimized
-            />
+      <section style={{ padding: "48px 0 40px", background: "var(--yellow, #f5f0e8)" }}>
+        <div className="section-inner">
+          <div className="tag" style={{ marginBottom: 20 }}>{brand!.desc}</div>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 12 }}>
+            <div style={{ flexShrink: 0, background: "#fff", borderRadius: 10, padding: "8px 14px", boxShadow: "0 1px 8px rgba(0,0,0,0.07)" }}>
+              <Image
+                src={brand!.logo}
+                alt={brand!.name}
+                width={120}
+                height={40}
+                style={{ height: 40, width: "auto", maxWidth: 120, objectFit: "contain", display: "block" }}
+                unoptimized
+              />
+            </div>
+            <h1 className="h2" style={{ marginBottom: 0 }}>{brand!.name}</h1>
           </div>
-          <div>
-            <div className="tag">{brand!.desc}</div>
-            <h1 className="h2" style={{ marginBottom: 8 }}>{brand!.name}</h1>
-            <p style={{ color: "var(--mid, #666)", fontSize: 16 }}>
-              {cars.length} modèle{cars.length > 1 ? "s" : ""} disponible{cars.length > 1 ? "s" : ""} à la commande
-            </p>
-          </div>
+          <p style={{ color: "var(--mid, #666)", fontSize: 15 }}>
+            {cars.length} modèle{cars.length > 1 ? "s" : ""} disponible{cars.length > 1 ? "s" : ""} à la commande
+          </p>
         </div>
       </section>
       {cars.length > 0 ? (

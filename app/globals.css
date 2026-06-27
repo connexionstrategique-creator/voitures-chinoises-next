@@ -2643,7 +2643,7 @@ html, body { overflow-x:clip; max-width:100%; }
   }
   .page-eyebrow-line { display:block; width:24px; height:1px; background:var(--red); }
   .page-title {
-    font-family:'Syne', sans-serif; font-size:52px; font-weight:700;
+    font-family:'Syne', sans-serif; font-size:clamp(28px,6vw,52px); font-weight:700;
     line-height:1.1; color:var(--black); margin-bottom:48px;
   }
   .page-title em { color:var(--red); font-style:italic; }

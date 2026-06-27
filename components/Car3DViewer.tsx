@@ -9,7 +9,11 @@ interface Car3DViewerProps {
 export default function Car3DViewer({ title, src }: Car3DViewerProps) {
   const [loaded, setLoaded] = useState(false);
   const [fakeFS, setFakeFS] = useState(false);
+  const [nativeFS, setNativeFS] = useState(false);
+  const [countdown, setCountdown] = useState(10);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const isFullscreen = fakeFS || nativeFS;
 
   const lockLandscape = () => {
     try {
@@ -28,6 +32,18 @@ export default function Car3DViewer({ title, src }: Car3DViewerProps) {
     unlockOrientation();
     document.body.style.overflow = "";
   }, []);
+
+  const exitNativeFS = useCallback(() => {
+    try {
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if ((document as any).webkitExitFullscreen) (document as any).webkitExitFullscreen();
+    } catch {}
+  }, []);
+
+  const exitFullscreen = useCallback(() => {
+    if (fakeFS) exitFakeFS();
+    else if (nativeFS) exitNativeFS();
+  }, [fakeFS, nativeFS, exitFakeFS, exitNativeFS]);
 
   const enterFullscreen = () => {
     const el = containerRef.current;
@@ -53,12 +69,12 @@ export default function Car3DViewer({ title, src }: Car3DViewerProps) {
     }
   };
 
-  // Unlock orientation when native fullscreen exits
+  // Track native fullscreen state
   useEffect(() => {
     const onFSChange = () => {
-      if (!document.fullscreenElement && !(document as any).webkitFullscreenElement) {
-        unlockOrientation();
-      }
+      const active = !!(document.fullscreenElement || (document as any).webkitFullscreenElement);
+      setNativeFS(active);
+      if (!active) unlockOrientation();
     };
     document.addEventListener("fullscreenchange", onFSChange);
     document.addEventListener("webkitfullscreenchange", onFSChange);
@@ -76,6 +92,15 @@ export default function Car3DViewer({ title, src }: Car3DViewerProps) {
     return () => window.removeEventListener("keydown", onKey);
   }, [fakeFS, exitFakeFS]);
 
+  // Countdown while loading
+  useEffect(() => {
+    if (loaded) return;
+    const t = setInterval(() => {
+      setCountdown(prev => (prev <= 1 ? 0 : prev - 1));
+    }, 1000);
+    return () => clearInterval(t);
+  }, [loaded]);
+
   // Cleanup on unmount
   useEffect(() => {
     return () => { document.body.style.overflow = ""; };
@@ -92,21 +117,61 @@ export default function Car3DViewer({ title, src }: Car3DViewerProps) {
       {!loaded && (
         <div style={{
           position: "absolute", inset: 0, display: "flex", flexDirection: "column",
-          alignItems: "center", justifyContent: "center", gap: 16, zIndex: 2,
+          alignItems: "center", justifyContent: "center", gap: 12, zIndex: 2,
         }}>
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-            <path d="M24 4L44 16V32L24 44L4 32V16L24 4Z" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinejoin="round"/>
-            <path d="M24 4L24 44M4 16L44 16M4 32L44 32M4 16L24 44M44 16L24 44M4 16L24 4M44 16L24 4" stroke="rgba(255,255,255,0.12)" strokeWidth="1"/>
-          </svg>
-          <span style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", letterSpacing: "0.12em" }}>CHARGEMENT…</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://res.cloudinary.com/daol8mzeg/image/upload/v1772665987/LOGO_VOITURES_CHINOISE_ROUGE_600x_pfafuh.png"
+            alt="Voitures Chinoises"
+            style={{ width: 52, height: 52, objectFit: "contain" }}
+          />
+          <div style={{ textAlign: "center" }}>
+            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.7)", letterSpacing: "0.18em", fontWeight: 700 }}>VOITURES CHINOISES</div>
+            <div style={{ fontSize: 9, color: "rgba(255,255,255,0.35)", letterSpacing: "0.12em", marginTop: 2 }}>BY CONNEXION STRATÉGIQUE</div>
+          </div>
+          <div style={{
+            width: 48, height: 48, borderRadius: "50%",
+            border: "2px solid rgba(255,255,255,0.12)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            marginTop: 4,
+          }}>
+            <span style={{ fontSize: 20, fontWeight: 800, color: countdown > 0 ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.35)", fontVariantNumeric: "tabular-nums", fontFamily: "DM Sans, sans-serif" }}>
+              {countdown > 0 ? countdown : "…"}
+            </span>
+          </div>
+          <span style={{ fontSize: 10, color: "rgba(255,255,255,0.3)", letterSpacing: "0.12em" }}>VUE 3D EN COURS…</span>
         </div>
       )}
+
+      {/* Chinese UI masks */}
+      {/* Top bar: covers 反馈/分享/清屏 toolbar + color disclaimer */}
+      <div style={{
+        position: "absolute", top: 0, left: 0, right: 0, height: "24%",
+        background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
+        borderRadius: isFullscreen ? 0 : "20px 20px 0 0",
+      }} />
+      {/* Disclaimer strip: covers 样式颜色仅供参考 text on the right */}
+      <div style={{
+        position: "absolute", top: "24%", right: 0, width: "62%", height: "9%",
+        background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
+      }} />
+      {/* Left panel: covers 汽车之家 logo + 全车讲解视频 thumbnail */}
+      <div style={{
+        position: "absolute", top: "18%", left: 0, width: "38%", height: "60%",
+        background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
+      }} />
+      {/* Bottom-left corner: covers remaining bottom controls */}
+      <div style={{
+        position: "absolute", bottom: 0, left: 0, width: "38%", height: "22%",
+        background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
+        borderRadius: isFullscreen ? 0 : "0 0 0 20px",
+      }} />
 
       {/* Fullscreen / Exit button */}
       {loaded && (
         <button
-          onClick={fakeFS ? exitFakeFS : enterFullscreen}
-          aria-label={fakeFS ? "Quitter le plein écran" : "Plein écran"}
+          onClick={isFullscreen ? exitFullscreen : enterFullscreen}
+          aria-label={isFullscreen ? "Quitter le plein écran" : "Plein écran"}
           style={{
             position: "absolute",
             bottom: 14, right: 14, zIndex: 10,
@@ -123,7 +188,7 @@ export default function Car3DViewer({ title, src }: Car3DViewerProps) {
             transition: "background .2s",
           }}
         >
-          {fakeFS ? (
+          {isFullscreen ? (
             <>
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
                 <path d="M1 1L12 12M12 1L1 12" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>

@@ -248,7 +248,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
           {/* LEFT — carousel sticky */}
           <div className="car-detail-left">
             <div style={{ padding: "20px 24px 8px" }}>
-              <Link href="/catalogue" style={{ textDecoration: "none", fontSize: 11, color: "rgba(255,255,255,0.35)", display: "inline-block", letterSpacing: "0.06em" }}>
+              <Link href="/catalogue" style={{ textDecoration: "none", fontSize: 15, color: "rgba(255,255,255,0.6)", display: "inline-block", letterSpacing: "0.06em" }}>
                 ← retour
               </Link>
             </div>
@@ -278,13 +278,28 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
 
             {/* Title + Price + CTA (dark) */}
             <div className="car-detail-header">
-              <div style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(22px,3vw,40px)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.1, marginBottom: 20, color: "#fff" }}>
+              <div style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(22px,3.5vw,42px)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.1, marginBottom: 20, color: "#fff" }}>
                 {car!.brand} {car!.model}
               </div>
-              <div style={{ fontFamily: "DM Sans, sans-serif", fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 4, fontVariantNumeric: "tabular-nums lining-nums" }}>
-                {car!.price} <span style={{ fontSize: 13, fontWeight: 400, opacity: 0.4 }}>FCFA</span>
+              <div style={{ fontFamily: "DM Sans, sans-serif", fontSize: "clamp(30px,4vw,44px)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 4, fontVariantNumeric: "tabular-nums lining-nums" }}>
+                {car!.price} <span style={{ fontSize: 16, fontWeight: 400, opacity: 0.4 }}>FCFA</span>
               </div>
-              <div style={{ fontSize: 10, color: "rgba(255,255,255,0.22)", marginBottom: 24 }}>CIF · Coût + Assurance + Fret inclus</div>
+              <div style={{ marginBottom: 24 }}>
+                <div style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", marginBottom: 10, letterSpacing: "0.02em" }}>CIF · Coût + Assurance + Fret inclus</div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: "0.04em", marginBottom: 4 }}>LIVRAISON VERS</div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 10px", lineHeight: 1.5 }}>
+                  {[
+                    { flag: "🇧🇯", name: "Bénin" },
+                    { flag: "🇹🇬", name: "Togo" },
+                    { flag: "🇨🇮", name: "Côte d'Ivoire" },
+                    { flag: "🇸🇳", name: "Sénégal" },
+                  ].map(({ flag, name }) => (
+                    <span key={name} style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 12, color: "rgba(255,255,255,0.55)", whiteSpace: "nowrap" }}>
+                      <span style={{ fontSize: 15 }}>{flag}</span>{name}
+                    </span>
+                  ))}
+                </div>
+              </div>
               <div className="car-cta-group">
                 <a
                   href={`https://wa.me/${waNumber}?text=${waMsg}`}
@@ -300,7 +315,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
 
             {/* Details (white) */}
             <div className="car-detail-content">
-          <div style={{ padding: "32px 48px 0" }}>
+          <div style={{ padding: "32px clamp(20px,5vw,48px) 0" }}>
 
             {/* Couleurs — compact row */}
             {car!.colors && car!.colors.length > 0 && (
@@ -345,7 +360,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
               ? car!.reasons
               : buildEmotionalReasons(car!.brand, car!.model, car!.specs);
             return (
-              <div style={{ marginTop: 64, padding: "0 48px" }}>
+              <div style={{ marginTop: 64, padding: "0 clamp(20px,5vw,48px)" }}>
                 <div style={{ marginBottom: 32 }}>
                   <div style={{ fontSize: 11, letterSpacing: "0.2em", color: "var(--red,#A01414)", fontWeight: 700, marginBottom: 10 }}>POURQUOI CHOISIR CETTE VOITURE</div>
                   <h2 style={{ fontSize: "clamp(22px,3vw,32px)", fontWeight: 900, lineHeight: 1.2 }}>
@@ -358,33 +373,34 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
                     <div key={i} style={{
                       background: "var(--yellow,#F5F5F5)",
                       borderRadius: 16,
-                      padding: "28px 32px",
+                      padding: "24px clamp(16px,4vw,32px)",
                       display: "flex",
                       gap: 24,
                       alignItems: "flex-start",
                     }}>
                       <div style={{
                         flexShrink: 0,
-                        width: 44,
-                        height: 44,
+                        width: 40,
+                        height: 40,
                         borderRadius: "50%",
-                        background: "var(--red,#A01414)",
-                        color: "#fff",
+                        border: "1.5px solid rgba(160,20,20,0.5)",
+                        color: "#A01414",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        fontFamily: "Syne, sans-serif",
-                        fontSize: 18,
-                        fontWeight: 800,
+                        fontFamily: "Cormorant Garamond, serif",
+                        fontSize: 22,
+                        fontWeight: 600,
+                        fontStyle: "italic",
                         lineHeight: 1,
                       }}>
                         {i + 1}
                       </div>
                       <div style={{ flex: 1 }}>
-                        <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 6, color: "#111" }}>
+                        <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 6, color: "#111", lineHeight: 1.2 }}>
                           {reason.title}
                         </div>
-                        <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "#555" }}>
+                        <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5, color: "#444" }}>
                           {reason.body}
                         </p>
                       </div>
@@ -396,14 +412,14 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
           })()}
 
           {car!.youtubeId && (
-            <div style={{ marginTop: 64, padding: "0 48px" }}>
+            <div style={{ marginTop: 64, padding: "0 clamp(20px,5vw,48px)" }}>
               <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "#A01414", fontWeight: 700, marginBottom: 20 }}>VIDÉO</div>
               <YouTubeEmbed youtubeId={car!.youtubeId} title={`${car!.brand} ${car!.model}`} />
             </div>
           )}
 
-          <div style={{ padding: "0 48px 48px" }}>
-            <div style={{ background: "var(--yellow, #f5f0e8)", borderRadius: 24, padding: "48px", textAlign: "center" }}>
+          <div style={{ padding: "0 clamp(20px,5vw,48px) 48px" }}>
+            <div style={{ background: "var(--yellow, #f5f0e8)", borderRadius: 24, padding: "clamp(28px,5vw,48px)", textAlign: "center" }}>
               <h2 style={{ fontSize: 28, fontWeight: 800, marginBottom: 12 }}>
                 Intéressé par la {car!.brand} {car!.model} ?
               </h2>
@@ -435,7 +451,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
 
           {/* Articles de blog */}
           {posts.length > 0 && (
-            <div style={{ padding: "48px 48px 64px", borderTop: "1px solid var(--border,#E0E0E0)" }}>
+            <div style={{ padding: "48px clamp(20px,5vw,48px) 64px", borderTop: "1px solid var(--border,#E0E0E0)" }}>
               <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "#A01414", fontWeight: 700, marginBottom: 12 }}>POUR ALLER PLUS LOIN</div>
               <h2 style={{ fontSize: "clamp(18px,2.5vw,24px)", fontWeight: 900, marginBottom: 28, lineHeight: 1.2 }}>
                 Les marques chinoises sous la loupe
