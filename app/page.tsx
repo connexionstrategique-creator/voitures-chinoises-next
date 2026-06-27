@@ -1,6 +1,5 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import FeaturedCarousel from "@/components/FeaturedCarousel";
 import BrandMarquee from "@/components/BrandMarquee";
 import Catalogue from "@/components/Catalogue";
 import Nouveautes from "@/components/Nouveautes";
@@ -36,9 +35,6 @@ export default async function Home() {
         waNumber={settings?.whatsappNumber}
       />
       <BrandMarquee />
-      {cars.length > 0 && (
-        <FeaturedCarousel cars={cars} waNumber={settings?.whatsappNumber} />
-      )}
       {newest.length > 0 && <Nouveautes cars={newest} />}
       <Suspense>
         <Catalogue cars={cars} />
