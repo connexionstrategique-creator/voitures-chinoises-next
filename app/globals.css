@@ -1065,6 +1065,9 @@ html, body { overflow-x:clip; max-width:100%; }
     .car-detail-content { padding-bottom: 40px; }
     /* Re-enable 3D viewer masks on mobile where they were calibrated */
     .viewer-mask-left, .viewer-mask-bl, .viewer-mask-right { display: block; }
+    /* Interior viewer: left masks hide the 3D content — remove them */
+    .viewer-is-interior .viewer-mask-left,
+    .viewer-is-interior .viewer-mask-bl { display: none; }
   }
 
   /* ── Footer map ────────────────────────────────────────────────── */
