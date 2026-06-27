@@ -132,8 +132,13 @@ EXIGENCES SEO OBLIGATOIRES :
 5. Mentions obligatoires : Cotonou, Lomé, Abidjan, Dakar + prix en FCFA + délai 45-90 jours
 6. FAQ finale : 4 questions précises avec réponses de 50-70 mots (format featured snippet)
 7. CTA final vers catalogue ou WhatsApp +229 41 76 53 41
+8. IMAGES OBLIGATOIRES — tu DOIS inclure exactement :
+   - Le champ "mainPexelsId" avec un ID de la liste ci-dessous (image principale de l'article)
+   - 2 sections {"type":"image"} dans le corps, avec des IDs DIFFÉRENTS du mainPexelsId
+   - Place une image après la 2e section H2 et une autre après la 4e section H2
 
-IMAGES PEXELS (IDs qui fonctionnent) : 1519192, 116675, 3802508, 3764984, 1592384, 6894528, 4489702, 3807811, 7363029
+IDs PEXELS VALIDES (choisis parmi cette liste uniquement) :
+1519192 (voiture route), 116675 (SUV extérieur), 3802508 (route africaine), 3764984 (route coucher soleil), 1592384 (voiture ville), 6894528 (concessionnaire), 4489702 (intérieur voiture), 3807811 (autoroute), 7363029 (famille voiture)
 
 RÉPONDS UNIQUEMENT avec un objet JSON valide, sans texte avant ni après :
 {
@@ -234,7 +239,6 @@ async function publishArticle(article, imageRefs) {
   return created
 }
 
-
 // ─── Sauvegarder JSON localement ─────────────────────────────────────────────
 async function saveArticleJson(article) {
   const fs = await import('fs')
@@ -263,6 +267,13 @@ export async function runBlog() {
   console.log(`   Article généré : "${article.title}"`)
   console.log(`   seoTitle (${article.seoTitle?.length} chars) : ${article.seoTitle}`)
   console.log(`   seoDesc (${article.seoDescription?.length} chars) : ${article.seoDescription}`)
+  if (article.mainPexelsId) {
+    console.log(`   mainPexelsId : ${article.mainPexelsId}`)
+    const imgSections = (article.sections || []).filter(s => s.type === 'image')
+    console.log(`   Images dans le corps : ${imgSections.length}`)
+  } else {
+    console.warn(`   ⚠️ Aucun mainPexelsId généré — images manquantes`)
+  }
 
   const jsonPath = await saveArticleJson(article)
   console.log(`   JSON sauvegardé : ${jsonPath}`)
@@ -284,8 +295,18 @@ export async function runBlog() {
     }
   } catch (e) {
     console.warn(`   ⚠️ Publication Sanity directe échouée : ${e.message}`)
+
+    const pexelsIds = new Set()
+    if (article.mainPexelsId) pexelsIds.add(article.mainPexelsId)
+    for (const s of article.sections || []) {
+      if (s.type === 'image' && s.pexelsId) pexelsIds.add(s.pexelsId)
+    }
+
     console.log(`\n[SANITY_MCP_REQUIRED]`)
-    console.log(`ACTION: Utilise le connecteur MCP Sanity (outil "Create document(s)") pour créer ce post.`)
+    console.log(`ACTION: Publie cet article dans Sanity avec images :`)
+    console.log(`  1. Upload chaque image Pexels via l'outil "Upload asset" (URL: https://images.pexels.com/photos/ID/pexels-photo-ID.jpeg?auto=compress&cs=tinysrgb&w=1920)`)
+    console.log(`     IDs Pexels : ${[...pexelsIds].join(', ') || 'aucun'}`)
+    console.log(`  2. Crée le document post avec "Create document(s)" en renseignant mainImage et les images dans body`)
     console.log(`FILE: ${jsonPath}`)
     console.log(`SLUG: ${article.slug}`)
     console.log(`[/SANITY_MCP_REQUIRED]`)
