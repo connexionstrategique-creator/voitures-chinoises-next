@@ -6,11 +6,12 @@
  * Lun / Mer / Ven  → Article de blog SEO
  * Mar / Jeu        → Optimisation fiches voitures
  * Sam              → Article de blog SEO + optimisation voitures
- * Dim              → Article de blog guide long format
+ * Dim              → Article de blog guide long format + maillage interne
  */
 
 import { runBlog } from './seo-blog.mjs'
 import { runCarsOptimization } from './seo-cars.mjs'
+import { runLinksOptimization } from './seo-links.mjs'
 
 const VERCEL_DEPLOY_HOOK = process.env.VERCEL_DEPLOY_HOOK
 
@@ -24,7 +25,7 @@ async function main() {
   console.log(`📅 ${DAYS[day]} ${now.toISOString()}`)
   console.log('='.repeat(60))
 
-  const results = { blog: 0, cars: 0, errors: [] }
+  const results = { blog: 0, cars: 0, links: 0, errors: [] }
 
   try {
     if ([1, 3, 5].includes(day)) {
@@ -44,9 +45,10 @@ async function main() {
       results.cars = await runCarsOptimization()
 
     } else {
-      // Dimanche → Article blog (guide long format ou comparatif)
-      console.log(`\n📋 PROGRAMME DU JOUR : Article guide long format`)
+      // Dimanche → Article blog + Maillage interne
+      console.log(`\n📋 PROGRAMME DU JOUR : Article guide long format + Maillage interne`)
       results.blog = await runBlog()
+      results.links = await runLinksOptimization()
     }
 
   } catch (e) {
@@ -60,13 +62,14 @@ async function main() {
   console.log('='.repeat(60))
   console.log(`✅ Articles publiés      : ${results.blog}`)
   console.log(`✅ Voitures optimisées   : ${results.cars}`)
+  console.log(`✅ Articles avec liens   : ${results.links}`)
   if (results.errors.length > 0) {
     console.log(`❌ Erreurs               : ${results.errors.join(', ')}`)
   }
   console.log(`🕐 Durée totale          : ${Math.round((Date.now() - now) / 1000)}s`)
   console.log('='.repeat(60))
 
-  if (results.errors.length > 0 && results.blog === 0 && results.cars === 0) {
+  if (results.errors.length > 0 && results.blog === 0 && results.cars === 0 && results.links === 0) {
     process.exit(1)
   }
 }

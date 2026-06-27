@@ -8,11 +8,16 @@ Le connecteur Sanity est disponible dans cette session. Quand les scripts Node.j
 
 ### Publier un article de blog
 1. Lis le fichier JSON indiqué (ex: `seo-logs/article-YYYY-MM-DD.json`)
-2. Utilise l'outil MCP Sanity **"Create document(s)"** avec `_type: "post"` et les champs du JSON : `title`, `slug`, `seoTitle`, `seoDescription`, `excerpt`, `body`, `tags`, `category`, `publishedAt`
+2. Upload les images Pexels dans Sanity Assets (URL: `https://images.pexels.com/photos/ID/pexels-photo-ID.jpeg?auto=compress&cs=tinysrgb&w=1920`)
+3. Utilise l'outil MCP Sanity **"Create document(s)"** avec `_type: "post"` et les champs du JSON : `title`, `slug`, `seoTitle`, `seoDescription`, `excerpt`, `body`, `tags`, `category`, `publishedAt`, `mainImage`
 
 ### Mettre à jour les SEO des voitures
 1. Lis le fichier JSON indiqué (ex: `seo-logs/cars-seo-YYYY-MM-DD.json`)
 2. Pour chaque voiture, utilise l'outil MCP Sanity **"Patch document(s)"** avec l'`_id` et les champs `seoTitle`, `seoDescription`, `desc`
+
+### Maillage interne
+1. Lis le fichier JSON indiqué (ex: `seo-logs/links-YYYY-MM-DD.json`)
+2. Pour chaque article, utilise **"Patch document(s)"** avec l'`_id` et le champ `body` mis à jour
 
 ### Après publication
 - Si la publication réussit, déclenche le hook Vercel si disponible (`VERCEL_DEPLOY_HOOK`)
