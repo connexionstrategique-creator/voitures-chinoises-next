@@ -124,7 +124,7 @@ export default function Car3DViewer({ title, src, isInterior }: Car3DViewerProps
           <img
             src="https://res.cloudinary.com/daol8mzeg/image/upload/v1772665987/LOGO_VOITURES_CHINOISE_ROUGE_600x_pfafuh.png"
             alt="Voitures Chinoises"
-            style={{ width: 52, height: 52, objectFit: "contain" }}
+            style={{ width: 90, height: 90, objectFit: "contain" }}
           />
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 11, color: "rgba(255,255,255,0.7)", letterSpacing: "0.18em", fontWeight: 700 }}>VOITURES CHINOISES</div>

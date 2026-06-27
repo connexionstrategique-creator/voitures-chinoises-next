@@ -1018,6 +1018,8 @@ html, body { overflow-x:clip; max-width:100%; }
   }
   /* 3D viewer masks: hide lateral/bottom masks on desktop (mobile-only calibration) */
   .viewer-mask-left, .viewer-mask-bl, .viewer-mask-right { display: none; }
+  /* Top mask: 24% is calibrated for mobile — reduce on desktop */
+  .viewer-mask-top { height: 11% !important; }
 
   .car-detail-carousel-wrap {
     flex: 1;
