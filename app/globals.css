@@ -1063,13 +1063,15 @@ html, body { overflow-x:clip; max-width:100%; }
     .car-detail-left-title { display: none; }
     .car-detail-header { padding: 24px 20px; }
     .car-detail-content { padding-bottom: 40px; }
-    /* Re-enable 3D viewer masks on mobile where they were calibrated */
+    /* Re-enable 3D viewer masks on mobile */
     .viewer-mask-left, .viewer-mask-bl, .viewer-mask-right { display: block; }
-    /* Interior viewer: lateral/bottom masks hide 3D content — remove them */
+    /* Exterior: réduire masque gauche 38%→12% pour ne pas couper la voiture */
+    .viewer-mask-left { width: 12% !important; }
+    .viewer-mask-bl   { width: 12% !important; }
+    /* Interior: supprimer tous les masques latéraux + masque haut */
     .viewer-is-interior .viewer-mask-left,
     .viewer-is-interior .viewer-mask-bl,
     .viewer-is-interior .viewer-mask-right { display: none; }
-    /* Interior top mask: remove completely, watermark less intrusive than black bar */
     .viewer-is-interior .viewer-mask-top { height: 0 !important; }
   }
 
