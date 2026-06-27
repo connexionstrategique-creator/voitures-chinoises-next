@@ -192,7 +192,6 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
   const searchParams = useSearchParams();
   const [activeFilter, setActiveFilter] = useState(() => searchParams.get("f") ?? "all");
   const [activeBudget, setActiveBudget] = useState(() => searchParams.get("b") ?? "all");
-  const [activeColor, setActiveColor] = useState(() => searchParams.get("c") ?? "all");
   const [sort, setSort] = useState(() => searchParams.get("s") ?? "default");
   const [search, setSearch] = useState(() => (searchParams.get("q") ?? "").toLowerCase().trim());
   const [compareList, setCompareList] = useState<string[]>([]);
@@ -215,7 +214,6 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
 
   const handleFilter = (f: string) => { setActiveFilter(f); updateURL({ f }); };
   const handleBudget = (b: string) => { setActiveBudget(b); updateURL({ b }); };
-  const handleColor = (c: string) => { setActiveColor(c); updateURL({ c }); };
   const handleSort = (s: string) => { setSort(s); updateURL({ s }); };
 
   const toggleCompare = useCallback((id: string) => {
@@ -223,15 +221,6 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
       prev.includes(id) ? prev.filter(x => x !== id) : prev.length < 3 ? [...prev, id] : prev
     );
   }, []);
-
-  // Compute which base colors actually appear across all cars
-  const availableColors = useMemo(() => {
-    const found = new Set<string>();
-    for (const c of cars) {
-      for (const base of carBaseColors(c.colors || [])) found.add(base);
-    }
-    return BASE_COLORS.filter(b => found.has(b.name));
-  }, [cars]);
 
   const filtered = useMemo(() => {
     setPage(1);
@@ -242,14 +231,13 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
         (activeFilter === "7places" && c.specs.Places?.includes("7")) ||
         (activeFilter === "5places" && c.specs.Places?.includes("5") && !c.specs.Places?.includes("7"));
       const budOk = budgetMatch(c, activeBudget);
-      const colorOk = activeColor === "all" || carBaseColors(c.colors || []).includes(activeColor);
       const srchOk = !search || c.brand.toLowerCase().includes(search) || c.model.toLowerCase().includes(search);
-      return catOk && budOk && colorOk && srchOk;
+      return catOk && budOk && srchOk;
     });
     if (sort === "price-asc") result = [...result].sort((a, b) => priceNum(a.price) - priceNum(b.price));
     if (sort === "price-desc") result = [...result].sort((a, b) => priceNum(b.price) - priceNum(a.price));
     return result;
-  }, [activeFilter, activeBudget, activeColor, search, sort, cars]);
+  }, [activeFilter, activeBudget, search, sort, cars]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
@@ -311,32 +299,8 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
             </div>
           </div>
 
-          {/* Color + Sort row */}
+          {/* Sort row */}
           <div className="catalogue-bottom-controls">
-            {/* Color filter */}
-            {availableColors.length > 0 && (
-              <div className="color-filter-wrap">
-                <span className="filter-label">Couleur</span>
-                <div className="color-filter-dots">
-                  <button
-                    className={`color-dot-btn${activeColor === "all" ? " active" : ""}`}
-                    onClick={() => handleColor("all")}
-                    title="Toutes"
-                  >
-                    <span style={{ fontSize: 11, fontFamily: "DM Sans,sans-serif", fontWeight: 600, color: activeColor === "all" ? "#fff" : "#555" }}>Tous</span>
-                  </button>
-                  {availableColors.map(col => (
-                    <button
-                      key={col.name}
-                      className={`color-dot-btn${activeColor === col.name ? " active" : ""}`}
-                      style={{ background: col.hex, border: `2px solid ${activeColor === col.name ? "#A01414" : col.border}` }}
-                      onClick={() => handleColor(col.name)}
-                      title={col.name}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
             {/* Sort */}
             <div className="sort-wrap">
               <span className="filter-label">Trier par</span>
