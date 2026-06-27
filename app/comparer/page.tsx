@@ -114,7 +114,7 @@ export default async function ComparerPage({
                           src={photo}
                           alt={`${car.brand} ${car.model}`}
                           fill
-                          style={{ objectFit: "cover" }}
+                          style={{ objectFit: "contain", padding: "8px" }}
                           sizes="(max-width: 600px) 45vw, 220px"
                         />
                       ) : (
