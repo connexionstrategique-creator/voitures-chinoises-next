@@ -91,6 +91,52 @@ function transformBody(body: any[]): any[] {
   return result;
 }
 
+// Extract a FAQ section (h2 "Questions fréquentes" / "FAQ" → h3 question + answer paragraphs)
+// into Q&A pairs for FAQPage structured data. Returns [] when no FAQ section is present.
+function extractFaq(body: any[]): { question: string; answer: string }[] {
+  if (!body) return [];
+  const textOf = (b: any) => (b.children || []).map((c: any) => c.text || "").join("").trim();
+  const faqs: { question: string; answer: string }[] = [];
+  let inFaq = false;
+  let currentQ: string | null = null;
+  let answerParts: string[] = [];
+
+  const flush = () => {
+    if (currentQ && answerParts.length) {
+      faqs.push({ question: currentQ, answer: answerParts.join(" ").trim() });
+    }
+    currentQ = null;
+    answerParts = [];
+  };
+
+  for (const b of body) {
+    if (b._type !== "block") {
+      if (inFaq && currentQ) {
+        // non-text content inside an answer — ignore for the schema
+      }
+      continue;
+    }
+    const style = b.style || "normal";
+    const text = textOf(b);
+
+    if (style === "h2") {
+      flush();
+      inFaq = /\b(faq|questions?\s+fr[ée]quent\w*|foire\s+aux\s+questions)\b/i.test(text);
+      continue;
+    }
+    if (!inFaq) continue;
+
+    if (style === "h3" || style === "h4") {
+      flush();
+      currentQ = text || null;
+    } else if (currentQ && text) {
+      answerParts.push(text);
+    }
+  }
+  flush();
+  return faqs;
+}
+
 export async function generateStaticParams() {
   const posts = await getPosts().catch(() => []);
   return posts.map((p) => ({ slug: p.slug }));
@@ -286,44 +332,63 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const different = others.filter((p) => p.category !== post!.category);
   const related = [...sameCategory, ...different].slice(0, 3);
 
+  // FAQ section → FAQPage structured data (for Google question-answer / "People Also Ask" results)
+  const faqs = extractFaq(post!.body || []);
+
+  const schemaGraph: any[] = [
+    {
+      "@type": "Article",
+      "@id": `https://www.voitureschinoises.com/blog/${slug}#article`,
+      "headline": post!.title,
+      "datePublished": post!.publishedAt,
+      "dateModified": post!.publishedAt,
+      "image": post!.imageUrl ? { "@type": "ImageObject", "url": post!.imageUrl, "width": 1200, "height": 630 } : undefined,
+      "author": { "@type": "Organization", "name": "Connexion Stratégique", "url": "https://www.voitureschinoises.com" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Voitures Chinoises",
+        "logo": { "@type": "ImageObject", "url": "https://res.cloudinary.com/daol8mzeg/image/upload/v1772665987/LOGO_VOITURES_CHINOISE_ROUGE_600x_pfafuh.png" }
+      },
+      "description": post!.excerpt || "",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": `https://www.voitureschinoises.com/blog/${slug}` },
+      "inLanguage": "fr-FR",
+      "isPartOf": { "@id": "https://www.voitureschinoises.com/blog" },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.voitureschinoises.com" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.voitureschinoises.com/blog" },
+        { "@type": "ListItem", "position": 3, "name": post!.title, "item": `https://www.voitureschinoises.com/blog/${slug}` },
+      ],
+    },
+  ];
+
+  if (faqs.length >= 2) {
+    schemaGraph.push({
+      "@type": "FAQPage",
+      "@id": `https://www.voitureschinoises.com/blog/${slug}#faq`,
+      "inLanguage": "fr-FR",
+      "isPartOf": { "@id": `https://www.voitureschinoises.com/blog/${slug}#article` },
+      "mainEntity": faqs.map((f) => ({
+        "@type": "Question",
+        "name": f.question,
+        "acceptedAnswer": { "@type": "Answer", "text": f.answer },
+      })),
+    });
+  }
+
   return (
     <>
       <Nav dark />
 
-      {/* JSON-LD Article + BreadcrumbList */}
+      {/* JSON-LD Article + BreadcrumbList + FAQPage (when the article has a FAQ section) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "Article",
-                "@id": `https://www.voitureschinoises.com/blog/${slug}#article`,
-                "headline": post!.title,
-                "datePublished": post!.publishedAt,
-                "dateModified": post!.publishedAt,
-                "image": post!.imageUrl ? { "@type": "ImageObject", "url": post!.imageUrl, "width": 1200, "height": 630 } : undefined,
-                "author": { "@type": "Organization", "name": "Connexion Stratégique", "url": "https://www.voitureschinoises.com" },
-                "publisher": {
-                  "@type": "Organization",
-                  "name": "Voitures Chinoises",
-                  "logo": { "@type": "ImageObject", "url": "https://res.cloudinary.com/daol8mzeg/image/upload/v1772665987/LOGO_VOITURES_CHINOISE_ROUGE_600x_pfafuh.png" }
-                },
-                "description": post!.excerpt || "",
-                "mainEntityOfPage": { "@type": "WebPage", "@id": `https://www.voitureschinoises.com/blog/${slug}` },
-                "inLanguage": "fr-FR",
-                "isPartOf": { "@id": "https://www.voitureschinoises.com/blog" },
-              },
-              {
-                "@type": "BreadcrumbList",
-                "itemListElement": [
-                  { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.voitureschinoises.com" },
-                  { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.voitureschinoises.com/blog" },
-                  { "@type": "ListItem", "position": 3, "name": post!.title, "item": `https://www.voitureschinoises.com/blog/${slug}` },
-                ],
-              },
-            ],
+            "@graph": schemaGraph,
           }),
         }}
       />
