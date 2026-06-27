@@ -3842,46 +3842,53 @@ html, body { overflow-x:clip; max-width:100%; }
 
 /* ─── Comparateur page ─── */
 .comparer-page { padding: 100px 0 60px; min-height: 80vh; }
-.comparer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-.comparer-header { display: flex; align-items: center; gap: 24px; margin-bottom: 32px; flex-wrap: wrap; }
+.comparer-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.comparer-header { display: flex; align-items: center; gap: 24px; margin-bottom: 28px; flex-wrap: wrap; }
 .comparer-back { color: #A01414; font-size: 14px; font-weight: 500; text-decoration: none; }
 .comparer-back:hover { text-decoration: underline; }
 .comparer-title { font-family: "Cormorant Garamond", serif; font-size: 32px; font-weight: 600; color: #0D0D0D; }
-.comparer-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.comparer-table { width: 100%; border-collapse: collapse; }
-.comparer-th-label {
-  width: 140px; min-width: 100px;
-  position: sticky; left: 0; background: #fff; z-index: 2;
-}
-.comparer-th-car {
-  padding: 0 12px 20px; vertical-align: top; text-align: center; min-width: 180px;
-}
+
+/* Container */
+.comparer-body { border: 1px solid #E0E0E0; border-radius: 12px; overflow: hidden; background: #fff; }
+
+/* Cars header row */
+.comparer-cars-row { display: flex; border-bottom: 2px solid #E0E0E0; }
+.comparer-label-spacer { width: 170px; flex-shrink: 0; }
+.comparer-car-card { flex: 1; padding: 20px 16px; text-align: center; border-left: 1px solid #E0E0E0; }
 .comparer-car-photo-wrap {
-  position: relative; width: 100%; height: 140px;
-  border-radius: 10px; overflow: hidden; background: #f5f5f5;
-  margin-bottom: 12px;
+  position: relative; width: 100%; height: 150px;
+  border-radius: 8px; overflow: hidden; background: #f5f5f5; margin-bottom: 12px;
 }
 .comparer-car-name-link { text-decoration: none; display: block; margin-bottom: 6px; }
 .comparer-car-brand { font-size: 11px; font-weight: 700; letter-spacing: .08em; color: #A01414; text-transform: uppercase; }
 .comparer-car-model { font-family: "Cormorant Garamond", serif; font-size: 20px; font-weight: 600; color: #0D0D0D; line-height: 1.2; }
-.comparer-car-price { font-size: 15px; font-weight: 700; color: #0D0D0D; margin-bottom: 10px; }
+.comparer-car-price { font-size: 15px; font-weight: 700; color: #0D0D0D; margin: 8px 0 12px; }
 .comparer-car-price span { font-size: 11px; font-weight: 400; color: #777; }
 .comparer-wa-btn {
   display: inline-block; background: #A01414; color: #fff;
-  font-size: 12px; font-weight: 600; padding: 7px 14px; border-radius: 5px;
+  font-size: 12px; font-weight: 600; padding: 7px 16px; border-radius: 5px;
   text-decoration: none; font-family: "DM Sans", sans-serif; transition: background .15s;
 }
 .comparer-wa-btn:hover { background: #8a1010; }
-.comparer-row td { padding: 10px 12px; font-size: 13px; border-top: 1px solid #F0F0F0; vertical-align: middle; }
-.comparer-row.even td { background: #FAFAFA; }
+
+/* Spec rows */
+.comparer-spec-row { display: flex; align-items: stretch; border-top: 1px solid #F0F0F0; }
+.comparer-spec-row.even { background: #FAFAFA; }
 .comparer-spec-label {
-  color: #777; font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
-  white-space: nowrap;
-  position: sticky; left: 0; background: #fff; z-index: 1;
+  width: 170px; flex-shrink: 0;
+  padding: 12px 16px;
+  color: #888; font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: .06em;
+  display: flex; align-items: center;
 }
-.comparer-row.even .comparer-spec-label { background: #FAFAFA; }
-.comparer-spec-val { text-align: center; color: #0D0D0D; font-weight: 400; }
-.comparer-spec-val.highlight { font-weight: 600; color: #0D0D0D; }
+.comparer-spec-vals { flex: 1; display: flex; }
+.comparer-spec-val {
+  flex: 1; padding: 12px 14px;
+  font-size: 13px; text-align: center; color: #0D0D0D; font-weight: 400;
+  border-left: 1px solid #F0F0F0;
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1.4;
+}
+.comparer-spec-val.highlight { font-weight: 700; }
 
 /* ─── Nouveautés section ─── */
 .nouveautes-section { background: #F7F7F7; padding: 64px 0; }
@@ -3940,13 +3947,27 @@ html, body { overflow-x:clip; max-width:100%; }
   .nouveautes-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .catalogue-bottom-controls { flex-direction: column; }
   .compare-bar-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .comparer-th-label { width: 80px; min-width: 60px; }
-  .comparer-th-car { min-width: 140px; padding: 0 8px 16px; }
-  .comparer-spec-label { font-size: 10px; padding: 8px 6px; }
-  .comparer-spec-val { font-size: 12px; padding: 8px 6px; }
-  .comparer-car-photo-wrap { height: 110px; }
-  .comparer-car-model { font-size: 16px; }
-  .comparer-car-price { font-size: 13px; }
+  /* Comparateur mobile */
   .comparer-page { padding: 80px 0 40px; }
-  .comparer-inner { padding: 0 12px; }
+  .comparer-inner { padding: 0; }
+  .comparer-header { padding: 0 16px; margin-bottom: 20px; }
+  .comparer-body { border-radius: 0; border-left: none; border-right: none; }
+  .comparer-label-spacer { display: none; }
+  .comparer-cars-row { }
+  .comparer-car-card { padding: 14px 10px; }
+  .comparer-car-photo-wrap { height: 110px; }
+  .comparer-car-brand { font-size: 10px; }
+  .comparer-car-model { font-size: 15px; }
+  .comparer-car-price { font-size: 12px; margin: 6px 0 10px; }
+  .comparer-wa-btn { font-size: 11px; padding: 6px 10px; }
+  /* Spec rows: label full-width above, values side by side */
+  .comparer-spec-row { flex-direction: column; background: #fff; }
+  .comparer-spec-row.even { background: #fff; }
+  .comparer-spec-label {
+    width: 100%; padding: 5px 14px;
+    background: #F2F2F2; border-bottom: 1px solid #E8E8E8;
+    font-size: 9px;
+  }
+  .comparer-spec-vals { border-top: none; }
+  .comparer-spec-val { padding: 10px 8px; font-size: 12px; min-height: 44px; }
 }

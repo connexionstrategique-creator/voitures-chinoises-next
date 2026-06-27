@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Nav from "@/components/Nav";
@@ -79,16 +78,13 @@ export default async function ComparerPage({
     );
   }
 
-  // Collect all spec keys that appear in at least one car
   const allKeys = Array.from(
     new Set(
       cars.flatMap(c => Object.keys(c.specs || {}))
         .filter(k => Object.keys(SPEC_LABELS).includes(k))
     )
   );
-  // Sort by SPEC_LABELS order
   const orderedKeys = Object.keys(SPEC_LABELS).filter(k => allKeys.includes(k));
-
   const cols = cars.length;
 
   return (
@@ -101,69 +97,67 @@ export default async function ComparerPage({
             <h1 className="comparer-title">Comparaison</h1>
           </div>
 
-          <div className="comparer-table-wrap">
-            <table className="comparer-table" style={{ "--cols": cols } as React.CSSProperties}>
-              {/* Car header row */}
-              <thead>
-                <tr>
-                  <th className="comparer-th-label" />
-                  {cars.map(car => {
-                    const photo = car.photos?.[0]?.src;
-                    const slug = carSlug(car.brand, car.model);
-                    const waMsg = encodeURIComponent(`Bonjour, je suis intéressé par la ${car.brand} ${car.model}. Pouvez-vous me donner plus d'informations ?`);
-                    return (
-                      <th key={car.id} className="comparer-th-car">
-                        <div className="comparer-car-photo-wrap">
-                          {photo ? (
-                            <Image
-                              src={photo}
-                              alt={`${car.brand} ${car.model}`}
-                              fill
-                              style={{ objectFit: "cover" }}
-                              sizes="220px"
-                            />
-                          ) : (
-                            <div style={{ width: "100%", height: "100%", background: "#f0f0f0" }} />
-                          )}
-                        </div>
-                        <Link href={`/voitures/${slug}`} className="comparer-car-name-link">
-                          <div className="comparer-car-brand">{car.brand}</div>
-                          <div className="comparer-car-model">{car.model}</div>
-                        </Link>
-                        <div className="comparer-car-price">{car.price} <span>FCFA</span></div>
-                        <a
-                          href={`https://wa.me/${WA}?text=${waMsg}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="comparer-wa-btn"
-                        >Commander</a>
-                      </th>
-                    );
-                  })}
-                </tr>
-              </thead>
+          <div className="comparer-body" style={{ "--cols": cols } as React.CSSProperties}>
 
-              {/* Specs body */}
-              <tbody>
-                {orderedKeys.map((key, i) => {
-                  const values = cars.map(c => c.specs?.[key] ?? "—");
-                  const allSame = values.every(v => v === values[0]);
-                  return (
-                    <tr key={key} className={`comparer-row${i % 2 === 0 ? " even" : ""}`}>
-                      <td className="comparer-spec-label">{SPEC_LABELS[key]}</td>
-                      {values.map((val, j) => (
-                        <td
-                          key={j}
-                          className={`comparer-spec-val${!allSame && val !== "—" ? " highlight" : ""}`}
-                        >
-                          {val}
-                        </td>
-                      ))}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            {/* Car header cards */}
+            <div className="comparer-cars-row">
+              <div className="comparer-label-spacer" />
+              {cars.map(car => {
+                const photo = car.photos?.[0]?.src;
+                const slug = carSlug(car.brand, car.model);
+                const waMsg = encodeURIComponent(`Bonjour, je suis intéressé par la ${car.brand} ${car.model}. Pouvez-vous me donner plus d'informations ?`);
+                return (
+                  <div key={car.id} className="comparer-car-card">
+                    <div className="comparer-car-photo-wrap">
+                      {photo ? (
+                        <Image
+                          src={photo}
+                          alt={`${car.brand} ${car.model}`}
+                          fill
+                          style={{ objectFit: "cover" }}
+                          sizes="(max-width: 600px) 45vw, 220px"
+                        />
+                      ) : (
+                        <div style={{ width: "100%", height: "100%", background: "#f0f0f0" }} />
+                      )}
+                    </div>
+                    <Link href={`/voitures/${slug}`} className="comparer-car-name-link">
+                      <div className="comparer-car-brand">{car.brand}</div>
+                      <div className="comparer-car-model">{car.model}</div>
+                    </Link>
+                    <div className="comparer-car-price">{car.price} <span>FCFA</span></div>
+                    <a
+                      href={`https://wa.me/${WA}?text=${waMsg}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="comparer-wa-btn"
+                    >Commander</a>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Spec rows */}
+            {orderedKeys.map((key, i) => {
+              const values = cars.map(c => c.specs?.[key] ?? "—");
+              const allSame = values.every(v => v === values[0]);
+              return (
+                <div key={key} className={`comparer-spec-row${i % 2 === 0 ? " even" : ""}`}>
+                  <div className="comparer-spec-label">{SPEC_LABELS[key]}</div>
+                  <div className="comparer-spec-vals">
+                    {values.map((val, j) => (
+                      <div
+                        key={j}
+                        className={`comparer-spec-val${!allSame && val !== "—" ? " highlight" : ""}`}
+                      >
+                        {val}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+
           </div>
         </div>
       </main>
