@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   },
 };
 
+const SUPABASE_URL = "https://eckphabqkleahrujkcfu.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVja3BoYWJxa2xlYWhydWprY2Z1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxODgwMTUsImV4cCI6MjA5MTc2NDAxNX0.kj19EuQe29b9F0z4x84yoEfKp5xJBU7ng2917wQAx0g";
+
 const CAT_LABELS: Record<string, string> = {
   actualites: "Actualités",
   guides: "Guides d'achat",
@@ -28,6 +31,15 @@ const CAT_LABELS: Record<string, string> = {
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+}
+
+function EyeIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+      <circle cx="12" cy="12" r="3"/>
+    </svg>
+  );
 }
 
 const PAGE_SIZE = 6;
@@ -43,6 +55,22 @@ export default async function BlogPage({
   const allPosts = await getPosts().catch(() => []);
   const totalPages = Math.ceil(allPosts.length / PAGE_SIZE);
   const safePage = Math.min(currentPage, Math.max(1, totalPages));
+
+  // Fetch all view counts from Supabase in one request
+  let viewsMap: Record<string, number> = {};
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/post_views?select=slug,count`,
+      {
+        headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` },
+        next: { revalidate: 60 },
+      }
+    );
+    const data = await res.json();
+    if (Array.isArray(data)) {
+      data.forEach((r: { slug: string; count: number }) => { viewsMap[r.slug] = r.count || 0; });
+    }
+  } catch {}
 
   let featured = null;
   let gridPosts: typeof allPosts = [];
@@ -124,6 +152,12 @@ export default async function BlogPage({
                     <div className="blog-meta">
                       <span className="blog-date">
                         {featured.publishedAt ? formatDate(featured.publishedAt) : ""}
+                        {(viewsMap[featured.slug] ?? 0) > 0 && (
+                          <span className="blog-views" style={{ marginLeft: 10 }}>
+                            <EyeIcon />
+                            {(viewsMap[featured.slug]).toLocaleString("fr-FR")} vues
+                          </span>
+                        )}
                       </span>
                       <span className="blog-read-link">Lire l&apos;article →</span>
                     </div>
@@ -134,38 +168,44 @@ export default async function BlogPage({
               {/* Grille */}
               {gridPosts.length > 0 && (
                 <div className="blog-grid">
-                  {gridPosts.map((post) => (
-                    <Link key={post._id} href={`/blog/${post.slug}`} className="blog-card-link">
-                      <article className="blog-card">
-                        <div className="blog-card-img-wrap">
-                          {post.imageUrl ? (
-                            <Image
-                              src={post.imageUrl}
-                              alt={post.imageAlt || post.title}
-                              fill
-                              className="blog-card-img"
-                              sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw"
-                              style={{ objectFit: "cover" }}
-                            />
-                          ) : (
-                            <div className="blog-img-placeholder" />
-                          )}
-                        </div>
-                        <div className="blog-card-body">
-                          <span className="blog-cat-label">
-                            {CAT_LABELS[post.category] || post.category}
-                          </span>
-                          <h3 className="blog-card-title">{post.title}</h3>
-                          <div className="blog-meta">
-                            <span className="blog-date">
-                              {post.publishedAt ? formatDate(post.publishedAt) : ""}
-                            </span>
-                            <span className="blog-read-link">Lire →</span>
+                  {gridPosts.map((post) => {
+                    const views = viewsMap[post.slug] ?? 0;
+                    return (
+                      <Link key={post._id} href={`/blog/${post.slug}`} className="blog-card-link">
+                        <article className="blog-card">
+                          <div className="blog-card-img-wrap">
+                            {post.imageUrl ? (
+                              <Image
+                                src={post.imageUrl}
+                                alt={post.imageAlt || post.title}
+                                fill
+                                className="blog-card-img"
+                                sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw"
+                                style={{ objectFit: "cover" }}
+                              />
+                            ) : (
+                              <div className="blog-img-placeholder" />
+                            )}
                           </div>
-                        </div>
-                      </article>
-                    </Link>
-                  ))}
+                          <div className="blog-card-body">
+                            <span className="blog-cat-label">
+                              {CAT_LABELS[post.category] || post.category}
+                            </span>
+                            <h3 className="blog-card-title">{post.title}</h3>
+                            <div className="blog-meta">
+                              <span className="blog-date">
+                                {post.publishedAt ? formatDate(post.publishedAt) : ""}
+                              </span>
+                              <span className="blog-views">
+                                <EyeIcon />
+                                {views > 0 ? `${views.toLocaleString("fr-FR")} vues` : "0 vue"}
+                              </span>
+                            </div>
+                          </div>
+                        </article>
+                      </Link>
+                    );
+                  })}
                 </div>
               )}
 
