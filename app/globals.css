@@ -1069,8 +1069,8 @@ html, body { overflow-x:clip; max-width:100%; }
     .viewer-is-interior .viewer-mask-left,
     .viewer-is-interior .viewer-mask-bl,
     .viewer-is-interior .viewer-mask-right { display: none; }
-    /* Interior top mask: just enough to hide the AutoHome title bar */
-    .viewer-is-interior .viewer-mask-top { height: 8% !important; }
+    /* Interior top mask: remove completely, watermark less intrusive than black bar */
+    .viewer-is-interior .viewer-mask-top { height: 0 !important; }
   }
 
   /* ── Footer map ────────────────────────────────────────────────── */
