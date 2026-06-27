@@ -1,0 +1,38 @@
+name: SEO Quotidien — Voitures Chinoises
+
+on:
+  schedule:
+    # 6h UTC = 7h Bénin / Togo / Côte d'Ivoire (GMT+1)
+    - cron: '0 6 * * *'
+  # Lancement manuel possible depuis GitHub Actions
+  workflow_dispatch:
+
+jobs:
+  seo:
+    name: Routine SEO du jour
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Lancer la routine SEO
+        run: node scripts/seo-daily.mjs
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SANITY_TOKEN: ${{ secrets.SANITY_TOKEN }}
+          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+
+      - name: Résumé du run
+        if: always()
+        run: echo "Routine SEO terminée — $(date)"
