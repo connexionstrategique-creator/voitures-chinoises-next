@@ -165,7 +165,15 @@ function buildEmotionalReasons(
 }
 
 export async function generateStaticParams() {
-  return CARS.map((c) => ({ slug: carSlug(c.brand, c.model) }));
+  const staticSlugs = CARS.map((c) => carSlug(c.brand, c.model));
+  try {
+    const sanityCars = await getCars();
+    const allSlugs = new Set(staticSlugs);
+    sanityCars.forEach((c) => allSlugs.add(carSlug(c.brand, c.model)));
+    return Array.from(allSlugs).map((slug) => ({ slug }));
+  } catch {
+    return staticSlugs.map((slug) => ({ slug }));
+  }
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
