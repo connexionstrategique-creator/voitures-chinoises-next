@@ -44,14 +44,13 @@ export default async function BlogPage({
   const totalPages = Math.ceil(allPosts.length / PAGE_SIZE);
   const safePage = Math.min(currentPage, Math.max(1, totalPages));
 
-  // Page 1 : featured (1st) + 5 others. Pages suivantes : 6 articles.
   let featured = null;
-  let gridPosts = [];
+  let gridPosts: typeof allPosts = [];
 
   if (safePage === 1) {
     const [first, ...rest] = allPosts;
     featured = first ?? null;
-    gridPosts = rest.slice(0, PAGE_SIZE); // 6 articles en grille
+    gridPosts = rest.slice(0, PAGE_SIZE);
   } else {
     const offset = (safePage - 1) * PAGE_SIZE;
     gridPosts = allPosts.slice(offset, offset + PAGE_SIZE);
@@ -77,131 +76,92 @@ export default async function BlogPage({
 
       {/* Hero */}
       <section className="blog-page-hero">
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ fontSize: 11, letterSpacing: "0.22em", color: "rgba(255,255,255,0.4)", marginBottom: 16, textTransform: "uppercase" }}>
-            Voitures Chinoises · Blog
-          </div>
-          <h1 style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(36px,5vw,64px)", fontWeight: 300, lineHeight: 1.1, marginBottom: 16 }}>
+        <div className="blog-page-hero-inner">
+          <div className="blog-page-hero-eyebrow">Voitures Chinoises · Blog</div>
+          <h1 className="blog-page-hero-title">
             Actualités &amp; guides<br />
-            <em style={{ color: "#A01414", fontStyle: "italic" }}>sur l&apos;automobile chinoise.</em>
+            <em className="blog-page-hero-em">sur l&apos;automobile chinoise.</em>
           </h1>
-          <p style={{ fontFamily: "DM Sans, sans-serif", fontSize: 15, color: "rgba(255,255,255,0.5)", maxWidth: 520 }}>
+          <p className="blog-page-hero-sub">
             Conseils d&apos;achat, nouveaux modèles, analyses du marché — tout ce qu&apos;il faut savoir avant d&apos;importer votre véhicule en Afrique.
           </p>
         </div>
       </section>
 
-      <main style={{ background: "#F5F5F5", minHeight: "60vh" }}>
+      <main className="blog-main">
         <div className="blog-page-inner">
 
           {allPosts.length === 0 ? (
-            <div style={{ textAlign: "center", padding: "80px 0", color: "#888", fontFamily: "DM Sans, sans-serif" }}>
-              <p style={{ fontSize: 16 }}>Les articles arrivent bientôt.</p>
-            </div>
+            <div className="blog-empty">Les articles arrivent bientôt.</div>
           ) : (
             <>
-              {/* Featured — page 1 uniquement */}
+              {/* Article vedette */}
               {safePage === 1 && featured && (
-                <Link href={`/blog/${featured.slug}`} style={{ textDecoration: "none", display: "block", marginBottom: 32 }}>
-                  <article
-                    className="blog-gallery-hero"
-                    style={{ position: "relative", height: 360, borderRadius: 16, overflow: "hidden", background: "#111" }}
-                  >
-                    {featured.imageUrl && (
+                <Link href={`/blog/${featured.slug}`} className="blog-featured">
+                  <div className="blog-featured-img-wrap">
+                    {featured.imageUrl ? (
                       <Image
                         src={featured.imageUrl}
                         alt={featured.imageAlt || featured.title}
                         fill
                         priority
-                        sizes="(max-width: 768px) 100vw, 1200px"
-                        className="blog-gallery-hero-img"
+                        className="blog-featured-img"
+                        sizes="(max-width: 768px) 100vw, 55vw"
+                        style={{ objectFit: "cover" }}
                       />
+                    ) : (
+                      <div className="blog-img-placeholder" />
                     )}
-                    <div style={{
-                      position: "absolute", inset: 0,
-                      background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.05) 100%)",
-                    }} />
-                    <div className="blog-hero-overlay-text">
-                      <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 16 }}>
-                        <span style={{
-                          background: "#A01414", color: "#fff",
-                          fontFamily: "DM Sans, sans-serif", fontSize: 10, fontWeight: 700,
-                          letterSpacing: "0.18em", textTransform: "uppercase",
-                          padding: "5px 12px", borderRadius: 2,
-                        }}>
-                          {CAT_LABELS[featured.category] || featured.category}
-                        </span>
-                        <span style={{ fontFamily: "DM Sans, sans-serif", fontSize: 11, color: "rgba(255,255,255,0.45)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                          À la une
-                        </span>
-                      </div>
-                      <h2 style={{
-                        fontFamily: "Syne, sans-serif",
-                        fontSize: "clamp(24px,3vw,44px)",
-                        fontWeight: 700, lineHeight: 1.15, color: "#fff",
-                        marginBottom: 12, maxWidth: 700,
-                      }}>
-                        {featured.title}
-                      </h2>
-                      {featured.excerpt && (
-                        <p style={{ fontFamily: "DM Sans, sans-serif", fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.65, maxWidth: 560, marginBottom: 20 }}>
-                          {featured.excerpt}
-                        </p>
-                      )}
-                      <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-                        <span style={{ fontFamily: "DM Sans, sans-serif", fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
-                          {featured.publishedAt ? formatDate(featured.publishedAt) : ""}
-                        </span>
-                        <span style={{ fontFamily: "DM Sans, sans-serif", fontSize: 13, fontWeight: 700, color: "#fff", letterSpacing: "0.06em" }}>
-                          Lire l&apos;article →
-                        </span>
-                      </div>
+                  </div>
+                  <div className="blog-featured-body">
+                    <span className="blog-cat-label">
+                      À la une · {CAT_LABELS[featured.category] || featured.category}
+                    </span>
+                    <h2 className="blog-featured-title">{featured.title}</h2>
+                    {featured.excerpt && (
+                      <p className="blog-featured-excerpt">{featured.excerpt}</p>
+                    )}
+                    <div className="blog-meta">
+                      <span className="blog-date">
+                        {featured.publishedAt ? formatDate(featured.publishedAt) : ""}
+                      </span>
+                      <span className="blog-read-link">Lire l&apos;article →</span>
                     </div>
-                  </article>
+                  </div>
                 </Link>
               )}
 
-              {/* Grille galerie */}
+              {/* Grille */}
               {gridPosts.length > 0 && (
-                <div className="blog-gallery-grid">
+                <div className="blog-grid">
                   {gridPosts.map((post) => (
-                    <Link key={post._id} href={`/blog/${post.slug}`} style={{ textDecoration: "none", display: "block" }}>
-                      <article className="blog-gallery-card">
-                        <div className="blog-gallery-card-img">
+                    <Link key={post._id} href={`/blog/${post.slug}`} className="blog-card-link">
+                      <article className="blog-card">
+                        <div className="blog-card-img-wrap">
                           {post.imageUrl ? (
                             <Image
                               src={post.imageUrl}
                               alt={post.imageAlt || post.title}
                               fill
-                              style={{ objectFit: "cover", transition: "transform .5s ease" }}
-                              className="blog-gallery-card-photo"
+                              className="blog-card-img"
+                              sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw"
+                              style={{ objectFit: "cover" }}
                             />
                           ) : (
-                            <div style={{ background: "#111", width: "100%", height: "100%" }} />
+                            <div className="blog-img-placeholder" />
                           )}
-                          <div className="blog-gallery-card-overlay" />
-                          <span style={{
-                            position: "absolute", top: 14, left: 14, zIndex: 2,
-                            background: "#A01414", color: "#fff",
-                            fontFamily: "DM Sans, sans-serif", fontSize: 9, fontWeight: 700,
-                            letterSpacing: "0.18em", textTransform: "uppercase",
-                            padding: "4px 10px", borderRadius: 2,
-                          }}>
+                        </div>
+                        <div className="blog-card-body">
+                          <span className="blog-cat-label">
                             {CAT_LABELS[post.category] || post.category}
                           </span>
-                          <div className="blog-gallery-cta">Lire l&apos;article →</div>
-                        </div>
-                        <div style={{ padding: "20px 4px 0" }}>
-                          <div style={{ fontFamily: "DM Sans, sans-serif", fontSize: 10, color: "#aaa", letterSpacing: "0.06em", marginBottom: 8, textTransform: "uppercase" }}>
-                            {post.publishedAt ? formatDate(post.publishedAt) : ""}
+                          <h3 className="blog-card-title">{post.title}</h3>
+                          <div className="blog-meta">
+                            <span className="blog-date">
+                              {post.publishedAt ? formatDate(post.publishedAt) : ""}
+                            </span>
+                            <span className="blog-read-link">Lire →</span>
                           </div>
-                          <h3 style={{
-                            fontFamily: "Syne, sans-serif",
-                            fontSize: "clamp(18px,1.8vw,22px)",
-                            fontWeight: 700, lineHeight: 1.25, color: "#0D0D0D",
-                          }}>
-                            {post.title}
-                          </h3>
                         </div>
                       </article>
                     </Link>
@@ -211,82 +171,39 @@ export default async function BlogPage({
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="blog-pagination" style={{
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  gap: 8, marginTop: 56,
-                }}>
-                  {/* Précédent */}
+                <div className="blog-pagination">
                   {safePage > 1 ? (
-                    <Link
-                      href={safePage === 2 ? "/blog" : `/blog?page=${safePage - 1}`}
-                      style={{
-                        fontFamily: "DM Sans, sans-serif", fontSize: 13, fontWeight: 600,
-                        color: "#0D0D0D", textDecoration: "none",
-                        padding: "10px 20px", border: "1px solid #E0E0E0",
-                        borderRadius: 4, background: "#fff",
-                        transition: "all .2s",
-                      }}
-                      className="blog-page-btn"
-                    >
+                    <Link href={safePage === 2 ? "/blog" : `/blog?page=${safePage - 1}`} className="blog-pag-btn">
                       ← Précédent
                     </Link>
                   ) : (
-                    <span style={{
-                      fontFamily: "DM Sans, sans-serif", fontSize: 13, fontWeight: 600,
-                      color: "#ccc", padding: "10px 20px",
-                      border: "1px solid #F0F0F0", borderRadius: 4, background: "#fafafa",
-                    }}>
-                      ← Précédent
-                    </span>
+                    <span className="blog-pag-btn disabled">← Précédent</span>
                   )}
 
-                  {/* Pages numérotées */}
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-                    <Link
-                      key={p}
-                      href={p === 1 ? "/blog" : `/blog?page=${p}`}
-                      style={{
-                        fontFamily: "DM Sans, sans-serif", fontSize: 13, fontWeight: p === safePage ? 700 : 500,
-                        color: p === safePage ? "#fff" : "#555",
-                        textDecoration: "none",
-                        padding: "10px 16px", borderRadius: 4,
-                        background: p === safePage ? "#A01414" : "#fff",
-                        border: p === safePage ? "1px solid #A01414" : "1px solid #E0E0E0",
-                        minWidth: 40, textAlign: "center",
-                        transition: "all .2s",
-                      }}
-                    >
-                      {p}
-                    </Link>
-                  ))}
+                  <div className="blog-pag-pages">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                      <Link
+                        key={p}
+                        href={p === 1 ? "/blog" : `/blog?page=${p}`}
+                        className={`blog-pag-num${p === safePage ? " active" : ""}`}
+                      >
+                        {p}
+                      </Link>
+                    ))}
+                  </div>
 
-                  {/* Suivant */}
                   {safePage < totalPages ? (
-                    <Link
-                      href={`/blog?page=${safePage + 1}`}
-                      style={{
-                        fontFamily: "DM Sans, sans-serif", fontSize: 13, fontWeight: 600,
-                        color: "#fff", textDecoration: "none",
-                        padding: "10px 20px", borderRadius: 4,
-                        background: "#A01414", border: "1px solid #A01414",
-                        transition: "all .2s",
-                      }}
-                    >
+                    <Link href={`/blog?page=${safePage + 1}`} className="blog-pag-btn primary">
                       Suivant →
                     </Link>
                   ) : (
-                    <span style={{
-                      fontFamily: "DM Sans, sans-serif", fontSize: 13, fontWeight: 600,
-                      color: "#ccc", padding: "10px 20px",
-                      border: "1px solid #F0F0F0", borderRadius: 4, background: "#fafafa",
-                    }}>
-                      Suivant →
-                    </span>
+                    <span className="blog-pag-btn disabled">Suivant →</span>
                   )}
                 </div>
               )}
             </>
           )}
+
         </div>
       </main>
 
