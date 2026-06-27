@@ -2,11 +2,38 @@ import { sanityClient } from "./client";
 import type { Car, Brand, CarColorGroup } from "@/data/types";
 import { carSlug as makeCarSlug, brandSlug as makeBrandSlug } from "@/lib/slug";
 
+const SNAKE_SPEC_KEYS: Record<string, string> = {
+  carburant:         "Motorisation",
+  moteur:            "Moteur",
+  moteur_avant:      "Moteur avant",
+  moteur_arriere:    "Moteur arrière",
+  puissance_systeme: "Puissance système",
+  places:            "Places",
+  dimensions:        "Dimensions",
+  empattement:       "Empattement",
+  garde_au_sol:      "Garde au sol",
+  pneus:             "Pneus",
+  reservoir:         "Réservoir",
+  batterie:          "Batterie",
+  autonomie_elec:    "Autonomie élec.",
+  autonomie_totale:  "Autonomie totale",
+  zero_cent:         "0-100 km/h",
+  ecrans:            "Écrans",
+  suspension:        "Suspension",
+  remorquage:        "Remorquage",
+  offroad:           "Off-road",
+  audio:             "Audio",
+};
+
 function transformCar(raw: any): Car {
   const specsRecord: Record<string, string> = {};
   if (Array.isArray(raw.specs)) {
     raw.specs.forEach((s: any) => {
       if (s.key && s.value) specsRecord[s.key] = s.value;
+    });
+  } else if (raw.specs && typeof raw.specs === "object") {
+    Object.entries(raw.specs).forEach(([k, v]) => {
+      if (typeof v === "string") specsRecord[SNAKE_SPEC_KEYS[k] ?? k] = v;
     });
   }
   return {
@@ -121,7 +148,7 @@ export async function getNewestCars(n = 5): Promise<Car[]> {
     { n },
     { next: { revalidate: 60 } }
   );
-  return (raw || []).map(transformCar).filter(c => c.photos.length > 0 || (c.colorGroups ?? []).some(g => g.photos?.length > 0));
+  return ((raw || []).map(transformCar) as Car[]).filter(c => (c.photos?.length ?? 0) > 0 || (c.colorGroups ?? []).some(g => g.photos?.length > 0));
 }
 
 export async function getCarBySlug(slug: string): Promise<Car | null> {
