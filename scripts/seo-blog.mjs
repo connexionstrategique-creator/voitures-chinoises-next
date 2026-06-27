@@ -234,35 +234,61 @@ async function publishArticle(article, imageRefs) {
   return created
 }
 
+
+// ─── Sauvegarder JSON localement ─────────────────────────────────────────────
+async function saveArticleJson(article) {
+  const fs = await import('fs')
+  const date = new Date().toISOString().slice(0, 10)
+  const path = `seo-logs/article-${date}.json`
+  fs.default.mkdirSync('seo-logs', { recursive: true })
+  fs.default.writeFileSync(path, JSON.stringify(article, null, 2))
+  return path
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export async function runBlog() {
   console.log('\n📝 TÂCHE : Génération article de blog SEO')
   console.log(`   ${new Date().toISOString()}`)
 
-  const { titles } = await getPublished()
-  console.log(`   Articles existants : ${titles.length}`)
+  let titles = []
+  try {
+    const { titles: t } = await getPublished()
+    titles = t
+    console.log(`   Articles existants : ${titles.length}`)
+  } catch (e) {
+    console.warn(`   ⚠️ Lecture articles existants échouée (proxy) : ${e.message}`)
+  }
 
   const article = await generateArticle(titles)
   console.log(`   Article généré : "${article.title}"`)
   console.log(`   seoTitle (${article.seoTitle?.length} chars) : ${article.seoTitle}`)
   console.log(`   seoDesc (${article.seoDescription?.length} chars) : ${article.seoDescription}`)
 
-  // Upload images
-  const allIds = new Set()
-  if (article.mainPexelsId) allIds.add(article.mainPexelsId)
-  for (const s of article.sections || []) {
-    if (s.type === 'image' && s.pexelsId) allIds.add(s.pexelsId)
-  }
-  const imageRefs = {}
-  for (const id of allIds) {
-    imageRefs[id] = await uploadPexels(id)
-  }
+  const jsonPath = await saveArticleJson(article)
+  console.log(`   JSON sauvegardé : ${jsonPath}`)
 
-  const published = await publishArticle(article, imageRefs)
-
-  if (published && VERCEL_DEPLOY_HOOK) {
-    await fetch(VERCEL_DEPLOY_HOOK, { method: 'POST' })
-    console.log('   🚀 Vercel redéploiement déclenché')
+  // Tenter la publication directe (peut être bloquée par proxy)
+  let published = null
+  try {
+    const allIds = new Set()
+    if (article.mainPexelsId) allIds.add(article.mainPexelsId)
+    for (const s of article.sections || []) {
+      if (s.type === 'image' && s.pexelsId) allIds.add(s.pexelsId)
+    }
+    const imageRefs = {}
+    for (const id of allIds) imageRefs[id] = await uploadPexels(id)
+    published = await publishArticle(article, imageRefs)
+    if (published && VERCEL_DEPLOY_HOOK) {
+      await fetch(VERCEL_DEPLOY_HOOK, { method: 'POST' })
+      console.log('   🚀 Vercel redéploiement déclenché')
+    }
+  } catch (e) {
+    console.warn(`   ⚠️ Publication Sanity directe échouée : ${e.message}`)
+    console.log(`\n[SANITY_MCP_REQUIRED]`)
+    console.log(`ACTION: Utilise le connecteur MCP Sanity (outil "Create document(s)") pour créer ce post.`)
+    console.log(`FILE: ${jsonPath}`)
+    console.log(`SLUG: ${article.slug}`)
+    console.log(`[/SANITY_MCP_REQUIRED]`)
   }
 
   return published ? 1 : 0
