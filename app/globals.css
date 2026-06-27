@@ -998,7 +998,7 @@ html, body { overflow-x:clip; max-width:100%; }
   /* ── Car detail sticky layout ─────────────────────────────────── */
   .car-detail-layout {
     display: grid;
-    grid-template-columns: 48% 52%;
+    grid-template-columns: 54% 46%;
     align-items: start;
     min-height: calc(100vh - 68px);
   }
