@@ -109,6 +109,20 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   };
 }
 
+export async function getNewestCars(n = 5): Promise<Car[]> {
+  const raw = await sanityClient.fetch(
+    `*[_type == "car"] | order(_createdAt desc) [0...$n] {
+      _id, brand, model, year, cat, badge, badgeText, featured,
+      price, color, colors,
+      "photos": photos[]{ "asset": asset->{ "url": url + "?auto=format&w=800&q=78" } },
+      specs, mini_v1, mini_k1, mini_v2, mini_k2, mini_v3, mini_k3
+    }`,
+    { n },
+    { next: { revalidate: 60 } }
+  );
+  return (raw || []).map(transformCar);
+}
+
 export async function getCarBySlug(slug: string): Promise<Car | null> {
   const cars = await getCars();
   return cars.find((c) => makeCarSlug(c.brand, c.model) === slug) ?? null;

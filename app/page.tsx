@@ -3,20 +3,24 @@ import Hero from "@/components/Hero";
 import FeaturedCarousel from "@/components/FeaturedCarousel";
 import BrandMarquee from "@/components/BrandMarquee";
 import Catalogue from "@/components/Catalogue";
+import Nouveautes from "@/components/Nouveautes";
 import Footer from "@/components/Footer";
 import SchemaOrg from "@/components/SchemaOrg";
+import { Suspense } from "react";
 import { CARS } from "@/data/cars";
-import { getCars, getSiteSettings } from "@/sanity/queries";
+import { getCars, getSiteSettings, getNewestCars } from "@/sanity/queries";
 
 export const revalidate = 10;
 
 export default async function Home() {
   let cars = CARS;
+  let newest: typeof CARS = [];
   let settings;
 
   try {
-    const [sanityCars, s] = await Promise.all([getCars(), getSiteSettings()]);
+    const [sanityCars, newestCars, s] = await Promise.all([getCars(), getNewestCars(5), getSiteSettings()]);
     if (sanityCars && sanityCars.length > 0) cars = sanityCars;
+    newest = newestCars;
     settings = s;
   } catch {}
 
@@ -35,7 +39,10 @@ export default async function Home() {
       {cars.length > 0 && (
         <FeaturedCarousel cars={cars} waNumber={settings?.whatsappNumber} />
       )}
-      <Catalogue cars={cars} />
+      {newest.length > 0 && <Nouveautes cars={newest} />}
+      <Suspense>
+        <Catalogue cars={cars} />
+      </Suspense>
       <Footer
         waNumber={settings?.whatsappNumber}
         phoneDisplay={settings?.phoneDisplay}

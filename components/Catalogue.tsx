@@ -190,20 +190,39 @@ function CarModal({ car, onClose }: { car: Car; onClose: () => void }) {
 export default function Catalogue({ cars }: { cars: Car[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [activeFilter, setActiveFilter] = useState("all");
-  const [activeBudget, setActiveBudget] = useState("all");
-  const [activeColor, setActiveColor] = useState("all");
+  const [activeFilter, setActiveFilter] = useState(() => searchParams.get("f") ?? "all");
+  const [activeBudget, setActiveBudget] = useState(() => searchParams.get("b") ?? "all");
+  const [activeColor, setActiveColor] = useState(() => searchParams.get("c") ?? "all");
+  const [sort, setSort] = useState(() => searchParams.get("s") ?? "default");
   const [search, setSearch] = useState(() => (searchParams.get("q") ?? "").toLowerCase().trim());
+  const [compareList, setCompareList] = useState<string[]>([]);
   const [page, setPage] = useState(1);
+  const PAGE_SIZE = 9;
+
+  const updateURL = useCallback((updates: Record<string, string>) => {
+    const params = new URLSearchParams(searchParams.toString());
+    Object.entries(updates).forEach(([k, v]) => {
+      if (v && v !== "all" && v !== "default") params.set(k, v); else params.delete(k);
+    });
+    router.replace(`/catalogue?${params.toString()}`, { scroll: false });
+  }, [router, searchParams]);
 
   const handleSearch = useCallback((val: string) => {
     const lower = val.toLowerCase().trim();
     setSearch(lower);
-    const params = new URLSearchParams(searchParams.toString());
-    if (lower) params.set("q", lower); else params.delete("q");
-    router.replace(`/catalogue?${params.toString()}`, { scroll: false });
-  }, [router, searchParams]);
-  const PAGE_SIZE = 9;
+    updateURL({ q: lower });
+  }, [updateURL]);
+
+  const handleFilter = (f: string) => { setActiveFilter(f); updateURL({ f }); };
+  const handleBudget = (b: string) => { setActiveBudget(b); updateURL({ b }); };
+  const handleColor = (c: string) => { setActiveColor(c); updateURL({ c }); };
+  const handleSort = (s: string) => { setSort(s); updateURL({ s }); };
+
+  const toggleCompare = useCallback((id: string) => {
+    setCompareList(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : prev.length < 3 ? [...prev, id] : prev
+    );
+  }, []);
 
   // Compute which base colors actually appear across all cars
   const availableColors = useMemo(() => {
@@ -216,7 +235,7 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
 
   const filtered = useMemo(() => {
     setPage(1);
-    return cars.filter((c) => {
+    let result = cars.filter((c) => {
       const catOk =
         activeFilter === "all" ||
         c.cat === activeFilter ||
@@ -227,7 +246,10 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
       const srchOk = !search || c.brand.toLowerCase().includes(search) || c.model.toLowerCase().includes(search);
       return catOk && budOk && colorOk && srchOk;
     });
-  }, [activeFilter, activeBudget, activeColor, search]);
+    if (sort === "price-asc") result = [...result].sort((a, b) => priceNum(a.price) - priceNum(b.price));
+    if (sort === "price-desc") result = [...result].sort((a, b) => priceNum(b.price) - priceNum(a.price));
+    return result;
+  }, [activeFilter, activeBudget, activeColor, search, sort, cars]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
@@ -245,7 +267,7 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                   <button
                     key={f}
                     className={`filter-btn${activeFilter === f ? " active" : ""}`}
-                    onClick={() => setActiveFilter(f)}
+                    onClick={() => handleFilter(f)}
                   >
                     {f === "all" ? "Tous" : f === "suv" ? "SUV" : f === "hybride" ? "Hybrides" : f === "5places" ? "5 Places" : "7 Places"}
                   </button>
@@ -281,11 +303,56 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                 <button
                   key={key}
                   className={`budget-btn${activeBudget === key ? " active" : ""}`}
-                  onClick={() => setActiveBudget(key)}
+                  onClick={() => handleBudget(key)}
                 >
                   {label}
                 </button>
               ))}
+            </div>
+          </div>
+
+          {/* Color + Sort row */}
+          <div className="catalogue-bottom-controls">
+            {/* Color filter */}
+            {availableColors.length > 0 && (
+              <div className="color-filter-wrap">
+                <span className="filter-label">Couleur</span>
+                <div className="color-filter-dots">
+                  <button
+                    className={`color-dot-btn${activeColor === "all" ? " active" : ""}`}
+                    onClick={() => handleColor("all")}
+                    title="Toutes"
+                  >
+                    <span style={{ fontSize: 11, fontFamily: "DM Sans,sans-serif", fontWeight: 600, color: activeColor === "all" ? "#fff" : "#555" }}>Tous</span>
+                  </button>
+                  {availableColors.map(col => (
+                    <button
+                      key={col.name}
+                      className={`color-dot-btn${activeColor === col.name ? " active" : ""}`}
+                      style={{ background: col.hex, border: `2px solid ${activeColor === col.name ? "#A01414" : col.border}` }}
+                      onClick={() => handleColor(col.name)}
+                      title={col.name}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+            {/* Sort */}
+            <div className="sort-wrap">
+              <span className="filter-label">Trier par</span>
+              <div className="sort-btns">
+                {[
+                  { key: "default", label: "Défaut" },
+                  { key: "price-asc", label: "Prix ↑" },
+                  { key: "price-desc", label: "Prix ↓" },
+                ].map(({ key, label }) => (
+                  <button
+                    key={key}
+                    className={`filter-btn${sort === key ? " active" : ""}`}
+                    onClick={() => handleSort(key)}
+                  >{label}</button>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -379,6 +446,13 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                         </svg>
                         Commander
                       </a>
+                      <button
+                        className={`compare-toggle-btn${compareList.includes(String(car.id)) ? " selected" : ""}${compareList.length >= 3 && !compareList.includes(String(car.id)) ? " disabled" : ""}`}
+                        onClick={(e) => { e.stopPropagation(); toggleCompare(String(car.id)); }}
+                        title={compareList.includes(String(car.id)) ? "Retirer de la comparaison" : "Ajouter à la comparaison"}
+                      >
+                        {compareList.includes(String(car.id)) ? "✓" : "+"}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -436,6 +510,47 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
         </div>
       </section>
 
+      {/* Compare bar */}
+      {compareList.length > 0 && (
+        <div className="compare-bar">
+          <div className="compare-bar-inner">
+            <div className="compare-bar-cars">
+              {compareList.map(id => {
+                const car = cars.find(c => String(c.id) === id);
+                if (!car) return null;
+                return (
+                  <div key={id} className="compare-bar-car">
+                    <span className="compare-bar-car-name">{car.brand} {car.model}</span>
+                    <button className="compare-bar-remove" onClick={() => toggleCompare(id)}>×</button>
+                  </div>
+                );
+              })}
+              {compareList.length < 3 && (
+                <div className="compare-bar-placeholder">
+                  + {3 - compareList.length} véhicule{3 - compareList.length > 1 ? "s" : ""} max
+                </div>
+              )}
+            </div>
+            <div className="compare-bar-actions">
+              {compareList.length >= 2 && (
+                <button
+                  className="compare-bar-cta"
+                  onClick={() => {
+                    const slugs = compareList.map(id => {
+                      const car = cars.find(c => String(c.id) === id);
+                      return car ? carSlug(car.brand, car.model) : id;
+                    }).join(",");
+                    router.push(`/comparer?v=${slugs}`);
+                  }}
+                >
+                  Comparer ({compareList.length})
+                </button>
+              )}
+              <button className="compare-bar-reset" onClick={() => setCompareList([])}>Annuler</button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

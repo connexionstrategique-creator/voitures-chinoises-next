@@ -3758,3 +3758,179 @@ html, body { overflow-x:clip; max-width:100%; }
   .search-result-model { font-size: 13px; }
   .search-esc-btn { display: none; }
 }
+
+/* ─── Catalogue bottom controls: colors + sort ─── */
+.catalogue-bottom-controls {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.color-filter-wrap { display: flex; flex-direction: column; gap: 8px; }
+.color-filter-dots { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.color-dot-btn {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid #ddd;
+  cursor: pointer; transition: border-color .15s, transform .15s;
+  display: flex; align-items: center; justify-content: center;
+  background: #f5f5f5;
+  padding: 0;
+}
+.color-dot-btn.active { border-color: #A01414 !important; transform: scale(1.15); }
+.sort-wrap { display: flex; flex-direction: column; gap: 8px; }
+.sort-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ─── Compare toggle button on card ─── */
+.compare-toggle-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1.5px solid #ddd;
+  background: #fff; color: #555;
+  font-size: 16px; font-weight: 700;
+  cursor: pointer; transition: all .15s;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.compare-toggle-btn:hover { border-color: #A01414; color: #A01414; }
+.compare-toggle-btn.selected { background: #A01414; border-color: #A01414; color: #fff; }
+.compare-toggle-btn.disabled { opacity: .35; cursor: not-allowed; }
+
+/* ─── Compare bar (sticky) ─── */
+.compare-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: #0D0D0D; color: #fff;
+  z-index: 900; padding: 14px 24px;
+  box-shadow: 0 -4px 20px rgba(0,0,0,.25);
+  animation: slideUp .2s ease;
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.compare-bar-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  flex-wrap: wrap;
+}
+.compare-bar-cars { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; flex: 1; }
+.compare-bar-car {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.1); border-radius: 6px;
+  padding: 6px 10px; font-size: 13px;
+}
+.compare-bar-car-name { color: #fff; font-weight: 500; max-width: 160px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.compare-bar-remove {
+  background: none; border: none; color: #aaa;
+  font-size: 16px; cursor: pointer; padding: 0 2px; line-height: 1;
+}
+.compare-bar-remove:hover { color: #fff; }
+.compare-bar-placeholder { font-size: 12px; color: #888; }
+.compare-bar-actions { display: flex; align-items: center; gap: 10px; }
+.compare-bar-cta {
+  background: #A01414; color: #fff;
+  border: none; border-radius: 6px;
+  padding: 10px 20px; font-size: 14px; font-weight: 600;
+  cursor: pointer; font-family: "DM Sans", sans-serif;
+  transition: background .15s;
+}
+.compare-bar-cta:hover { background: #8a1010; }
+.compare-bar-reset {
+  background: none; border: 1px solid rgba(255,255,255,.2);
+  color: #aaa; border-radius: 6px;
+  padding: 9px 16px; font-size: 13px; cursor: pointer;
+  font-family: "DM Sans", sans-serif; transition: all .15s;
+}
+.compare-bar-reset:hover { color: #fff; border-color: rgba(255,255,255,.5); }
+
+/* ─── Comparateur page ─── */
+.comparer-page { padding: 100px 0 60px; min-height: 80vh; }
+.comparer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.comparer-header { display: flex; align-items: center; gap: 24px; margin-bottom: 32px; flex-wrap: wrap; }
+.comparer-back { color: #A01414; font-size: 14px; font-weight: 500; text-decoration: none; }
+.comparer-back:hover { text-decoration: underline; }
+.comparer-title { font-family: "Cormorant Garamond", serif; font-size: 32px; font-weight: 600; color: #0D0D0D; }
+.comparer-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.comparer-table { width: 100%; border-collapse: collapse; min-width: 500px; }
+.comparer-th-label { width: 160px; min-width: 120px; }
+.comparer-th-car {
+  padding: 0 12px 20px; vertical-align: top; text-align: center; min-width: 200px;
+}
+.comparer-car-photo-wrap {
+  position: relative; width: 100%; height: 140px;
+  border-radius: 10px; overflow: hidden; background: #f5f5f5;
+  margin-bottom: 12px;
+}
+.comparer-car-name-link { text-decoration: none; display: block; margin-bottom: 6px; }
+.comparer-car-brand { font-size: 11px; font-weight: 700; letter-spacing: .08em; color: #A01414; text-transform: uppercase; }
+.comparer-car-model { font-family: "Cormorant Garamond", serif; font-size: 20px; font-weight: 600; color: #0D0D0D; line-height: 1.2; }
+.comparer-car-price { font-size: 15px; font-weight: 700; color: #0D0D0D; margin-bottom: 10px; }
+.comparer-car-price span { font-size: 11px; font-weight: 400; color: #777; }
+.comparer-wa-btn {
+  display: inline-block; background: #A01414; color: #fff;
+  font-size: 12px; font-weight: 600; padding: 7px 14px; border-radius: 5px;
+  text-decoration: none; font-family: "DM Sans", sans-serif; transition: background .15s;
+}
+.comparer-wa-btn:hover { background: #8a1010; }
+.comparer-row td { padding: 10px 12px; font-size: 13px; border-top: 1px solid #F0F0F0; vertical-align: middle; }
+.comparer-row.even td { background: #FAFAFA; }
+.comparer-spec-label { color: #777; font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; white-space: nowrap; }
+.comparer-spec-val { text-align: center; color: #0D0D0D; font-weight: 400; }
+.comparer-spec-val.highlight { font-weight: 600; color: #0D0D0D; }
+
+/* ─── Nouveautés section ─── */
+.nouveautes-section { background: #F7F7F7; padding: 64px 0; }
+.nouveautes-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.nouveautes-head {
+  display: flex; align-items: baseline; gap: 20px;
+  margin-bottom: 32px; flex-wrap: wrap;
+}
+.nouveautes-label {
+  font-size: 11px; font-weight: 700; letter-spacing: .12em;
+  color: #A01414; text-transform: uppercase;
+}
+.nouveautes-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 28px; font-weight: 600; color: #0D0D0D;
+  margin: 0;
+}
+.nouveautes-see-all {
+  margin-left: auto; font-size: 13px; font-weight: 500;
+  color: #A01414; text-decoration: none;
+}
+.nouveautes-see-all:hover { text-decoration: underline; }
+.nouveautes-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+.nouveaute-card {
+  background: #fff; border-radius: 10px; overflow: hidden;
+  text-decoration: none; display: block;
+  box-shadow: 0 1px 6px rgba(0,0,0,.06);
+  transition: box-shadow .2s, transform .2s;
+}
+.nouveaute-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.1); transform: translateY(-2px); }
+.nouveaute-img-wrap {
+  position: relative; width: 100%; aspect-ratio: 4/3;
+  background: #f0f0f0; overflow: hidden;
+}
+.nouveaute-img-placeholder { width: 100%; height: 100%; background: #e8e8e8; }
+.nouveaute-badge {
+  position: absolute; top: 8px; left: 8px;
+  background: #A01414; color: #fff;
+  font-size: 10px; font-weight: 700; letter-spacing: .06em;
+  padding: 3px 8px; border-radius: 4px; text-transform: uppercase;
+}
+.nouveaute-info { padding: 12px; }
+.nouveaute-brand { font-size: 10px; font-weight: 700; letter-spacing: .08em; color: #A01414; text-transform: uppercase; margin-bottom: 2px; }
+.nouveaute-model { font-family: "Cormorant Garamond", serif; font-size: 16px; font-weight: 600; color: #0D0D0D; line-height: 1.2; margin-bottom: 6px; }
+.nouveaute-price { font-size: 13px; font-weight: 600; color: #0D0D0D; }
+.nouveaute-price span { font-size: 10px; color: #888; font-weight: 400; }
+
+@media (max-width: 960px) {
+  .nouveautes-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .nouveautes-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .catalogue-bottom-controls { flex-direction: column; }
+  .compare-bar-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .comparer-th-label { width: 90px; min-width: 70px; }
+}
