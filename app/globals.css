@@ -743,13 +743,13 @@ html, body { overflow-x:clip; max-width:100%; }
   .search-wrap {
     position:relative; max-width:360px; width:100%;
   }
-  .search-input {
+  .search-wrap .search-input {
     width:100%; padding:11px 18px;
-    border:1px solid var(--border); background:var(--white);
+    border:1.5px solid #aaa; border-radius:6px; background:var(--white);
     font-family:'DM Sans',sans-serif; font-size:14px; color:var(--black);
     outline:none; transition:border-color .2s;
   }
-  .search-input:focus { border-color:var(--red); }
+  .search-wrap .search-input:focus { border-color:var(--red); outline: none; }
   .search-input::placeholder { color:var(--light); }
 
   .results-count {
