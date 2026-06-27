@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { getCars } from "@/sanity/queries";
 import { carSlug } from "@/lib/slug";
+import type { Car } from "@/data/types";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -51,6 +52,91 @@ const SPEC_LABELS: Record<string, string> = {
   "Toit":             "Toit ouvrant",
 };
 
+// Specs where a lower number wins
+const LOWER_BETTER = new Set(["0-100 km/h", "Conso. mixte", "Poids"]);
+// Specs where a higher number wins
+const HIGHER_BETTER = new Set([
+  "Puissance", "Puissance système", "Couple", "Places",
+  "Coffre", "Réservoir", "Autonomie", "Autonomie élec.", "Autonomie totale",
+  "Vitesse max", "Garde au sol", "Empattement", "Batterie",
+]);
+
+function extractNum(val: string): number | null {
+  if (!val || val === "—") return null;
+  const m = val.replace(/\s/g, "").replace(/,/g, ".").match(/\d+\.?\d*/);
+  return m ? parseFloat(m[0]) : null;
+}
+
+function getWinnerIdx(key: string, values: string[]): number | null {
+  if (!LOWER_BETTER.has(key) && !HIGHER_BETTER.has(key)) return null;
+  const nums = values.map(extractNum);
+  const valid = nums.filter(n => n !== null) as number[];
+  if (valid.length < 2) return null;
+  const best = LOWER_BETTER.has(key) ? Math.min(...valid) : Math.max(...valid);
+  const winners = nums.reduce<number[]>((acc, n, i) => (n === best ? [...acc, i] : acc), []);
+  return winners.length === 1 ? winners[0] : null;
+}
+
+function parsePrice(p: string): number {
+  return parseInt(p.replace(/\D/g, "")) || 0;
+}
+
+function specVal(car: Car, key: string): string {
+  return car.specs?.[key] ?? "—";
+}
+
+function buildVerdict(car: Car, allCars: Car[]): { bullets: string[]; summary: string } {
+  const myPrice = parsePrice(car.price);
+  const prices = allCars.map(c => parsePrice(c.price));
+  const isLowest = myPrice > 0 && myPrice === Math.min(...prices);
+  const isHighest = myPrice === Math.max(...prices);
+
+  const bullets: string[] = [];
+
+  // Price
+  if (isLowest) bullets.push("Meilleur rapport qualité-prix");
+
+  // Power (Puissance or Puissance système)
+  const myPow = extractNum(specVal(car, "Puissance") !== "—" ? specVal(car, "Puissance") : specVal(car, "Puissance système"));
+  const allPow = allCars.map(c => extractNum(specVal(c, "Puissance") !== "—" ? specVal(c, "Puissance") : specVal(c, "Puissance système")));
+  const maxPow = Math.max(...(allPow.filter(n => n !== null) as number[]));
+  if (myPow !== null && myPow === maxPow && allPow.filter(n => n === maxPow).length === 1)
+    bullets.push("Puissance maximale du comparatif");
+
+  // 0-100
+  const myAcc = extractNum(specVal(car, "0-100 km/h"));
+  const allAcc = allCars.map(c => extractNum(specVal(c, "0-100 km/h"))).filter(n => n !== null) as number[];
+  if (myAcc !== null && allAcc.length >= 2 && myAcc === Math.min(...allAcc) && allAcc.filter(n => n === myAcc).length === 1)
+    bullets.push("Accélération la plus rapide");
+
+  // Range
+  const myRange = extractNum(specVal(car, "Autonomie totale") !== "—" ? specVal(car, "Autonomie totale") : specVal(car, "Autonomie"));
+  const allRange = allCars.map(c => extractNum(specVal(c, "Autonomie totale") !== "—" ? specVal(c, "Autonomie totale") : specVal(c, "Autonomie"))).filter(n => n !== null) as number[];
+  if (myRange !== null && allRange.length >= 2 && myRange === Math.max(...allRange) && allRange.filter(n => n === myRange).length === 1)
+    bullets.push("Plus grande autonomie");
+
+  // Seats
+  const mySeats = extractNum(specVal(car, "Places"));
+  const allSeats = allCars.map(c => extractNum(specVal(c, "Places"))).filter(n => n !== null) as number[];
+  if (mySeats !== null && allSeats.length >= 2 && mySeats === Math.max(...allSeats) && allSeats.filter(n => n === mySeats).length === 1)
+    bullets.push("Plus grande capacité passagers");
+
+  // Off-road
+  if (specVal(car, "Off-road") !== "—") bullets.push("Capacités tout-terrain avancées");
+
+  // Summary sentence
+  let summary = "";
+  if (isLowest) {
+    summary = `Idéal pour les familles et primo-accédants au segment des SUV premium. ${car.brand} ${car.model} offre le meilleur compromis technologie / budget de cette sélection.`;
+  } else if (isHighest) {
+    summary = `Recommandée pour une clientèle exigeante, sans compromis. La ${car.brand} ${car.model} est le choix prestige et performance de cette comparaison.`;
+  } else {
+    summary = `Un équilibre solide entre équipement et prix. La ${car.brand} ${car.model} convient à une clientèle polyvalente qui recherche performance et confort.`;
+  }
+
+  return { bullets, summary };
+}
+
 export default async function ComparerPage({
   searchParams,
 }: {
@@ -78,14 +164,14 @@ export default async function ComparerPage({
     );
   }
 
-  const allKeys = Array.from(
-    new Set(
-      cars.flatMap(c => Object.keys(c.specs || {}))
-        .filter(k => Object.keys(SPEC_LABELS).includes(k))
-    )
-  );
+  const allKeys = Array.from(new Set(
+    cars.flatMap(c => Object.keys(c.specs || {})).filter(k => k in SPEC_LABELS)
+  ));
   const orderedKeys = Object.keys(SPEC_LABELS).filter(k => allKeys.includes(k));
   const cols = cars.length;
+  const verdicts = cars.map(car => buildVerdict(car, cars));
+  const prices = cars.map(c => parsePrice(c.price));
+  const lowestPriceIdx = prices.indexOf(Math.min(...prices));
 
   return (
     <>
@@ -102,7 +188,7 @@ export default async function ComparerPage({
             {/* Car header cards */}
             <div className="comparer-cars-row">
               <div className="comparer-label-spacer" />
-              {cars.map(car => {
+              {cars.map((car, ci) => {
                 const photo = car.photos?.[0]?.src;
                 const slug = carSlug(car.brand, car.model);
                 const waMsg = encodeURIComponent(`Bonjour, je suis intéressé par la ${car.brand} ${car.model}. Pouvez-vous me donner plus d'informations ?`);
@@ -110,13 +196,9 @@ export default async function ComparerPage({
                   <div key={car.id} className="comparer-car-card">
                     <div className="comparer-car-photo-wrap">
                       {photo ? (
-                        <Image
-                          src={photo}
-                          alt={`${car.brand} ${car.model}`}
-                          fill
+                        <Image src={photo} alt={`${car.brand} ${car.model}`} fill
                           style={{ objectFit: "contain", padding: "8px" }}
-                          sizes="(max-width: 600px) 45vw, 220px"
-                        />
+                          sizes="(max-width: 600px) 45vw, 220px" />
                       ) : (
                         <div style={{ width: "100%", height: "100%", background: "#f0f0f0" }} />
                       )}
@@ -125,13 +207,14 @@ export default async function ComparerPage({
                       <div className="comparer-car-brand">{car.brand}</div>
                       <div className="comparer-car-model">{car.model}</div>
                     </Link>
-                    <div className="comparer-car-price">{car.price} <span>FCFA</span></div>
-                    <a
-                      href={`https://wa.me/${WA}?text=${waMsg}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="comparer-wa-btn"
-                    >Commander</a>
+                    <div className={`comparer-car-price${ci === lowestPriceIdx && cars.length > 1 ? " best-price" : ""}`}>
+                      {car.price} <span>FCFA</span>
+                      {ci === lowestPriceIdx && cars.length > 1 && (
+                        <span className="comparer-price-badge">Meilleur prix</span>
+                      )}
+                    </div>
+                    <a href={`https://wa.me/${WA}?text=${waMsg}`} target="_blank" rel="noopener noreferrer"
+                      className="comparer-wa-btn">Commander</a>
                   </div>
                 );
               })}
@@ -141,24 +224,55 @@ export default async function ComparerPage({
             {orderedKeys.map((key, i) => {
               const values = cars.map(c => c.specs?.[key] ?? "—");
               const allSame = values.every(v => v === values[0]);
+              const winnerIdx = getWinnerIdx(key, values);
               return (
                 <div key={key} className={`comparer-spec-row${i % 2 === 0 ? " even" : ""}`}>
                   <div className="comparer-spec-label">{SPEC_LABELS[key]}</div>
                   <div className="comparer-spec-vals">
-                    {values.map((val, j) => (
-                      <div
-                        key={j}
-                        className={`comparer-spec-val${!allSame && val !== "—" ? " highlight" : ""}`}
-                      >
-                        {val}
-                      </div>
-                    ))}
+                    {values.map((val, j) => {
+                      const isWinner = winnerIdx === j;
+                      const isDiff = !allSame && val !== "—" && winnerIdx === null;
+                      return (
+                        <div key={j} className={`comparer-spec-val${isWinner ? " winner" : isDiff ? " diff" : ""}`}>
+                          {isWinner && <span className="winner-check">✓</span>}
+                          {val}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               );
             })}
-
           </div>
+
+          {/* Verdict section */}
+          <div className="comparer-verdict">
+            <div className="comparer-verdict-title">
+              <span className="comparer-verdict-icon">◆</span> Verdict
+            </div>
+            <div className="comparer-verdict-cards">
+              {cars.map((car, ci) => {
+                const { bullets, summary } = verdicts[ci];
+                return (
+                  <div key={car.id} className="comparer-verdict-card">
+                    <div className="comparer-verdict-car">
+                      <span className="comparer-verdict-brand">{car.brand}</span>
+                      <span className="comparer-verdict-model">{car.model}</span>
+                    </div>
+                    {bullets.length > 0 && (
+                      <ul className="comparer-verdict-bullets">
+                        {bullets.map((b, bi) => (
+                          <li key={bi}>{b}</li>
+                        ))}
+                      </ul>
+                    )}
+                    <p className="comparer-verdict-summary">{summary}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
         </div>
       </main>
       <Footer minimal />
