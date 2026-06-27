@@ -1025,11 +1025,9 @@ html, body { overflow-x:clip; max-width:100%; }
   }
   /* Option A: title/price only in right column on desktop */
   .car-detail-left-title { display: none; }
-  /* 3D viewer masks: hide lateral/bottom masks on desktop (mobile-only calibration) */
-  .viewer-mask-left, .viewer-mask-bl, .viewer-mask-right { display: none; }
-  /* Exterior: keep thin top mask to hide AutoHome title bar; interior: no mask, show freely */
-  .viewer-mask-top { height: 10% !important; }
-  .viewer-is-interior .viewer-mask-top { height: 0 !important; }
+  /* 3D viewer masks: hide all masks on desktop */
+  .viewer-mask-left, .viewer-mask-bl, .viewer-mask-right,
+  .viewer-mask-top { display: none !important; }
 
   .car-detail-carousel-wrap {
     flex: 1;
