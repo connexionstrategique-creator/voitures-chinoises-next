@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Nav from "@/components/Nav";
 import Catalogue from "@/components/Catalogue";
 import Footer from "@/components/Footer";
@@ -23,7 +24,9 @@ export default async function CataloguePage() {
     <>
       <Nav />
       <main>
-        <Catalogue cars={cars} />
+        <Suspense>
+          <Catalogue cars={cars} />
+        </Suspense>
       </main>
       <Footer minimal />
     </>

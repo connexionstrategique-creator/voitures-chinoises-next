@@ -1,6 +1,6 @@
 "use client";
-import { useState, useMemo } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useMemo, useCallback } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { getColorHex } from "@/data/types";
 import type { Car } from "@/data/types";
@@ -189,11 +189,20 @@ function CarModal({ car, onClose }: { car: Car; onClose: () => void }) {
 
 export default function Catalogue({ cars }: { cars: Car[] }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [activeFilter, setActiveFilter] = useState("all");
   const [activeBudget, setActiveBudget] = useState("all");
   const [activeColor, setActiveColor] = useState("all");
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(() => (searchParams.get("q") ?? "").toLowerCase().trim());
   const [page, setPage] = useState(1);
+
+  const handleSearch = useCallback((val: string) => {
+    const lower = val.toLowerCase().trim();
+    setSearch(lower);
+    const params = new URLSearchParams(searchParams.toString());
+    if (lower) params.set("q", lower); else params.delete("q");
+    router.replace(`/catalogue?${params.toString()}`, { scroll: false });
+  }, [router, searchParams]);
   const PAGE_SIZE = 9;
 
   // Compute which base colors actually appear across all cars
@@ -253,7 +262,7 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                 className="search-input"
                 placeholder="Rechercher marque ou modèle…"
                 value={search}
-                onChange={(e) => setSearch(e.target.value.toLowerCase().trim())}
+                onChange={(e) => handleSearch(e.target.value)}
               />
             </div>
           </div>
