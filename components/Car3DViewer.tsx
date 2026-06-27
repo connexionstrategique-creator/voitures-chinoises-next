@@ -112,7 +112,7 @@ export default function Car3DViewer({ title, src, isInterior }: Car3DViewerProps
     : { position: "relative", width: "100%", aspectRatio: "16/9", background: "#0a0a0a", borderRadius: 20, overflow: "hidden" };
 
   return (
-    <div ref={containerRef} style={wrapStyle}>
+    <div ref={containerRef} style={wrapStyle} className={isInterior ? "viewer-is-interior" : undefined}>
 
       {/* Loading overlay */}
       {!loaded && (

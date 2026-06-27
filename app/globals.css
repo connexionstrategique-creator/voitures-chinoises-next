@@ -1011,15 +1011,13 @@ html, body { overflow-x:clip; max-width:100%; }
     flex-direction: column;
     overflow: hidden;
   }
-  .car-detail-left-title {
-    padding: 0 24px 16px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-    margin-bottom: 4px;
-  }
+  /* Option A: title/price only in right column on desktop */
+  .car-detail-left-title { display: none; }
   /* 3D viewer masks: hide lateral/bottom masks on desktop (mobile-only calibration) */
   .viewer-mask-left, .viewer-mask-bl, .viewer-mask-right { display: none; }
-  /* Top mask: 24% calibrated for mobile — on desktop just hide the thin AutoHome title bar */
+  /* Exterior: keep thin top mask to hide AutoHome title bar; interior: no mask, show freely */
   .viewer-mask-top { height: 10% !important; }
+  .viewer-is-interior .viewer-mask-top { height: 0 !important; }
 
   .car-detail-carousel-wrap {
     flex: 1;
