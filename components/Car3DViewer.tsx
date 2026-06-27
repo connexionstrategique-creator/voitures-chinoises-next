@@ -4,9 +4,10 @@ import { useState, useRef, useEffect, useCallback } from "react";
 interface Car3DViewerProps {
   title: string;
   src: string;
+  isInterior?: boolean;
 }
 
-export default function Car3DViewer({ title, src }: Car3DViewerProps) {
+export default function Car3DViewer({ title, src, isInterior }: Car3DViewerProps) {
   const [loaded, setLoaded] = useState(false);
   const [fakeFS, setFakeFS] = useState(false);
   const [nativeFS, setNativeFS] = useState(false);
@@ -145,7 +146,8 @@ export default function Car3DViewer({ title, src }: Car3DViewerProps) {
 
       {/* Chinese UI masks — mobile only (desktop proportions differ, masks cut into 3D car) */}
       <div className="viewer-mask-top" style={{
-        position: "absolute", top: 0, left: 0, right: 0, height: "24%",
+        position: "absolute", top: 0, left: 0, right: 0,
+        height: isFullscreen ? "10%" : "24%",
         background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
         borderRadius: isFullscreen ? 0 : "20px 20px 0 0",
       }} />
@@ -162,6 +164,19 @@ export default function Car3DViewer({ title, src }: Car3DViewerProps) {
         background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
         borderRadius: isFullscreen ? 0 : "0 0 0 20px",
       }} />
+
+      {/* French label over 外观 (exterior toggle) button — interior viewer only */}
+      {loaded && isInterior && (
+        <div style={{
+          position: "absolute", bottom: "5%", right: "3%",
+          zIndex: 6, pointerEvents: "none",
+          background: "rgba(0,0,0,0.72)",
+          color: "#fff", padding: "4px 10px", borderRadius: 20,
+          fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
+        }}>
+          EXTÉRIEUR
+        </div>
+      )}
 
       {/* Fullscreen / Exit button */}
       {loaded && (

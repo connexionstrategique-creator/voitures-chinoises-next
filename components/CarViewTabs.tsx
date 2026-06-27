@@ -74,7 +74,7 @@ export default function CarViewTabs({
         <Car3DViewer src={extSrc} title={`${alt} — Vue extérieure 360°`} />
       )}
       {tab === "interior" && intSrc && (
-        <Car3DViewer src={intSrc} title={`${alt} — Vue intérieure 360°`} />
+        <Car3DViewer src={intSrc} title={`${alt} — Vue intérieure 360°`} isInterior />
       )}
     </div>
   );
