@@ -3972,8 +3972,8 @@ html, body { overflow-x:clip; max-width:100%; }
   color: #A01414; text-transform: uppercase;
 }
 .nouveautes-title {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 28px; font-weight: 600; color: #0D0D0D;
+  font-family: "Syne", sans-serif;
+  font-size: 28px; font-weight: 700; color: #0D0D0D;
   margin: 0;
 }
 .nouveautes-see-all {
@@ -4006,7 +4006,7 @@ html, body { overflow-x:clip; max-width:100%; }
 }
 .nouveaute-info { padding: 12px; }
 .nouveaute-brand { font-size: 10px; font-weight: 700; letter-spacing: .08em; color: #A01414; text-transform: uppercase; margin-bottom: 2px; }
-.nouveaute-model { font-family: "Cormorant Garamond", serif; font-size: 16px; font-weight: 600; color: #0D0D0D; line-height: 1.2; margin-bottom: 6px; }
+.nouveaute-model { font-family: "Syne", sans-serif; font-size: 15px; font-weight: 700; color: #0D0D0D; line-height: 1.2; margin-bottom: 6px; }
 .nouveaute-price { font-size: 13px; font-weight: 600; color: #0D0D0D; }
 .nouveaute-price span { font-size: 10px; color: #888; font-weight: 400; }
 
