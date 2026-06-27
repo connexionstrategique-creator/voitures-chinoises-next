@@ -426,7 +426,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
             </div>
           )}
 
-          <div style={{ padding: "0 clamp(20px,5vw,48px) 48px" }}>
+          <div style={{ padding: "0 clamp(20px,5vw,48px) 48px", marginTop: 64 }}>
             <div style={{ background: "var(--yellow, #f5f0e8)", borderRadius: 24, padding: "clamp(28px,5vw,48px)", textAlign: "center" }}>
               <h2 style={{ fontSize: 28, fontWeight: 800, marginBottom: 12 }}>
                 Intéressé par la {car!.brand} {car!.model} ?

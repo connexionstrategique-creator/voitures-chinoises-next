@@ -143,25 +143,21 @@ export default function Car3DViewer({ title, src }: Car3DViewerProps) {
         </div>
       )}
 
-      {/* Chinese UI masks */}
-      {/* Top bar: covers 反馈/分享/清屏 toolbar + color disclaimer */}
-      <div style={{
+      {/* Chinese UI masks — mobile only (desktop proportions differ, masks cut into 3D car) */}
+      <div className="viewer-mask-top" style={{
         position: "absolute", top: 0, left: 0, right: 0, height: "24%",
         background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
         borderRadius: isFullscreen ? 0 : "20px 20px 0 0",
       }} />
-      {/* Disclaimer strip: covers 样式颜色仅供参考 text on the right */}
-      <div style={{
+      <div className="viewer-mask-right" style={{
         position: "absolute", top: "24%", right: 0, width: "62%", height: "9%",
         background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
       }} />
-      {/* Left panel: covers 汽车之家 logo + 全车讲解视频 thumbnail */}
-      <div style={{
+      <div className="viewer-mask-left" style={{
         position: "absolute", top: "18%", left: 0, width: "38%", height: "60%",
         background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
       }} />
-      {/* Bottom-left corner: covers remaining bottom controls */}
-      <div style={{
+      <div className="viewer-mask-bl" style={{
         position: "absolute", bottom: 0, left: 0, width: "38%", height: "22%",
         background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
         borderRadius: isFullscreen ? 0 : "0 0 0 20px",
