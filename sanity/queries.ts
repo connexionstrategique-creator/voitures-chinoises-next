@@ -218,7 +218,8 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
         _type == "image" => { ..., "url": asset->url, alt, caption },
         _type == "table" => { ..., rows[]{ ..., cells } },
         _type == "promoAuto" => { ..., "imageUrl": image.asset->url + "?auto=format&w=900&q=80" },
-        _type == "promoBanner" => { ..., "imageUrl": image.asset->url + "?auto=format&w=900&q=85" }
+        _type == "promoBanner" => { ..., "imageUrl": image.asset->url + "?auto=format&w=900&q=85" },
+        _type == "promoInline" => { ..., "imageUrl": image.asset->url + "?auto=format&w=900&q=85" }
       }
     }`,
     { slug },

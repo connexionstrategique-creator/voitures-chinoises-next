@@ -5,7 +5,8 @@ import { siteSettingsSchema } from '../schemas/siteSettings'
 import { postSchema } from '../schemas/post'
 import { promoAutoSchema } from '../schemas/promoAuto'
 import { promoBannerSchema } from '../schemas/promoBanner'
+import promoInlineSchema from '../schemas/promoInline'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [carSchema, brandSchema, siteSettingsSchema, postSchema, promoAutoSchema, promoBannerSchema],
+  types: [carSchema, brandSchema, siteSettingsSchema, postSchema, promoAutoSchema, promoBannerSchema, promoInlineSchema],
 }

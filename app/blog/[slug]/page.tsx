@@ -10,6 +10,7 @@ import PostViewCounter from "@/components/PostViewCounter";
 import ShareButtons from "@/components/ShareButtons";
 import PromoCard from "@/components/PromoCard";
 import PromoBanner from "@/components/PromoBanner";
+import PromoInline from "@/components/PromoInline";
 
 export const revalidate = 60;
 
@@ -210,6 +211,16 @@ const ptComponents = {
     ) : null,
     promoBanner: ({ value }: any) => value ? (
       <PromoBanner imageUrl={value.imageUrl} alt={value.alt} linkUrl={value.linkUrl} />
+    ) : null,
+    promoInline: ({ value }: any) => value ? (
+      <PromoInline
+        imageUrl={value.imageUrl}
+        title={value.title}
+        description={value.description}
+        ctaLabel={value.ctaLabel}
+        whatsappMessage={value.whatsappMessage}
+        label={value.label}
+      />
     ) : null,
     promoAuto: ({ value }: any) => value ? (
       <PromoCard
