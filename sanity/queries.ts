@@ -195,7 +195,7 @@ export async function getPosts(category?: string): Promise<BlogPost[]> {
     `*[${filter}] | order(orderRank asc, publishedAt desc) {
       _id, title,
       "slug": slug.current,
-      "imageUrl": mainImage.asset->url + "?auto=format&q=80",
+      "imageUrl": mainImage.asset->url + "?auto=format&q=80&w=900&fit=crop",
       "imageAlt": mainImage.alt,
       publishedAt, category, excerpt
     }`,
