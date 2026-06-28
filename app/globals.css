@@ -4136,8 +4136,9 @@ html, body { overflow-x:clip; max-width:100%; }
 
 /* Verdict */
 .comparer-verdict {
-  margin-top: 40px; padding: 40px;
-  border-radius: 16px; background: #0D0D0D; border: none;
+  margin-top: 40px; padding: 36px 32px;
+  border-radius: 14px; background: #fff;
+  border: 1px solid #E0E0E0;
 }
 .comparer-verdict-title {
   font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
@@ -4145,32 +4146,32 @@ html, body { overflow-x:clip; max-width:100%; }
   margin-bottom: 28px; display: flex; align-items: center; gap: 12px;
 }
 .comparer-verdict-title::after {
-  content: ""; flex: 1; height: 1px; background: rgba(255,255,255,0.1);
+  content: ""; flex: 1; height: 1px; background: #E0E0E0;
 }
 .comparer-verdict-icon { font-size: 7px; }
 .comparer-verdict-cards { display: flex; gap: 16px; }
 .comparer-verdict-card {
-  flex: 1; background: #1a1a1a;
-  border: 1px solid rgba(255,255,255,0.07);
+  flex: 1; background: #FAFAFA;
+  border: 1px solid #EBEBEB;
   border-top: 3px solid #A01414;
   border-radius: 12px; padding: 28px 24px;
 }
 .comparer-verdict-car { margin-bottom: 18px; }
 .comparer-verdict-brand {
   display: block; font-size: 9px; font-weight: 700;
-  letter-spacing: 0.18em; color: rgba(255,255,255,0.35);
+  letter-spacing: 0.18em; color: #A01414;
   text-transform: uppercase; margin-bottom: 4px;
 }
 .comparer-verdict-model {
   display: block; font-family: "Syne", sans-serif;
-  font-size: 20px; font-weight: 800; color: #fff; line-height: 1.15;
+  font-size: 20px; font-weight: 800; color: #0D0D0D; line-height: 1.15;
 }
 .comparer-verdict-bullets {
   list-style: none; padding: 0; margin: 0 0 22px;
   display: flex; flex-direction: column; gap: 7px;
 }
 .comparer-verdict-bullets li {
-  font-size: 11px; color: #4ade80; font-weight: 700;
+  font-size: 11px; color: #1a7a1a; font-weight: 700;
   display: flex; align-items: center; gap: 7px;
   letter-spacing: 0.04em; font-family: "DM Sans", sans-serif;
 }
@@ -4178,7 +4179,7 @@ html, body { overflow-x:clip; max-width:100%; }
 .comparer-verdict-quote {
   font-family: "Cormorant Garamond", serif;
   font-size: 18px; font-style: italic;
-  color: rgba(255,255,255,0.82); line-height: 1.65;
+  color: #333; line-height: 1.65;
   margin: 0 0 22px;
   border-left: 2px solid #A01414; padding-left: 16px;
 }
@@ -4188,7 +4189,7 @@ html, body { overflow-x:clip; max-width:100%; }
   margin-bottom: 6px; font-family: "DM Sans", sans-serif;
 }
 .comparer-verdict-for-who {
-  font-size: 13px; color: rgba(255,255,255,0.4);
+  font-size: 13px; color: #777;
   line-height: 1.6; margin: 0; font-family: "DM Sans", sans-serif;
 }
 
