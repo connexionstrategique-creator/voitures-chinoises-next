@@ -4016,6 +4016,9 @@ html, body { overflow-x:clip; max-width:100%; }
   .nouveautes-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 600px) {
+  .nouveautes-section { padding: 36px 0; }
+  .nouveautes-head { margin-bottom: 20px; gap: 12px; }
+  .nouveautes-title { font-size: 20px; }
   .nouveautes-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .catalogue-bottom-controls { flex-direction: column; }
   .compare-bar-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
