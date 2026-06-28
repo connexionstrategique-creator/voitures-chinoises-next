@@ -3497,6 +3497,14 @@ html, body { overflow-x:clip; max-width:100%; }
   .fdm-spec-val { font-size: 22px; }
 }
 
+/* ── SHARE BUTTONS ── */
+.share-buttons-wrap { font-size: 0; }
+@media (max-width: 480px) {
+  .share-btn-label { display: none; }
+  .share-buttons-wrap a,
+  .share-buttons-wrap button { padding: 9px 11px !important; gap: 0 !important; }
+}
+
 /* ── PROCESS SECTION — HORIZONTAL INFOGRAPHIC ── */
 .proc-section { background: var(--black); }
 .proc-inner { padding: 88px 0 72px; }

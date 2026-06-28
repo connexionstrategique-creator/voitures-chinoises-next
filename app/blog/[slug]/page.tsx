@@ -7,6 +7,7 @@ import { getPosts, getPostBySlug } from "@/sanity/queries";
 import { PortableText } from "@portabletext/react";
 import type { Metadata } from "next";
 import PostViewCounter from "@/components/PostViewCounter";
+import ShareButtons from "@/components/ShareButtons";
 
 export const revalidate = 60;
 
@@ -452,6 +453,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             {post!.body && post!.body.length > 0 && (
               <PortableText value={transformBody(post!.body)} components={ptComponents} />
             )}
+
+            {/* Share buttons */}
+            <div style={{ marginTop: 48, paddingTop: 36, borderTop: "1px solid #E0E0E0" }}>
+              <ShareButtons
+                url={`https://www.voitureschinoises.com/blog/${slug}`}
+                title={post!.title}
+              />
+            </div>
 
             {/* À lire aussi */}
             {related.length > 0 && (
