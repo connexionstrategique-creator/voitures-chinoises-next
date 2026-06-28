@@ -2412,6 +2412,8 @@ html, body { overflow-x:clip; max-width:100%; }
   }
 
   @media(max-width:960px){
+    .marquee-logo-box { display: none; }
+    .marquee-item { gap: 0; }
     nav { padding:0 24px; height:60px; }
     .nav-logo img { height:40px; }
     /* Switch to hamburger at tablet */
