@@ -4156,15 +4156,21 @@ html, body { overflow-x:clip; max-width:100%; }
   border-top: 3px solid #A01414;
   border-radius: 12px; padding: 28px 24px;
 }
-.comparer-verdict-car { margin-bottom: 18px; }
+.comparer-verdict-car {
+  margin-bottom: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #EBEBEB;
+}
 .comparer-verdict-brand {
   display: block; font-size: 9px; font-weight: 700;
-  letter-spacing: 0.18em; color: #A01414;
-  text-transform: uppercase; margin-bottom: 4px;
+  letter-spacing: 0.22em; color: #A01414;
+  text-transform: uppercase; margin-bottom: 6px;
+  font-family: "DM Sans", sans-serif;
 }
 .comparer-verdict-model {
-  display: block; font-family: "Cormorant Garamond", serif;
-  font-size: 24px; font-weight: 600; color: #0D0D0D; line-height: 1.2;
+  display: block; font-family: "Syne", sans-serif;
+  font-size: 28px; font-weight: 700; color: #0D0D0D; line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 .comparer-verdict-bullets {
   list-style: none; padding: 0; margin: 0 0 18px;
