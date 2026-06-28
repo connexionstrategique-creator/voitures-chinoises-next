@@ -8,6 +8,7 @@ import { PortableText } from "@portabletext/react";
 import type { Metadata } from "next";
 import PostViewCounter from "@/components/PostViewCounter";
 import ShareButtons from "@/components/ShareButtons";
+import PromoCard from "@/components/PromoCard";
 
 export const revalidate = 60;
 
@@ -205,6 +206,22 @@ const ptComponents = {
           </figcaption>
         )}
       </figure>
+    ) : null,
+    promoAuto: ({ value }: any) => value ? (
+      <PromoCard
+        vehicleName={value.vehicleName || ""}
+        version={value.version}
+        year={value.year}
+        price={value.price || ""}
+        imageUrl={value.imageUrl}
+        includedItems={value.includedItems}
+        bonusItems={value.bonusItems}
+        availableUnits={value.availableUnits}
+        paymentDeadline={value.paymentDeadline}
+        shippingDate={value.shippingDate}
+        ctaLabel={value.ctaLabel}
+        whatsappMessage={value.whatsappMessage}
+      />
     ) : null,
     image: ({ value }: any) => value?.url ? (
       <figure style={{ margin: "32px 0" }}>

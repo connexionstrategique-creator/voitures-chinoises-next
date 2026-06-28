@@ -216,7 +216,8 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
       body[] {
         ...,
         _type == "image" => { ..., "url": asset->url, alt, caption },
-        _type == "table" => { ..., rows[]{ ..., cells } }
+        _type == "table" => { ..., rows[]{ ..., cells } },
+        _type == "promoAuto" => { ..., "imageUrl": image.asset->url + "?auto=format&w=900&q=80" }
       }
     }`,
     { slug },
