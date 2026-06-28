@@ -32,6 +32,7 @@ export default function Car3DViewer({ title, src, isInterior }: Car3DViewerProps
     setFakeFS(false);
     unlockOrientation();
     document.body.style.overflow = "";
+    document.body.classList.remove("viewer-fakeFS");
   }, []);
 
   const exitNativeFS = useCallback(() => {
@@ -62,11 +63,13 @@ export default function Car3DViewer({ title, src, isInterior }: Car3DViewerProps
         setFakeFS(true);
         lockLandscape();
         document.body.style.overflow = "hidden";
+        document.body.classList.add("viewer-fakeFS");
       });
     } else {
       setFakeFS(true);
       lockLandscape();
       document.body.style.overflow = "hidden";
+      document.body.classList.add("viewer-fakeFS");
     }
   };
 
@@ -104,7 +107,10 @@ export default function Car3DViewer({ title, src, isInterior }: Car3DViewerProps
 
   // Cleanup on unmount
   useEffect(() => {
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+      document.body.classList.remove("viewer-fakeFS");
+    };
   }, []);
 
   const wrapStyle: React.CSSProperties = fakeFS

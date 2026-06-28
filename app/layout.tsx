@@ -120,6 +120,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${syne.variable} ${dmSans.variable}`}>
       <head>
+        <meta name="format-detection" content="telephone=no" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
