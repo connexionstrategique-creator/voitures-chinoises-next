@@ -36,7 +36,7 @@ const ptImage = (assetId, alt = '') => ({
   asset: { _type: 'reference', _ref: assetId },
 })
 
-function sectionsToPortableText(sections, imageRefs) {
+function sectionsToPortableText(sections) {
   const blocks = []
   for (const s of sections) {
     if (!s) continue
@@ -48,8 +48,8 @@ function sectionsToPortableText(sections, imageRefs) {
       case 'bullet':     s.items.forEach(t => blocks.push(ptListItem(t, 'bullet'))); break
       case 'numbered':   s.items.forEach(t => blocks.push(ptListItem(t, 'number'))); break
       case 'image': {
-        const ref = imageRefs?.[s.pexelsId]
-        if (ref) blocks.push(ptImage(ref, s.alt || ''))
+        // s._ref est une photo de voiture chinoise du catalogue (assignée en amont)
+        if (s._ref) blocks.push(ptImage(s._ref, s.alt || ''))
         break
       }
     }
@@ -57,21 +57,45 @@ function sectionsToPortableText(sections, imageRefs) {
   return blocks
 }
 
-// ─── Upload image Pexels → Sanity ────────────────────────────────────────────
-async function uploadPexels(photoId) {
-  const url = `https://images.pexels.com/photos/${photoId}/pexels-photo-${photoId}.jpeg?auto=compress&cs=tinysrgb&w=1920`
-  try {
-    const res = await fetch(url, { headers: { 'User-Agent': 'voitureschinoise-bot/1.0' } })
-    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    const buf = Buffer.from(await res.arrayBuffer())
-    const asset = await sanity.assets.upload('image', buf, {
-      filename: `pexels-${photoId}.jpg`, contentType: 'image/jpeg',
-    })
-    console.log(`    Image #${photoId} → ${asset._id}`)
-    return asset._id
-  } catch (e) {
-    console.warn(`    Image #${photoId} ignorée : ${e.message}`)
-    return null
+// ─── Images : UNIQUEMENT des photos de voitures chinoises du catalogue ───────
+// RÈGLE ABSOLUE : on n'utilise JAMAIS de banque d'images générique (Pexels, etc.).
+// Toutes les images des articles proviennent des photos réelles du catalogue
+// Sanity (voitures chinoises : BYD, Changan, Jetour, GAC, Haval, Geely…).
+async function getCatalogImages() {
+  const cars = await sanity.fetch(
+    `*[_type=="car" && count(photos) > 0]{ brand, "refs": photos[].asset._ref }`
+  )
+  const byBrand = {}
+  const all = []
+  for (const c of cars) {
+    const brand = (c.brand || '').toLowerCase().trim()
+    const refs = (c.refs || []).filter(Boolean)
+    if (!brand || !refs.length) continue
+    byBrand[brand] = (byBrand[brand] || []).concat(refs)
+    all.push(...refs)
+  }
+  return { byBrand, all }
+}
+
+// Sélecteur : renvoie une photo de voiture chinoise correspondant à la marque
+// indiquée (sinon une voiture chinoise au hasard). Évite les doublons par article.
+function makeImagePicker(catalog) {
+  const used = new Set()
+  return function pick(brandHint = '') {
+    const hint = String(brandHint).toLowerCase()
+    let pool = []
+    if (hint) {
+      for (const [brand, refs] of Object.entries(catalog.byBrand)) {
+        if (hint.includes(brand) || brand.includes(hint)) pool.push(...refs)
+      }
+    }
+    if (!pool.length) pool = catalog.all
+    if (!pool.length) return null
+    const fresh = pool.filter(r => !used.has(r))
+    const from = fresh.length ? fresh : pool
+    const choice = from[Math.floor(Math.random() * from.length)]
+    if (choice) used.add(choice)
+    return choice || null
   }
 }
 
@@ -188,14 +212,15 @@ QUALITÉ RÉDACTIONNELLE :
 - Minimum 4 mentions de villes africaines (Cotonou, Lomé, Abidjan, Dakar — répartis dans le texte)
 - Pas de superlatifs vides — si tu dis "le meilleur", explique POURQUOI avec des chiffres
 
-IMAGES OBLIGATOIRES :
-8. Tu DOIS inclure dans ta réponse JSON :
-   - "mainPexelsId" : un ID de la liste ci-dessous (image de couverture)
-   - 2 sections {"type":"image"} dans le corps (IDs DIFFÉRENTS du mainPexelsId)
+IMAGES — VOITURES CHINOISES UNIQUEMENT :
+8. Les images sont sélectionnées AUTOMATIQUEMENT parmi les vraies photos du catalogue (voitures chinoises). Tu ne fournis JAMAIS d'URL ni d'identifiant d'image. Tu indiques seulement la marque :
+   - "coverBrand" : la marque chinoise la plus pertinente pour la couverture
+   - 2 sections {"type":"image","brand":"<marque chinoise>","alt":"texte alternatif avec mot-clé"} dans le corps
    - Place la 1ère image après la 2e section H2, la 2e image après la 4e section H2
+   - INTERDIT : banques d'images génériques (Pexels, Unsplash…). Seules les voitures chinoises du catalogue sont autorisées.
 
-IDs PEXELS VALIDES (choisis parmi cette liste uniquement) :
-1519192 (voiture route), 116675 (SUV extérieur), 3802508 (route africaine), 3764984 (route coucher soleil), 1592384 (voiture ville), 6894528 (concessionnaire auto), 4489702 (intérieur voiture moderne), 3807811 (autoroute), 7363029 (famille et voiture)
+MARQUES CHINOISES VALIDES (pour coverBrand et brand) :
+BYD, Changan, Jetour, GAC, Geely, Haval, Chery, MG, GWM, Omoda, Livan, EXEED, Bestune, Roewe — choisis celle qui correspond le mieux au sujet de l'article.
 
 ═══════════════════════════════════════
 FORMAT DE RÉPONSE — JSON STRICT
@@ -209,7 +234,7 @@ RÉPONDS UNIQUEMENT avec un objet JSON valide, sans texte avant ni après :
   "excerpt": "Accroche courte 120-140 caractères pour les aperçus et réseaux sociaux.",
   "category": "guides",
   "tags": ["voiture chinoise", "afrique", "tag-specifique-1", "tag-specifique-2", "marque-ou-modele"],
-  "mainPexelsId": 116675,
+  "coverBrand": "BYD",
   "sections": [
     { "type": "paragraph", "text": "Introduction 150-200 mots : situation réelle de l'acheteur africain, données contextuelles, promesse de l'article..." },
     { "type": "h2", "text": "Titre H2 avec mot-clé secondaire" },
@@ -217,14 +242,14 @@ RÉPONDS UNIQUEMENT avec un objet JSON valide, sans texte avant ni après :
     { "type": "bullet", "items": ["Point précis avec chiffre ou exemple", "Point précis avec chiffre ou exemple", "Point précis avec chiffre ou exemple", "Point précis avec chiffre ou exemple"] },
     { "type": "h2", "text": "Deuxième H2 avec mot-clé différent" },
     { "type": "paragraph", "text": "Contenu 200-280 mots..." },
-    { "type": "image", "pexelsId": 1519192, "alt": "Description alt avec mot-clé principal et contexte africain" },
+    { "type": "image", "brand": "Changan", "alt": "Description alt avec mot-clé principal et contexte africain" },
     { "type": "h2", "text": "Tableau comparatif ou analyse comparative" },
     { "type": "paragraph", "text": "Intro du comparatif..." },
     { "type": "bullet", "items": ["Modèle A (XX millions FCFA) : avantage + inconvénient", "Modèle B (XX millions FCFA) : avantage + inconvénient", "Modèle C (XX millions FCFA) : avantage + inconvénient"] },
     { "type": "h2", "text": "Quatrième H2 — approfondissement" },
     { "type": "paragraph", "text": "Contenu 200-280 mots..." },
     { "type": "blockquote", "text": "Fait clé ou conseil expert ancré dans la réalité du marché africain." },
-    { "type": "image", "pexelsId": 3802508, "alt": "Description alt avec contexte africain et mot-clé" },
+    { "type": "image", "brand": "BYD", "alt": "Description alt avec contexte africain et mot-clé" },
     { "type": "h2", "text": "Cinquième H2 — aspect pratique" },
     { "type": "paragraph", "text": "Contenu 150-220 mots..." },
     { "type": "h2", "text": "Questions fréquentes sur [sujet]" },
@@ -269,7 +294,7 @@ RÉPONDS UNIQUEMENT avec un objet JSON valide, sans texte avant ni après :
 }
 
 // ─── Publier l'article dans Sanity ───────────────────────────────────────────
-async function publishArticle(article, imageRefs) {
+async function publishArticle(article) {
   const existing = await sanity.fetch(
     `*[_type=="post" && slug.current==$s][0]._id`,
     { s: article.slug }
@@ -279,8 +304,8 @@ async function publishArticle(article, imageRefs) {
     return null
   }
 
-  const body = sectionsToPortableText(article.sections, imageRefs)
-  const mainRef = imageRefs?.[article.mainPexelsId]
+  const body = sectionsToPortableText(article.sections)
+  const mainRef = article._coverRef || null
 
   const doc = {
     _type: 'post',
@@ -332,12 +357,20 @@ export async function runBlog() {
   console.log(`   Article généré : "${article.title}"`)
   console.log(`   seoTitle (${article.seoTitle?.length} chars) : ${article.seoTitle}`)
   console.log(`   seoDesc (${article.seoDescription?.length} chars) : ${article.seoDescription}`)
-  if (article.mainPexelsId) {
-    console.log(`   mainPexelsId : ${article.mainPexelsId}`)
-    const imgSections = (article.sections || []).filter(s => s.type === 'image')
-    console.log(`   Images dans le corps : ${imgSections.length}`)
-  } else {
-    console.warn(`   ⚠️ Aucun mainPexelsId généré — images manquantes`)
+
+  // ── Images : assigner UNIQUEMENT des photos de voitures chinoises du catalogue ──
+  try {
+    const catalog = await getCatalogImages()
+    const pick = makeImagePicker(catalog)
+    const brandHint = article.coverBrand || (article.tags || []).join(' ') || article.title
+    article._coverRef = pick(brandHint)
+    for (const s of article.sections || []) {
+      if (s.type === 'image') s._ref = pick(s.brand || article.coverBrand || '')
+    }
+    const imgCount = (article.sections || []).filter(s => s.type === 'image' && s._ref).length
+    console.log(`   Couverture : ${article._coverRef ? 'photo catalogue ✓' : '— aucune'} | images corps : ${imgCount}`)
+  } catch (e) {
+    console.warn(`   ⚠️ Photos catalogue indisponibles (${e.message}) — article publié sans image (jamais d'image générique)`)
   }
 
   const jsonPath = await saveArticleJson(article)
@@ -347,14 +380,7 @@ export async function runBlog() {
   // Tenter la publication directe (peut être bloquée par proxy)
   let published = null
   try {
-    const allIds = new Set()
-    if (article.mainPexelsId) allIds.add(article.mainPexelsId)
-    for (const s of article.sections || []) {
-      if (s.type === 'image' && s.pexelsId) allIds.add(s.pexelsId)
-    }
-    const imageRefs = {}
-    for (const id of allIds) imageRefs[id] = await uploadPexels(id)
-    published = await publishArticle(article, imageRefs)
+    published = await publishArticle(article)
     if (published && VERCEL_DEPLOY_HOOK) {
       await fetch(VERCEL_DEPLOY_HOOK, { method: 'POST' })
       console.log('   🚀 Vercel redéploiement déclenché')
@@ -362,17 +388,12 @@ export async function runBlog() {
   } catch (e) {
     console.warn(`   ⚠️ Publication Sanity directe échouée : ${e.message}`)
 
-    const pexelsIds = new Set()
-    if (article.mainPexelsId) pexelsIds.add(article.mainPexelsId)
-    for (const s of article.sections || []) {
-      if (s.type === 'image' && s.pexelsId) pexelsIds.add(s.pexelsId)
-    }
-
     console.log(`\n[SANITY_MCP_REQUIRED]`)
-    console.log(`ACTION: Publie cet article dans Sanity avec images :`)
-    console.log(`  1. Upload chaque image Pexels via l'outil "Upload asset" (URL: https://images.pexels.com/photos/ID/pexels-photo-ID.jpeg?auto=compress&cs=tinysrgb&w=1920)`)
-    console.log(`     IDs Pexels : ${[...pexelsIds].join(', ') || 'aucun'}`)
-    console.log(`  2. Crée le document post avec "Create document(s)" en renseignant mainImage et les images dans body`)
+    console.log(`ACTION: Publie cet article dans Sanity avec "Create document(s)".`)
+    console.log(`  IMAGES : utilise UNIQUEMENT des photos de voitures chinoises du catalogue (documents _type=="car", champ photos[]).`)
+    console.log(`           N'utilise JAMAIS de banque d'images générique (Pexels, etc.).`)
+    console.log(`  - mainImage : _coverRef indiqué dans le JSON (réf. asset d'une voiture chinoise).`)
+    console.log(`  - chaque section image : utilise son _ref (réf. asset d'une voiture chinoise).`)
     console.log(`FILE: ${jsonPath}`)
     console.log(`SLUG: ${article.slug}`)
     console.log(`[/SANITY_MCP_REQUIRED]`)
