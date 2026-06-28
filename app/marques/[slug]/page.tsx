@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Nav from "@/components/Nav";
 import Catalogue from "@/components/Catalogue";
 import Footer from "@/components/Footer";
@@ -71,7 +72,9 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
         </div>
       </section>
       {cars.length > 0 ? (
-        <Catalogue cars={cars} />
+        <Suspense>
+          <Catalogue cars={cars} />
+        </Suspense>
       ) : (
         <section className="section">
           <div className="section-inner" style={{ textAlign: "center", padding: "80px 0", maxWidth: 560, margin: "0 auto" }}>
