@@ -4069,7 +4069,7 @@ html, body { overflow-x:clip; max-width:100%; }
 .compare-bar-reset:hover { color: #fff; border-color: rgba(255,255,255,.5); }
 
 /* ─── Comparateur page ─── */
-.comparer-page { padding: 100px 0 60px; min-height: 80vh; }
+.comparer-page { padding: 48px 0 60px; min-height: 80vh; }
 .comparer-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 .comparer-header { display: flex; align-items: center; gap: 24px; margin-bottom: 28px; flex-wrap: wrap; }
 .comparer-back { color: #A01414; font-size: 14px; font-weight: 500; text-decoration: none; }
