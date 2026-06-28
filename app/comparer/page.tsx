@@ -58,7 +58,7 @@ const LOWER_BETTER = new Set(["0-100 km/h", "Conso. mixte"]);
 const HIGHER_BETTER = new Set([
   "Puissance", "Puissance système", "Couple", "Places",
   "Coffre", "Réservoir", "Autonomie", "Autonomie élec.", "Autonomie totale",
-  "Vitesse max", "Garde au sol", "Empattement", "Batterie", "Poids",
+  "Vitesse max", "Garde au sol", "Empattement", "Batterie", "Poids", "Pneus",
 ]);
 
 function extractNum(val: string): number | null {
