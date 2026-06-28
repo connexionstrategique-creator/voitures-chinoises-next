@@ -94,6 +94,7 @@ export const postSchema = defineType({
         },
         { type: "table" },
         { type: "promoAuto" },
+        { type: "promoBanner" },
         {
           type: "object",
           name: "youtubeEmbed",
