@@ -8,8 +8,8 @@ Le connecteur Sanity est disponible dans cette session. Quand les scripts Node.j
 
 ### Publier un article de blog
 1. Lis le fichier JSON indiqué (ex: `seo-logs/article-YYYY-MM-DD.json`)
-2. Upload les images Pexels dans Sanity Assets (URL: `https://images.pexels.com/photos/ID/pexels-photo-ID.jpeg?auto=compress&cs=tinysrgb&w=1920`)
-3. Utilise l'outil MCP Sanity **"Create document(s)"** avec `_type: "post"` et les champs du JSON : `title`, `slug`, `seoTitle`, `seoDescription`, `excerpt`, `body`, `tags`, `category`, `publishedAt`, `mainImage`
+2. **Images : UNIQUEMENT des photos de voitures chinoises du catalogue.** N'utilise JAMAIS de banque d'images générique (Pexels, Unsplash, etc.). Les références d'images sont déjà dans le JSON : `_coverRef` (couverture) et le `_ref` de chaque section image — ce sont des réfs d'assets de voitures chinoises (documents `_type=="car"`, champ `photos[]`). Si une réf manque, choisis une photo d'un document `car` de la marque pertinente (`*[_type=="car" && brand=="BYD"]{photos}`).
+3. Utilise l'outil MCP Sanity **"Create document(s)"** avec `_type: "post"` et les champs du JSON : `title`, `slug`, `seoTitle`, `seoDescription`, `excerpt`, `body`, `tags`, `category`, `publishedAt`, `mainImage` (depuis `_coverRef`)
 
 ### Mettre à jour les SEO des voitures
 1. Lis le fichier JSON indiqué (ex: `seo-logs/cars-seo-YYYY-MM-DD.json`)
