@@ -4216,7 +4216,6 @@ html, body { overflow-x:clip; max-width:100%; }
 .promo-inline-img {
   width: 100%; display: block;
   margin-top: 10px;
-  max-height: 320px; object-fit: cover;
 }
 .promo-inline-title {
   font-family: "Syne", sans-serif;
