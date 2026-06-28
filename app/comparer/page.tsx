@@ -53,12 +53,12 @@ const SPEC_LABELS: Record<string, string> = {
 };
 
 // Specs where a lower number wins
-const LOWER_BETTER = new Set(["0-100 km/h", "Conso. mixte", "Poids"]);
+const LOWER_BETTER = new Set(["0-100 km/h", "Conso. mixte"]);
 // Specs where a higher number wins
 const HIGHER_BETTER = new Set([
   "Puissance", "Puissance système", "Couple", "Places",
   "Coffre", "Réservoir", "Autonomie", "Autonomie élec.", "Autonomie totale",
-  "Vitesse max", "Garde au sol", "Empattement", "Batterie",
+  "Vitesse max", "Garde au sol", "Empattement", "Batterie", "Poids",
 ]);
 
 function extractNum(val: string): number | null {
