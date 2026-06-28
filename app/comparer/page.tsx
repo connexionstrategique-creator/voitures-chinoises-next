@@ -85,7 +85,7 @@ function specVal(car: Car, key: string): string {
   return car.specs?.[key] ?? "—";
 }
 
-function buildVerdict(car: Car, allCars: Car[]): { bullets: string[]; summary: string } {
+function buildVerdict(car: Car, allCars: Car[]): { bullets: string[]; quote: string; forWho: string } {
   const myPrice = parsePrice(car.price);
   const prices = allCars.map(c => parsePrice(c.price));
   const isLowest = myPrice > 0 && myPrice === Math.min(...prices);
@@ -93,48 +93,46 @@ function buildVerdict(car: Car, allCars: Car[]): { bullets: string[]; summary: s
 
   const bullets: string[] = [];
 
-  // Price
-  if (isLowest) bullets.push("Meilleur rapport qualité-prix");
+  if (isLowest) bullets.push("Prix le plus accessible du comparatif");
 
-  // Power (Puissance or Puissance système)
   const myPow = extractNum(specVal(car, "Puissance") !== "—" ? specVal(car, "Puissance") : specVal(car, "Puissance système"));
   const allPow = allCars.map(c => extractNum(specVal(c, "Puissance") !== "—" ? specVal(c, "Puissance") : specVal(c, "Puissance système")));
   const maxPow = Math.max(...(allPow.filter(n => n !== null) as number[]));
   if (myPow !== null && myPow === maxPow && allPow.filter(n => n === maxPow).length === 1)
-    bullets.push("Puissance maximale du comparatif");
+    bullets.push("Moteur le plus puissant du comparatif");
 
-  // 0-100
   const myAcc = extractNum(specVal(car, "0-100 km/h"));
   const allAcc = allCars.map(c => extractNum(specVal(c, "0-100 km/h"))).filter(n => n !== null) as number[];
   if (myAcc !== null && allAcc.length >= 2 && myAcc === Math.min(...allAcc) && allAcc.filter(n => n === myAcc).length === 1)
-    bullets.push("Accélération la plus rapide");
+    bullets.push("L'accélération la plus vive");
 
-  // Range
   const myRange = extractNum(specVal(car, "Autonomie totale") !== "—" ? specVal(car, "Autonomie totale") : specVal(car, "Autonomie"));
   const allRange = allCars.map(c => extractNum(specVal(c, "Autonomie totale") !== "—" ? specVal(c, "Autonomie totale") : specVal(c, "Autonomie"))).filter(n => n !== null) as number[];
   if (myRange !== null && allRange.length >= 2 && myRange === Math.max(...allRange) && allRange.filter(n => n === myRange).length === 1)
-    bullets.push("Plus grande autonomie");
+    bullets.push("L'autonomie la plus longue");
 
-  // Seats
   const mySeats = extractNum(specVal(car, "Places"));
   const allSeats = allCars.map(c => extractNum(specVal(c, "Places"))).filter(n => n !== null) as number[];
   if (mySeats !== null && allSeats.length >= 2 && mySeats === Math.max(...allSeats) && allSeats.filter(n => n === mySeats).length === 1)
-    bullets.push("Plus grande capacité passagers");
+    bullets.push("Plus d'espace pour toute la famille");
 
-  // Off-road
-  if (specVal(car, "Off-road") !== "—") bullets.push("Capacités tout-terrain avancées");
+  if (specVal(car, "Off-road") !== "—") bullets.push("Taillé pour les routes difficiles");
 
-  // Summary sentence
-  let summary = "";
+  let quote = "";
+  let forWho = "";
+
   if (isLowest) {
-    summary = `Idéal pour les familles et primo-accédants au segment des SUV premium. ${car.brand} ${car.model} offre le meilleur compromis technologie / budget de cette sélection.`;
+    quote = `Vous montez à bord — l'intérieur vous surprend. Le tableau de bord vous enveloppe, la technologie vous répond. Dehors, il ne ressemble pas à une voiture ordinaire. La ${car.brand} ${car.model} prouve qu'on peut rouler beau, rouler bien — sans compromis sur le budget.`;
+    forWho = `La famille ambitieuse qui veut accéder au segment premium sans sacrifier le bon sens. Ceux qui savent reconnaître une vraie bonne affaire.`;
   } else if (isHighest) {
-    summary = `Recommandée pour une clientèle exigeante, sans compromis. La ${car.brand} ${car.model} est le choix prestige et performance de cette comparaison.`;
+    quote = `Une présence qui impose le respect dès le premier regard. À l'intérieur, toute la famille est à l'aise — personne ne se sent à l'étroit. La ${car.brand} ${car.model} n'est pas faite pour ceux qui font des concessions. Elle est faite pour ceux qui ont choisi le meilleur.`;
+    forWho = `La grande famille qui refuse de choisir entre espace, confort, prestige et robustesse. Pour qui arriver quelque part, ça se voit.`;
   } else {
-    summary = `Un équilibre solide entre équipement et prix. La ${car.brand} ${car.model} convient à une clientèle polyvalente qui recherche performance et confort.`;
+    quote = `Ni trop, ni trop peu — exactement ce qu'il faut. La ${car.brand} ${car.model} coche toutes les cases qui comptent vraiment : fiabilité, confort, équipement, présence sur la route. Le choix de ceux qui savent précisément ce qu'ils veulent.`;
+    forWho = `L'acheteur polyvalent qui veut tout : un beau véhicule, bien équipé, au prix juste — sans avoir à s'expliquer.`;
   }
 
-  return { bullets, summary };
+  return { bullets, quote, forWho };
 }
 
 export default async function ComparerPage({
@@ -252,7 +250,7 @@ export default async function ComparerPage({
             </div>
             <div className="comparer-verdict-cards">
               {cars.map((car, ci) => {
-                const { bullets, summary } = verdicts[ci];
+                const { bullets, quote, forWho } = verdicts[ci];
                 return (
                   <div key={car.id} className="comparer-verdict-card">
                     <div className="comparer-verdict-car">
@@ -261,12 +259,12 @@ export default async function ComparerPage({
                     </div>
                     {bullets.length > 0 && (
                       <ul className="comparer-verdict-bullets">
-                        {bullets.map((b, bi) => (
-                          <li key={bi}>{b}</li>
-                        ))}
+                        {bullets.map((b, bi) => <li key={bi}>{b}</li>)}
                       </ul>
                     )}
-                    <p className="comparer-verdict-summary">{summary}</p>
+                    <p className="comparer-verdict-quote">{quote}</p>
+                    <div className="comparer-verdict-for-label">Pour qui ?</div>
+                    <p className="comparer-verdict-for-who">{forWho}</p>
                   </div>
                 );
               })}
