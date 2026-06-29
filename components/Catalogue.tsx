@@ -251,13 +251,13 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
             <div>
               <span className="filter-label">Type de véhicule</span>
               <div className="filters">
-                {["all", "suv", "hybride", "5places", "7places"].map((f) => (
+                {["all", "suv", "pickup", "hybride", "5places", "7places"].map((f) => (
                   <button
                     key={f}
                     className={`filter-btn${activeFilter === f ? " active" : ""}`}
                     onClick={() => handleFilter(f)}
                   >
-                    {f === "all" ? "Tous" : f === "suv" ? "SUV" : f === "hybride" ? "Hybrides" : f === "5places" ? "5 Places" : "7 Places"}
+                    {f === "all" ? "Tous" : f === "suv" ? "SUV" : f === "pickup" ? "Pick-up" : f === "hybride" ? "Hybrides" : f === "5places" ? "5 Places" : "7 Places"}
                   </button>
                 ))}
               </div>
