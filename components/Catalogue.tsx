@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { getColorHex } from "@/data/types";
@@ -208,8 +208,12 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
 
   const handleSearch = useCallback((val: string) => setSearch(val), []);
 
-  // Sync search to URL with a debounce so typing stays smooth (no navigation per keystroke)
+  // Sync search to URL with a debounce so typing stays smooth (no navigation per keystroke).
+  // Skip the initial mount so this component (also rendered on the homepage) doesn't
+  // navigate to /catalogue on load.
+  const skipFirstSync = useRef(true);
   useEffect(() => {
+    if (skipFirstSync.current) { skipFirstSync.current = false; return; }
     const t = setTimeout(() => updateURL({ q: search.trim() }), 300);
     return () => clearTimeout(t);
   }, [search, updateURL]);
