@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { getColorHex } from "@/data/types";
@@ -193,7 +193,7 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
   const [activeFilter, setActiveFilter] = useState(() => searchParams.get("f") ?? "all");
   const [activeBudget, setActiveBudget] = useState(() => searchParams.get("b") ?? "all");
   const [sort, setSort] = useState(() => searchParams.get("s") ?? "default");
-  const [search, setSearch] = useState(() => (searchParams.get("q") ?? "").toLowerCase().trim());
+  const [search, setSearch] = useState(() => searchParams.get("q") ?? "");
   const [compareList, setCompareList] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 9;
@@ -206,11 +206,13 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
     router.replace(`/catalogue?${params.toString()}`, { scroll: false });
   }, [router, searchParams]);
 
-  const handleSearch = useCallback((val: string) => {
-    const lower = val.toLowerCase().trim();
-    setSearch(lower);
-    updateURL({ q: lower });
-  }, [updateURL]);
+  const handleSearch = useCallback((val: string) => setSearch(val), []);
+
+  // Sync search to URL with a debounce so typing stays smooth (no navigation per keystroke)
+  useEffect(() => {
+    const t = setTimeout(() => updateURL({ q: search.trim() }), 300);
+    return () => clearTimeout(t);
+  }, [search, updateURL]);
 
   const handleFilter = (f: string) => { setActiveFilter(f); updateURL({ f }); };
   const handleBudget = (b: string) => { setActiveBudget(b); updateURL({ b }); };
@@ -231,7 +233,9 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
         (activeFilter === "7places" && c.specs.Places?.includes("7")) ||
         (activeFilter === "5places" && c.specs.Places?.includes("5") && !c.specs.Places?.includes("7"));
       const budOk = budgetMatch(c, activeBudget);
-      const srchOk = !search || c.brand.toLowerCase().includes(search) || c.model.toLowerCase().includes(search);
+      const haystack = `${c.brand} ${c.model}`.toLowerCase();
+      const terms = search.toLowerCase().trim().split(/\s+/).filter(Boolean);
+      const srchOk = terms.every((t) => haystack.includes(t));
       return catOk && budOk && srchOk;
     });
     if (sort === "price-asc") result = [...result].sort((a, b) => priceNum(a.price) - priceNum(b.price));
