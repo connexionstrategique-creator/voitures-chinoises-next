@@ -9,6 +9,7 @@ interface Car3DViewerProps {
 
 export default function Car3DViewer({ title, src, isInterior }: Car3DViewerProps) {
   const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
   const [fakeFS, setFakeFS] = useState(false);
   const [nativeFS, setNativeFS] = useState(false);
   const [countdown, setCountdown] = useState(10);
@@ -105,6 +106,13 @@ export default function Car3DViewer({ title, src, isInterior }: Car3DViewerProps
     return () => clearInterval(t);
   }, [loaded]);
 
+  // Timeout: if iframe doesn't load within 18s, show fallback
+  useEffect(() => {
+    if (loaded) return;
+    const t = setTimeout(() => setFailed(true), 18000);
+    return () => clearTimeout(t);
+  }, [loaded]);
+
   // Cleanup on unmount
   useEffect(() => {
     return () => {
@@ -120,8 +128,26 @@ export default function Car3DViewer({ title, src, isInterior }: Car3DViewerProps
   return (
     <div ref={containerRef} style={wrapStyle} className={isInterior ? "viewer-is-interior" : undefined}>
 
+      {/* Fallback: autohome.com.cn unreachable */}
+      {failed && !loaded && (
+        <div style={{
+          position: "absolute", inset: 0, display: "flex", flexDirection: "column",
+          alignItems: "center", justifyContent: "center", gap: 12, zIndex: 10,
+          background: "#0a0a0a",
+        }}>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5"/>
+            <path d="M12 7v6M12 17h.01" stroke="rgba(255,255,255,0.45)" strokeWidth="1.8" strokeLinecap="round"/>
+          </svg>
+          <div style={{ textAlign: "center" }}>
+            <div style={{ fontSize: 12, color: "rgba(255,255,255,0.6)", fontFamily: "DM Sans, sans-serif", fontWeight: 600, letterSpacing: "0.05em" }}>Vue 3D non disponible</div>
+            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", fontFamily: "DM Sans, sans-serif", marginTop: 4 }}>Source inaccessible depuis ce réseau</div>
+          </div>
+        </div>
+      )}
+
       {/* Loading overlay */}
-      {!loaded && (
+      {!loaded && !failed && (
         <div style={{
           position: "absolute", inset: 0, display: "flex", flexDirection: "column",
           alignItems: "center", justifyContent: "center", gap: 12, zIndex: 2,

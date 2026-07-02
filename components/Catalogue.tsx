@@ -394,13 +394,17 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                     </div>
 
                     <div className="price-cities">
-                      <span className="price-city-item">🇧🇯 Cotonou</span>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <span className="price-city-item"><img src="https://flagcdn.com/16x12/bj.png" width={14} height={10} alt="BJ" style={{verticalAlign:"middle",borderRadius:1,marginRight:3}} />Cotonou</span>
                       <span className="price-city-sep">·</span>
-                      <span className="price-city-item">🇹🇬 Lomé</span>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <span className="price-city-item"><img src="https://flagcdn.com/16x12/tg.png" width={14} height={10} alt="TG" style={{verticalAlign:"middle",borderRadius:1,marginRight:3}} />Lomé</span>
                       <span className="price-city-sep">·</span>
-                      <span className="price-city-item">🇨🇮 Abidjan</span>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <span className="price-city-item"><img src="https://flagcdn.com/16x12/ci.png" width={14} height={10} alt="CI" style={{verticalAlign:"middle",borderRadius:1,marginRight:3}} />Abidjan</span>
                       <span className="price-city-sep">·</span>
-                      <span className="price-city-item">🇸🇳 Dakar</span>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <span className="price-city-item"><img src="https://flagcdn.com/16x12/sn.png" width={14} height={10} alt="SN" style={{verticalAlign:"middle",borderRadius:1,marginRight:3}} />Dakar</span>
                       <span className="price-city-same">Même prix</span>
                     </div>
 

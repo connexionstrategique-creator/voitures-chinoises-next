@@ -297,13 +297,15 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: "0.04em", marginBottom: 4 }}>LIVRAISON VERS</div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 10px", lineHeight: 1.5 }}>
                   {[
-                    { flag: "🇧🇯", name: "Bénin" },
-                    { flag: "🇹🇬", name: "Togo" },
-                    { flag: "🇨🇮", name: "Côte d'Ivoire" },
-                    { flag: "🇸🇳", name: "Sénégal" },
-                  ].map(({ flag, name }) => (
+                    { code: "bj", name: "Bénin" },
+                    { code: "tg", name: "Togo" },
+                    { code: "ci", name: "Côte d'Ivoire" },
+                    { code: "sn", name: "Sénégal" },
+                  ].map(({ code, name }) => (
                     <span key={name} style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 12, color: "rgba(255,255,255,0.55)", whiteSpace: "nowrap" }}>
-                      <span style={{ fontSize: 15 }}>{flag}</span>{name}
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={`https://flagcdn.com/16x12/${code}.png`} width={16} height={12} alt={name} style={{ display: "inline-block", verticalAlign: "middle", borderRadius: 2 }} />
+                      {name}
                     </span>
                   ))}
                 </div>
