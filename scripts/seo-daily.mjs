@@ -15,6 +15,17 @@ import { runLinksOptimization } from './seo-links.mjs'
 
 const VERCEL_DEPLOY_HOOK = process.env.VERCEL_DEPLOY_HOOK
 
+// Une tentative Sanity échouée (réseau/proxy) peut laisser un socket zombie qui
+// émet un ECONNRESET plus tard, sans rapport avec la requête en cours — cela
+// ferait planter tout le process. On l'avale pour ce cas précis uniquement.
+process.on('uncaughtException', (err) => {
+  if (err && err.code === 'ECONNRESET') {
+    console.warn(`⚠️ Erreur réseau différée ignorée (ECONNRESET) : ${err.message}`)
+    return
+  }
+  throw err
+})
+
 async function main() {
   const now = new Date()
   const day = now.getDay() // 0=Dim, 1=Lun, 2=Mar, 3=Mer, 4=Jeu, 5=Ven, 6=Sam
