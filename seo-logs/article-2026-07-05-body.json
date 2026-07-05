@@ -1,0 +1,450 @@
+[
+  {
+    "_type": "block",
+    "_key": "k1",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k2",
+        "text": "Vous venez de signer pour une Changan CS75 Plus ou une BYD Atto 3 neuve, et une question revient sans cesse dans les groupes WhatsApp d'acheteurs à Cotonou, Lomé, Abidjan ou Dakar : que couvre vraiment la garantie constructeur une fois la voiture débarquée en Afrique ? Contrairement aux idées reçues, une voiture chinoise neuve importée bénéficie d'une garantie tout aussi sérieuse qu'un modèle japonais ou européen — à condition de connaître ses limites exactes. Ce guide détaille, marque par marque, la durée réelle de couverture, ce qui est pris en charge, ce qui ne l'est jamais, et la procédure concrète pour faire valoir sa garantie sans perdre des semaines à Cotonou ou à Abidjan.",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k3",
+    "style": "h2",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k4",
+        "text": "Garantie constructeur : ce que couvrent réellement les marques chinoises en 2026",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k5",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k6",
+        "text": "La garantie constructeur d'une voiture chinoise neuve 0 km couvre, comme pour n'importe quelle marque mondiale, les défauts de fabrication et les pannes mécaniques ou électroniques qui ne résultent pas d'une usure normale ou d'un mauvais usage. Concrètement, cela inclut le moteur, la boîte de vitesses (manuelle, automatique ou DCT selon le modèle), le groupe motopropulseur électrique pour les BYD Atto 3, Dolphin et Seal, le système de climatisation, l'électronique embarquée (calculateurs, capteurs, écran multimédia) et la carrosserie contre la corrosion perforante. Sur les modèles hybrides comme le BYD Song Plus DM-i ou le Changan Uni-K iDD, la garantie couvre également le système de gestion hybride, un point que beaucoup d'acheteurs africains ignorent et qui rassure sur la fiabilité à long terme de cette technologie encore récente sur le continent.",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k7",
+    "style": "h2",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k8",
+        "text": "Durée et kilométrage : BYD, Changan, Jetour, Haval, GWM comparés",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k9",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k10",
+        "text": "La durée de garantie varie sensiblement d'une marque à l'autre, et c'est souvent le premier critère que les acheteurs comparent avant de signer un bon de commande. Voici les couvertures constructeur telles qu'appliquées sur les véhicules neufs importés directement depuis l'usine vers l'Afrique de l'Ouest en 2026 :",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k11",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k12",
+        "text": "BYD (Atto 3, Dolphin, Seal, Song Plus DM-i) : 6 ans ou 150 000 km sur le véhicule, jusqu'à 8 ans ou 160 000 km sur la batterie haute tension — la couverture batterie la plus longue du marché chinois",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k13",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k14",
+        "text": "Changan (Alsvin, CS35 Plus, CS75 Plus, Uni-K iDD) : 5 ans ou 100 000 km sur l'ensemble du véhicule, pièces et main-d'œuvre",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k15",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k16",
+        "text": "Jetour (Dashing, X70) : 5 ans ou 100 000 km, avec extension possible à 150 000 km sur certaines pièces moteur selon le point de vente",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k17",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k18",
+        "text": "Haval H6 et GAC GS8 : 4 ans ou 100 000 km, standard sur la gamme SUV thermique et hybride",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k19",
+    "style": "normal",
+    "listItem": "bullet",
+    "level": 1,
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k20",
+        "text": "GWM Poer (pick-up) : 3 ans ou 100 000 km sur le véhicule, 5 ans sur le moteur diesel — une couverture pensée pour un usage professionnel intensif",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "image",
+    "_key": "k21",
+    "alt": "SUV chinois GAC neuf couvert par la garantie constructeur en Afrique de l'Ouest",
+    "asset": {
+      "_type": "reference",
+      "_ref": "image-fbf58e817495d8e98d8a72d1188c59a6fc6a0367-3840x2880-jpg"
+    }
+  },
+  {
+    "_type": "block",
+    "_key": "k22",
+    "style": "h2",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k23",
+        "text": "Ce qui n'est jamais couvert par la garantie constructeur",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k24",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k25",
+        "text": "C'est ici que la majorité des litiges naissent entre acheteurs et concessionnaires à Abidjan ou Dakar. La garantie constructeur exclut systématiquement l'usure normale des pièces d'entretien courant : plaquettes et disques de frein, pneumatiques, essuie-glaces, filtres (air, huile, habitacle) et batterie 12V classique. Elle exclut aussi tout dommage causé par un carburant non conforme — un point sensible en Afrique de l'Ouest où l'essence disponible localement titre souvent 92 ou 91 d'indice d'octane contre les 95 recommandés en usine, ce qui peut, à terme, affecter le calculateur moteur si aucun additif correctif n'est utilisé. Sont également exclus les dégâts liés aux pistes non goudronnées (chocs sous caisse, garde au sol insuffisante), l'entretien non réalisé dans les intervalles prescrits, et toute modification non autorisée du véhicule. Enfin, aucune marque ne couvre les dommages liés à une immersion prolongée lors de la saison des pluies à Cotonou ou Lomé, ce qui justifie une vigilance particulière sur les routes inondables.",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k26",
+    "style": "h2",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k27",
+        "text": "Comment faire valoir sa garantie à Cotonou, Lomé, Abidjan ou Dakar",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k28",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k29",
+        "text": "La procédure diffère d'un réseau à l'autre, mais la logique reste identique partout : conserver précieusement le carnet d'entretien numérique ou papier remis à la livraison, respecter scrupuleusement les intervalles de vidange (généralement tous les 10 000 km ou 6 mois pour un usage africain, contre 15 000 km en usage européen standard), et faire réaliser cet entretien exclusivement chez un réparateur agréé par l'importateur. En cas de panne suspectée de garantie, la première étape consiste à contacter le service après-vente via WhatsApp avec photos et numéro de châssis (VIN) : un diagnostic à distance permet souvent de confirmer l'éligibilité avant même le déplacement du véhicule. Le délai de traitement d'un dossier de garantie varie de 5 à 15 jours ouvrables selon que la pièce est disponible en stock local à Cotonou ou Abidjan, ou qu'elle doit être commandée depuis la Chine — un délai supplémentaire de 20 à 30 jours dans ce dernier cas.",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "image",
+    "_key": "k30",
+    "alt": "Voiture chinoise Jetour neuve avec carnet d'entretien pour garantie constructeur en Afrique",
+    "asset": {
+      "_type": "reference",
+      "_ref": "image-19ed61c1c2728df6bb34ae9188205248ad8bf574-3840x2880-jpg"
+    }
+  },
+  {
+    "_type": "block",
+    "_key": "k31",
+    "style": "h2",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k32",
+        "text": "Garantie et pièces détachées : le vrai enjeu en Afrique de l'Ouest",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k33",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k34",
+        "text": "Une garantie constructeur ne vaut que ce que vaut le réseau de pièces détachées derrière elle. C'est le principal point de vigilance quand on compare les marques chinoises entre elles en 2026 : BYD, Changan et Jetour ont désormais des stocks locaux à Cotonou, Lomé et Abidjan pour les pièces d'usure et les pièces de garantie les plus demandées (plaquettes, filtres, capteurs, modules électroniques courants), ce qui ramène le délai moyen d'intervention sous garantie à 7-10 jours. Les marques plus récentes sur le marché ouest-africain, comme Omoda ou EXEED, dépendent davantage d'un approvisionnement depuis la Chine ou depuis un hub régional, avec des délais pouvant atteindre 4 à 6 semaines pour une pièce rare. Avant l'achat, il est donc pertinent de demander directement à l'importateur la liste des pièces disponibles en stock local et le délai moyen constaté sur les 12 derniers mois — une information que les vendeurs sérieux communiquent sans détour.",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k35",
+    "style": "blockquote",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k36",
+        "text": "Une garantie de 6 ans ne sert à rien si la pièce défectueuse met 6 semaines à arriver. Vérifiez toujours le stock local de pièces avant la couverture affichée sur la fiche technique.",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k37",
+    "style": "h2",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k38",
+        "text": "Extension de garantie : est-ce utile pour une voiture chinoise ?",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k39",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k40",
+        "text": "Plusieurs importateurs proposent désormais une extension de garantie payante, généralement entre 250 000 et 600 000 FCFA selon le modèle, pour prolonger la couverture de 2 à 3 ans supplémentaires au-delà de la garantie constructeur standard. Cette option est particulièrement pertinente pour les véhicules destinés à un usage intensif — taxi, VTC avec Gozem ou Yango, flotte professionnelle — où le kilométrage annuel dépasse largement les 25 000 à 30 000 km et peut donc atteindre le plafond contractuel avant la fin de la période calendaire. Pour un usage familial classique à Cotonou, Lomé ou Dakar avec un kilométrage annuel de 10 000 à 15 000 km, la garantie constructeur de base couvre généralement toute la période où les pannes de jeunesse sont statistiquement les plus probables, rendant l'extension moins indispensable mais toujours rassurante pour la revente.",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k41",
+    "style": "h2",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k42",
+        "text": "Questions fréquentes sur la garantie des voitures chinoises en Afrique",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k43",
+    "style": "h3",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k44",
+        "text": "La garantie constructeur BYD est-elle valable en dehors de la Chine ?",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k45",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k46",
+        "text": "Oui, à condition que le véhicule ait été importé par un distributeur officiel agréé par BYD pour l'Afrique de l'Ouest. La garantie internationale de 6 ans/150 000 km sur le véhicule et 8 ans/160 000 km sur la batterie s'applique alors intégralement à Cotonou, Lomé, Abidjan ou Dakar, sur présentation du carnet d'entretien et du numéro de châssis.",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k47",
+    "style": "h3",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k48",
+        "text": "Que se passe-t-il si je n'entretiens pas mon véhicule chez l'importateur agréé ?",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k49",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k50",
+        "text": "Faire réaliser l'entretien courant hors du réseau agréé n'annule pas automatiquement toute la garantie, mais elle peut être refusée sur la pièce précise concernée si le défaut est lié à un entretien non conforme aux préconisations constructeur (huile inadaptée, filtre non homologué). Conservez toujours les factures comme preuve.",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k51",
+    "style": "h3",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k52",
+        "text": "La garantie couvre-t-elle les pannes liées à la chaleur à Abidjan ou Dakar ?",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k53",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k54",
+        "text": "Les défaillances de climatisation ou de calculateur liées à une exposition thermique normale sont couvertes si elles relèvent d'un défaut de fabrication. En revanche, une surchauffe causée par un manque de liquide de refroidissement non signalé lors d'un entretien est considérée comme une négligence et exclue de la garantie.",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k55",
+    "style": "h3",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k56",
+        "text": "Combien coûte une réparation hors garantie sur une voiture chinoise en Afrique ?",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k57",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k58",
+        "text": "Hors garantie, une réparation mécanique courante (embrayage, alternateur) coûte en moyenne 30 à 40 % moins cher que sur un modèle japonais ou européen équivalent, grâce à des pièces détachées chinoises moins onéreuses. Comptez toutefois un délai plus long si la pièce n'est pas en stock local à Cotonou ou Lomé.",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k59",
+    "style": "h2",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k60",
+        "text": "Conclusion",
+        "marks": []
+      }
+    ]
+  },
+  {
+    "_type": "block",
+    "_key": "k61",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+      {
+        "_type": "span",
+        "_key": "k62",
+        "text": "La garantie constructeur des voitures chinoises neuves n'a plus rien à envier aux standards internationaux en 2026 : BYD affiche même la couverture batterie la plus longue du marché avec 8 ans. La clé n'est pas la durée affichée sur la brochure, mais la disponibilité réelle des pièces à Cotonou, Lomé, Abidjan ou Dakar et le sérieux du réseau après-vente de votre importateur. Avant de signer, demandez toujours le détail exact de la couverture et le stock local de pièces. Pour un devis personnalisé incluant le détail de la garantie constructeur sur le modèle qui vous intéresse, contactez voitureschinoises.com ou écrivez directement au +229 41 76 53 41 sur WhatsApp — réponse sous 24h.",
+        "marks": []
+      }
+    ]
+  }
+]
