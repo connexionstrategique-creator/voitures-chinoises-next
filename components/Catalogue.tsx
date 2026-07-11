@@ -351,6 +351,18 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                       <CarSVG color={car.color} />
                     )}
                     <div className={`car-badge badge-${car.badge}`}>{car.badgeText}</div>
+                    {(car.autohomeId || car.sketchfabId) && (
+                      <button
+                        className="card-3d-pill"
+                        onClick={(e) => { e.stopPropagation(); router.push(`/voitures/${carSlug(car.brand, car.model)}?tab=3d`); }}
+                        title="Vue 3D 360°"
+                      >
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                        </svg>
+                        360°
+                      </button>
+                    )}
                     <div className="brand-strip">{car.brand} · {car.year} · 0km</div>
                   </div>
 

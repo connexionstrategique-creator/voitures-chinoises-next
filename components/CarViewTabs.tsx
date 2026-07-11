@@ -15,6 +15,7 @@ interface CarViewTabsProps {
   sketchfabId?: string;
   autohomeId?: string;
   autohomeInteriorId?: string;
+  defaultTab?: Tab;
 }
 
 type Tab = "photos" | "exterior" | "interior";
@@ -35,9 +36,9 @@ const TAB_STYLE = (active: boolean): React.CSSProperties => ({
 
 export default function CarViewTabs({
   photos, color, alt, colorGroups,
-  sketchfabId, autohomeId, autohomeInteriorId,
+  sketchfabId, autohomeId, autohomeInteriorId, defaultTab,
 }: CarViewTabsProps) {
-  const [tab, setTab] = useState<Tab>("photos");
+  const [tab, setTab] = useState<Tab>(defaultTab ?? "photos");
 
   const extSrc = autohomeId
     ? `${AUTOHOME_BASE}${autohomeId}?bg=99&progress=1&spin=1&click=1&noswitch=1&nocolor=1&carscale=1.2`

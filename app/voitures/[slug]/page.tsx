@@ -61,6 +61,7 @@ const SPEC_ICONS: Record<string, string> = {
   Sécurité: "🛡️",
   Freins: "🔴",
   Caméra: "📷",
+  "Caméra 360°": "📷",
   "Aide à la conduite": "🚘",
   // Général
   Garantie: "🛡️",
@@ -198,8 +199,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function VoiturePage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function VoiturePage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<Record<string, string>> }) {
   const { slug } = await params;
+  const sp = await searchParams;
+  const defaultTab = (sp?.tab === "3d") ? "exterior" : "photos";
 
   const staticCar = CARS.find((c) => carSlug(c.brand, c.model) === slug);
   let car = staticCar;
@@ -277,6 +280,7 @@ export default async function VoiturePage({ params }: { params: Promise<{ slug: 
                 sketchfabId={car!.sketchfabId}
                 autohomeId={car!.autohomeId}
                 autohomeInteriorId={car!.autohomeInteriorId}
+                defaultTab={defaultTab as "photos" | "exterior" | "interior"}
               />
             </div>
           </div>
