@@ -13,6 +13,17 @@ import { runBlog } from './seo-blog.mjs'
 import { runCarsOptimization } from './seo-cars.mjs'
 import { runLinksOptimization } from './seo-links.mjs'
 
+// Dans cet environnement, l'API Sanity est bloquée par la policy réseau (proxy) —
+// le tunnel HTTPS échoue puis émet un 'error' async non écouté qui crashait le process.
+// C'est un artefact de connexion réseau (pas une erreur métier) : on l'avale ici.
+process.on('uncaughtException', (err) => {
+  if (err.code === 'ECONNRESET') {
+    console.warn(`   ⚠️ Socket réseau résiduel ignoré (${err.code}) — publication directe Sanity indisponible dans cet environnement.`)
+    return
+  }
+  throw err
+})
+
 const VERCEL_DEPLOY_HOOK = process.env.VERCEL_DEPLOY_HOOK
 
 async function main() {
