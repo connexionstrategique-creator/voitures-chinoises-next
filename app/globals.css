@@ -811,6 +811,30 @@ html, body { overflow-x:clip; max-width:100%; }
   }
   .wish-btn:hover, .wish-btn.active { background:var(--red); color:#fff; }
 
+  .card-3d-pill {
+    position: absolute;
+    bottom: 36px;
+    right: 10px;
+    z-index: 4;
+    background: rgba(0,0,0,0.62);
+    border: 1px solid rgba(255,255,255,0.22);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 100px;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 4px 9px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background .15s;
+  }
+  .card-3d-pill:hover { background: rgba(160,20,20,0.85); border-color: rgba(255,255,255,0.35); }
+
   .brand-strip {
     position:absolute; bottom:0; left:0; right:0;
     padding:5px 14px; background:rgba(0,0,0,0.7);
@@ -1060,6 +1084,11 @@ html, body { overflow-x:clip; max-width:100%; }
     .car-detail-left {
       position: static;
       height: auto;
+      overflow: visible;
+    }
+    .car-detail-carousel-wrap {
+      overflow: visible;
+      justify-content: flex-start;
     }
     .car-detail-left-title { display: none; }
     .car-detail-header { padding: 24px 20px; }
