@@ -2632,7 +2632,27 @@ html, body { overflow-x:clip; max-width:100%; }
     .modal-title { font-size:28px; }
     .modal-price { font-size:36px; }
     .modal-body { padding:24px 16px; }
-    .specs-full { grid-template-columns:repeat(2,1fr); }
+    .specs-full { grid-template-columns: 1fr; }
+    .spec-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      padding: 10px 14px;
+    }
+    .spec-key {
+      min-width: unset;
+      font-size: 11px;
+      font-weight: 600;
+      color: #888;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .spec-val {
+      font-size: 13px;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      max-width: 100%;
+    }
     .modal-actions { flex-direction:column; gap:8px; }
     .modal-cta-primary, .modal-cta-secondary { width:100%; text-align:center; }
 

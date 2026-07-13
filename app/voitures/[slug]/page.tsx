@@ -353,13 +353,13 @@ export default async function VoiturePage({ params, searchParams }: { params: Pr
                 <tbody>
                   {Object.entries(car!.specs).map(([k, v], i) => (
                     <tr key={k} style={{ background: i % 2 === 0 ? "#F5F5F5" : "#fff" }}>
-                      <td style={{ padding: "11px 14px", width: 36, textAlign: "center", fontSize: 17, lineHeight: 1 }}>
+                      <td style={{ padding: "11px 14px", width: 36, textAlign: "center", fontSize: 17, lineHeight: 1, verticalAlign: "top" }}>
                         {SPEC_ICONS[k] ?? "·"}
                       </td>
-                      <td style={{ padding: "11px 8px 11px 0", fontSize: 13, fontWeight: 600, color: "#666", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                      <td style={{ padding: "11px 8px 11px 0", fontSize: 13, fontWeight: 600, color: "#666", verticalAlign: "top", width: "38%" }}>
                         {k}
                       </td>
-                      <td style={{ padding: "11px 16px 11px 12px", fontSize: 14, fontWeight: 500, color: "#111", verticalAlign: "middle" }}>
+                      <td style={{ padding: "11px 16px 11px 12px", fontSize: 14, fontWeight: 500, color: "#111", verticalAlign: "top", wordBreak: "break-word" }}>
                         {v}
                       </td>
                     </tr>
