@@ -4060,6 +4060,18 @@ html, body { overflow-x:clip; max-width:100%; }
 .color-dot-btn.active { border-color: #A01414 !important; transform: scale(1.15); }
 .sort-wrap { display: flex; flex-direction: column; gap: 8px; }
 .sort-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.catalogue-count {
+  display: flex; align-items: center; gap: 8px;
+  align-self: flex-end; padding-bottom: 2px;
+}
+.catalogue-count-num {
+  font-family: var(--font-cormorant); font-size: 28px; font-weight: 600;
+  color: var(--black); line-height: 1;
+}
+.catalogue-count-label {
+  font-family: var(--font-dm-sans); font-size: 12px; font-weight: 500;
+  color: #888; letter-spacing: 0.06em; text-transform: uppercase;
+}
 
 /* ─── Compare toggle button on card ─── */
 .compare-toggle-btn {
@@ -4350,7 +4362,7 @@ html, body { overflow-x:clip; max-width:100%; }
   .nouveautes-head { margin-bottom: 20px; gap: 12px; }
   .nouveautes-title { font-size: 20px; }
   .nouveautes-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .nouveaute-card:nth-child(n+5) { display: none; }
+  .nouveaute-card:nth-child(n+7) { display: none; }
   .catalogue-bottom-controls { flex-direction: column; }
   .compare-bar-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
   /* Comparateur mobile */

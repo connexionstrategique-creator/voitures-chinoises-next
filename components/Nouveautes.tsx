@@ -4,7 +4,7 @@ import type { Car } from "@/data/types";
 import { carSlug } from "@/lib/slug";
 
 export default function Nouveautes({ cars }: { cars: Car[] }) {
-  const display = cars.slice(0, 5);
+  const display = cars.slice(0, 6);
   if (!display.length) return null;
   return (
     <section className="nouveautes-section">

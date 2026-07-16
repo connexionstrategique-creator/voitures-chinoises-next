@@ -326,6 +326,10 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                 ))}
               </div>
             </div>
+            <div className="catalogue-count">
+              <span className="catalogue-count-num">{filtered.length}</span>
+              <span className="catalogue-count-label">voiture{filtered.length !== 1 ? "s" : ""} disponible{filtered.length !== 1 ? "s" : ""}</span>
+            </div>
           </div>
 
           {/* Cars grid */}
