@@ -36,8 +36,9 @@ function carBaseColors(colors: string[]): string[] {
   return Array.from(found);
 }
 
-function waLink(model: string) {
-  const msg = encodeURIComponent(`Bonjour, je suis intéressé par la ${model}. Pouvez-vous me donner plus d'informations ?`);
+function waLink(brand: string, model: string, slug: string) {
+  const url = `https://www.voitureschinoises.com/voitures/${slug}`;
+  const msg = encodeURIComponent(`Bonjour, je suis intéressé par la ${brand} ${model}.\n\n🔗 ${url}\n\nPouvez-vous me donner plus d'informations ?`);
   return `https://wa.me/${WA_NUMBER}?text=${msg}`;
 }
 
@@ -171,7 +172,7 @@ function CarModal({ car, onClose }: { car: Car; onClose: () => void }) {
           <div className="modal-actions">
             <a
               className="modal-cta-primary"
-              href={waLink(`${car.brand} ${car.model}`)}
+              href={waLink(car.brand, car.model, carSlug(car.brand, car.model))}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -427,7 +428,7 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                     <div className="card-actions">
                       <a
                         className="card-cta-wa"
-                        href={waLink(`${car.brand} ${car.model}`)}
+                        href={waLink(car.brand, car.model, carSlug(car.brand, car.model))}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}

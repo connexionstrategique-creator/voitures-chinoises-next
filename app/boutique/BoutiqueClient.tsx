@@ -11,6 +11,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   electricite: "Électricité",
   carrosserie: "Carrosserie",
   entretien:   "Entretien",
+  accessoires: "Accessoires",
   autre:       "Autre",
 };
 
@@ -22,6 +23,7 @@ const CATEGORY_ICONS: Record<string, string> = {
   electricite: "⚡",
   carrosserie: "🚗",
   entretien:   "🛠️",
+  accessoires: "✨",
   autre:       "📦",
 };
 
@@ -70,12 +72,14 @@ export default function BoutiqueClient({
   }, [parts, activeCategory, activeCar, search]);
 
   function buildWaMsg(part: SparePart) {
-    const cars = part.compatibleCars.map((c) => `${c.brand} ${c.model}`).join(", ");
+    const compatibles = part.compatibleCars.map((c) => `${c.brand} ${c.model}`).join(", ");
+    const boutiqueUrl = `https://www.voitureschinoises.com/boutique`;
     return encodeURIComponent(
       `Bonjour, je souhaite commander la pièce suivante :\n\n` +
       `📦 ${part.name}${part.reference ? ` (Réf. ${part.reference})` : ""}\n` +
-      `🚗 Compatible : ${cars || "—"}\n` +
+      `🚗 Compatible : ${compatibles || "—"}\n` +
       `💰 Prix de référence : ${formatPrice(part.price)}\n\n` +
+      `🔗 ${boutiqueUrl}\n\n` +
       `Merci de confirmer la disponibilité et les délais.`
     );
   }
@@ -262,11 +266,11 @@ function PartCard({
         {!part.inStock && (
           <div style={{
             position: "absolute", top: 12, right: 12,
-            background: "#A01414", color: "#fff",
+            background: "#666", color: "#fff",
             fontSize: 11, fontWeight: 700, letterSpacing: "0.06em",
             padding: "4px 10px", borderRadius: 100,
           }}>
-            Sur commande
+            Délai allongé
           </div>
         )}
       </div>
@@ -316,6 +320,9 @@ function PartCard({
             </div>
             <div style={{ fontSize: 22, fontWeight: 800, color: "#0D0D0D", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
               {formatPrice(part.price)}
+            </div>
+            <div style={{ fontSize: 11, color: "#A01414", fontWeight: 600, marginTop: 4, letterSpacing: "0.04em" }}>
+              Disponible sur commande
             </div>
           </div>
 

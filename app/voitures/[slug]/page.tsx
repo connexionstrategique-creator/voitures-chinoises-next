@@ -223,7 +223,8 @@ export default async function VoiturePage({ params, searchParams }: { params: Pr
   if (!car) notFound();
 
   const photos = car!.photos || [];
-  const waMsg = encodeURIComponent(`Bonjour, je suis intéressé par la ${car!.brand} ${car!.model}. Pouvez-vous me donner plus d'informations ?`);
+  const carUrl = `https://www.voitureschinoises.com/voitures/${slug}`;
+  const waMsg = encodeURIComponent(`Bonjour, je suis intéressé par la ${car!.brand} ${car!.model}.\n\n🔗 ${carUrl}\n\nPouvez-vous me donner plus d'informations ?`);
 
   return (
     <>

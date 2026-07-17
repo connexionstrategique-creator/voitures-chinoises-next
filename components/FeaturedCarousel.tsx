@@ -236,8 +236,9 @@ export default function FeaturedCarousel({ cars, waNumber }: Props) {
   const car = cars[index];
   const slug = carSlug(car.brand, car.model);
   const photo = car.photos?.[0]?.src || "";
+  const carUrl = `https://www.voitureschinoises.com/voitures/${slug}`;
   const waMsg = encodeURIComponent(
-    `Bonjour, je suis intéressé par la ${car.brand} ${car.model}. Pouvez-vous me donner plus d'informations ?`
+    `Bonjour, je suis intéressé par la ${car.brand} ${car.model}.\n\n🔗 ${carUrl}\n\nPouvez-vous me donner plus d'informations ?`
   );
 
   const mini = [

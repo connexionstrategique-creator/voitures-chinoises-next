@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 
 export const sparePartSchema = defineType({
   name: "sparePart",
-  title: "Pièce de rechange",
+  title: "Pièce / Accessoire",
   type: "document",
 
   groups: [
@@ -49,6 +49,7 @@ export const sparePartSchema = defineType({
           { title: "Électricité & batterie",                  value: "electricite" },
           { title: "Carrosserie & vitrage",                   value: "carrosserie" },
           { title: "Entretien courant",                       value: "entretien"   },
+          { title: "Accessoires (tapis, couvre-volant, porte-clé…)", value: "accessoires" },
           { title: "Autre",                                   value: "autre"       },
         ],
         layout: "radio",
@@ -132,6 +133,7 @@ export const sparePartSchema = defineType({
         electricite: "Électricité",
         carrosserie: "Carrosserie",
         entretien:   "Entretien",
+        accessoires: "Accessoires",
         autre:       "Autre",
       };
       return { title: title ?? "Pièce", subtitle: cats[subtitle] ?? subtitle, media };
