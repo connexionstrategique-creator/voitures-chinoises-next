@@ -12,7 +12,8 @@ export default function FeaturedCar({ car, waNumber }: Props) {
   const slug = carSlug(car.brand, car.model);
   const photo = car.photos?.[0]?.src || "";
   const wa = waNumber ?? "8619587439774";
-  const waMsg = encodeURIComponent(`Bonjour, je suis intéressé par la ${car.brand} ${car.model}. Pouvez-vous me donner plus d'informations ?`);
+  const carUrl = `https://www.voitureschinoises.com/voitures/${slug}`;
+  const waMsg = encodeURIComponent(`Bonjour, je suis intéressé par la ${car.brand} ${car.model}.\n\n🔗 ${carUrl}\n\nPouvez-vous me donner plus d'informations ?`);
 
   const mini = [
     { v: car.mini.v1, k: car.mini.k1 },

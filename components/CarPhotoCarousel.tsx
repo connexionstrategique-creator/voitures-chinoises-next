@@ -165,17 +165,18 @@ export default function CarPhotoCarousel({
             cursor: "zoom-out",
           }}
         >
-          <div style={{ position: "absolute", top: 0, left: 0, right: 0, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "calc(18px + env(safe-area-inset-top, 0px)) 24px 18px", zIndex: 11 }}>
-            <span style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(15px,3vw,20px)", fontWeight: 700, color: "rgba(255,255,255,0.85)", letterSpacing: "0.01em" }}>
-              {alt}
-            </span>
-            <button
-              onClick={(e) => { e.stopPropagation(); setLightbox(false); }}
-              style={{ background: "rgba(255,255,255,0.15)", border: "1.5px solid rgba(255,255,255,0.35)", color: "#fff", fontSize: 22, fontWeight: 400, cursor: "pointer", lineHeight: 1, width: 48, height: 48, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", transition: "background .2s" }}
-              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.3)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.15)"; }}
-            >✕</button>
-          </div>
+          {/* Titre — haut gauche */}
+          <span style={{ position: "fixed", top: "calc(18px + env(safe-area-inset-top, 0px))", left: 24, zIndex: 100000, fontFamily: "Syne, sans-serif", fontSize: "clamp(13px,2vw,18px)", fontWeight: 700, color: "rgba(255,255,255,0.75)", letterSpacing: "0.01em", pointerEvents: "none", maxWidth: "calc(100vw - 120px)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            {alt}
+          </span>
+          {/* Bouton fermer — haut droit, toujours visible */}
+          <button
+            onClick={(e) => { e.stopPropagation(); setLightbox(false); }}
+            style={{ position: "fixed", top: "calc(14px + env(safe-area-inset-top, 0px))", right: 20, zIndex: 100000, background: "#fff", border: "none", color: "#111", fontSize: 20, fontWeight: 700, cursor: "pointer", lineHeight: 1, width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", boxShadow: "0 2px 12px rgba(0,0,0,0.4)", transition: "background .15s" }}
+            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "#eee"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "#fff"; }}
+            aria-label="Fermer"
+          >✕</button>
 
           {displayedPhotos.length > 1 && (
             <>
