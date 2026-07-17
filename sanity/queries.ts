@@ -65,6 +65,7 @@ function transformCar(raw: any): Car {
     youtubeId: raw.youtubeId || "",
     sketchfabId: raw.sketchfabId || undefined,
     autohomeId: raw.autohomeId || undefined,
+    autohomeInteriorId: raw.autohomeInteriorId || undefined,
     specs: specsRecord,
     mini: {
       v1: raw.mini_v1 || "",
@@ -94,7 +95,7 @@ export async function getCars(): Promise<Car[]> {
       price, color, colors,
       "photos": photos[]{ "asset": asset->{ "url": url + "?auto=format&w=1200&q=78" } },
       "colorGroups": colorGroups[]{ colorName, "photos": photos[]{ "asset": asset->{ "url": url + "?auto=format&w=1200&q=78" } } },
-      youtubeId, sketchfabId, autohomeId,
+      youtubeId, sketchfabId, autohomeId, autohomeInteriorId,
       specs,
       mini_v1, mini_k1, mini_v2, mini_k2, mini_v3, mini_k3, desc,
       "reasons": reasons[]{ title, body }
