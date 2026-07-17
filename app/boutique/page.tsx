@@ -51,16 +51,9 @@ export default async function BoutiquePage() {
             <div style={{ fontSize: 11, letterSpacing: "0.2em", color: "#A01414", fontWeight: 700, marginBottom: 16 }}>
               BOUTIQUE
             </div>
-            <h1 style={{
-              fontFamily: "Syne, sans-serif",
-              fontSize: "clamp(32px,5vw,64px)",
-              fontWeight: 900,
-              lineHeight: 1.05,
-              letterSpacing: "-0.02em",
-              marginBottom: 20,
-            }}>
-              Pièces de<br />
-              <em style={{ color: "#A01414", fontStyle: "normal" }}>rechange</em>
+            <h1 className="blog-page-hero-title" style={{ marginBottom: 20 }}>
+              Pièces de{" "}
+              <em className="blog-page-hero-em">rechange</em>
             </h1>
             <p style={{ fontSize: "clamp(14px,2vw,17px)", color: "rgba(255,255,255,0.6)", maxWidth: 540, lineHeight: 1.6, marginBottom: 40 }}>
               Pièces d&apos;origine et compatibles pour les véhicules de notre catalogue.
