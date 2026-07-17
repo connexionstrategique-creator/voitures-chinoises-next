@@ -176,26 +176,30 @@ export default function Car3DViewer({ title, src, isInterior }: Car3DViewerProps
         </div>
       )}
 
-      {/* Chinese UI masks — mobile only (desktop proportions differ, masks cut into 3D car) */}
-      <div className="viewer-mask-top" style={{
-        position: "absolute", top: 0, left: 0, right: 0,
-        height: isFullscreen ? "10%" : "24%",
-        background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
-        borderRadius: isFullscreen ? 0 : "20px 20px 0 0",
-      }} />
-      <div className="viewer-mask-right" style={{
-        position: "absolute", top: "24%", right: 0, width: "62%", height: "9%",
-        background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
-      }} />
-      <div className="viewer-mask-left" style={{
-        position: "absolute", top: "18%", left: 0, width: "38%", height: "60%",
-        background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
-      }} />
-      <div className="viewer-mask-bl" style={{
-        position: "absolute", bottom: 0, left: 0, width: "38%", height: "22%",
-        background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
-        borderRadius: isFullscreen ? 0 : "0 0 0 20px",
-      }} />
+      {/* Chinese UI masks — exterior viewer only (interior has a different layout) */}
+      {!isInterior && (
+        <>
+          <div className="viewer-mask-top" style={{
+            position: "absolute", top: 0, left: 0, right: 0,
+            height: isFullscreen ? "10%" : "24%",
+            background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
+            borderRadius: isFullscreen ? 0 : "20px 20px 0 0",
+          }} />
+          <div className="viewer-mask-right" style={{
+            position: "absolute", top: "24%", right: 0, width: "62%", height: "9%",
+            background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
+          }} />
+          <div className="viewer-mask-left" style={{
+            position: "absolute", top: "18%", left: 0, width: "38%", height: "60%",
+            background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
+          }} />
+          <div className="viewer-mask-bl" style={{
+            position: "absolute", bottom: 0, left: 0, width: "38%", height: "22%",
+            background: "#0a0a0a", zIndex: 5, pointerEvents: "all",
+            borderRadius: isFullscreen ? 0 : "0 0 0 20px",
+          }} />
+        </>
+      )}
 
       {/* French label over 外观 (exterior toggle) button — interior viewer only */}
       {loaded && isInterior && (
