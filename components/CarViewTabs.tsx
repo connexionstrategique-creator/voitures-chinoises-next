@@ -17,7 +17,7 @@ interface CarViewTabsProps {
   defaultTab?: Tab;
 }
 
-type Tab = "photos" | "exterior";
+type Tab = "photos" | "exterior" | "interior";
 
 const TAB_STYLE = (active: boolean): React.CSSProperties => ({
   padding: "7px 20px",
@@ -45,7 +45,13 @@ export default function CarViewTabs({
     ? `${SKETCHFAB_BASE}${sketchfabId}/embed?autostart=1&preload=1&ui_controls=1&ui_infos=0&ui_watermark=1&ui_vr=0&ui_fullscreen=1&ui_help=0&ui_settings=0&ui_annotations=0`
     : null;
 
+  // Interior pano: same series ID but int/ instead of ext/
+  const intSrc = autohomeId?.startsWith("ext/")
+    ? `${AUTOHOME_BASE}${autohomeId.replace("ext/", "int/")}?bg=99&progress=1&spin=1&click=1&nocolor=1`
+    : null;
+
   const hasExt = !!extSrc;
+  const hasInt = !!intSrc;
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
@@ -53,6 +59,9 @@ export default function CarViewTabs({
         <div style={{ flexShrink: 0, display: "flex", gap: 0, marginBottom: 12, borderRadius: 100, background: "rgba(255,255,255,0.06)", padding: 4, width: "fit-content" }}>
           <button onClick={() => setTab("photos")} style={TAB_STYLE(tab === "photos")}>PHOTOS</button>
           <button onClick={() => setTab("exterior")} style={TAB_STYLE(tab === "exterior")}>EXTÉRIEUR</button>
+          {hasInt && (
+            <button onClick={() => setTab("interior")} style={TAB_STYLE(tab === "interior")}>INTÉRIEUR</button>
+          )}
         </div>
       )}
 
@@ -62,6 +71,9 @@ export default function CarViewTabs({
         )}
         {tab === "exterior" && extSrc && (
           <Car3DViewer src={extSrc} title={`${alt} — Vue extérieure 360°`} />
+        )}
+        {tab === "interior" && intSrc && (
+          <Car3DViewer src={intSrc} title={`${alt} — Vue intérieure 360°`} isInterior />
         )}
       </div>
     </div>
