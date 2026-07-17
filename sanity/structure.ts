@@ -27,4 +27,7 @@ export const structure: StructureWithOrderable = (S, context, orderableDocumentL
       orderableDocumentListDeskItem
         ? orderableDocumentListDeskItem({type: 'post', title: '📝 Articles Blog', S, context})
         : S.documentTypeListItem('post').title('📝 Articles Blog'),
+      S.divider(),
+      // Boutique pièces de rechange
+      S.documentTypeListItem('sparePart').title('🔩 Pièces de rechange'),
     ])
