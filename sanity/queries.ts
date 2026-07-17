@@ -1,5 +1,5 @@
 import { sanityClient } from "./client";
-import type { Car, Brand, CarColorGroup } from "@/data/types";
+import type { Car, Brand, CarColorGroup, SparePart } from "@/data/types";
 import { carSlug as makeCarSlug, brandSlug as makeBrandSlug } from "@/lib/slug";
 
 const SNAKE_SPEC_KEYS: Record<string, string> = {
@@ -65,7 +65,6 @@ function transformCar(raw: any): Car {
     youtubeId: raw.youtubeId || "",
     sketchfabId: raw.sketchfabId || undefined,
     autohomeId: raw.autohomeId || undefined,
-    autohomeInteriorId: raw.autohomeInteriorId || undefined,
     specs: specsRecord,
     mini: {
       v1: raw.mini_v1 || "",
@@ -95,7 +94,7 @@ export async function getCars(): Promise<Car[]> {
       price, color, colors,
       "photos": photos[]{ "asset": asset->{ "url": url + "?auto=format&w=1200&q=78" } },
       "colorGroups": colorGroups[]{ colorName, "photos": photos[]{ "asset": asset->{ "url": url + "?auto=format&w=1200&q=78" } } },
-      youtubeId, sketchfabId, autohomeId, autohomeInteriorId,
+      youtubeId, sketchfabId, autohomeId,
       specs,
       mini_v1, mini_k1, mini_v2, mini_k2, mini_v3, mini_k3, desc,
       "reasons": reasons[]{ title, body }
@@ -164,6 +163,47 @@ export async function getBrandBySlug(slug: string): Promise<Brand | null> {
 export async function getCarsByBrand(slug: string): Promise<Car[]> {
   const cars = await getCars();
   return cars.filter((c) => makeBrandSlug(c.brand) === slug);
+}
+
+export async function getSpareParts(): Promise<SparePart[]> {
+  const raw = await sanityClient.fetch(
+    `*[_type == "sparePart"] | order(featured desc, name asc) {
+      _id,
+      name,
+      "slug": slug.current,
+      reference,
+      category,
+      description,
+      "compatibleCars": compatibleCars[]->{
+        _id, brand, model
+      },
+      "photos": photos[]{ "asset": asset->{ "url": url + "?auto=format&w=800&q=80" } },
+      price,
+      inStock,
+      featured
+    }`,
+    {},
+    { next: { revalidate: 60 } }
+  );
+  return (raw || []).map((p: any): SparePart => ({
+    id: p._id,
+    name: p.name || "",
+    slug: p.slug || "",
+    reference: p.reference || undefined,
+    category: p.category || "autre",
+    description: p.description || undefined,
+    compatibleCars: (p.compatibleCars || []).map((c: any) => ({
+      id: c._id,
+      brand: c.brand || "",
+      model: c.model || "",
+    })),
+    photos: (p.photos || [])
+      .map((ph: any) => ({ src: ph.asset?.url || "" }))
+      .filter((ph: { src: string }) => ph.src),
+    price: p.price || 0,
+    inStock: p.inStock ?? true,
+    featured: p.featured ?? false,
+  }));
 }
 
 export interface BlogPost {

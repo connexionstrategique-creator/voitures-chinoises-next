@@ -1,3 +1,17 @@
+export interface SparePart {
+  id: string;
+  name: string;
+  slug: string;
+  reference?: string;
+  category: string;
+  description?: string;
+  compatibleCars: { id: string; brand: string; model: string }[];
+  photos: { src: string }[];
+  price: number;
+  inStock: boolean;
+  featured: boolean;
+}
+
 export interface Brand {
   name: string;
   desc: string;
@@ -40,7 +54,6 @@ export interface Car {
   youtubeId?: string;
   sketchfabId?: string;
   autohomeId?: string;
-  autohomeInteriorId?: string;
   specs: Record<string, string>;
   mini: CarMini;
   desc: string;

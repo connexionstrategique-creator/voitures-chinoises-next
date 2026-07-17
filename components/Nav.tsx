@@ -33,6 +33,7 @@ export default function Nav({ dark }: { dark?: boolean }) {
           <li><Link href="/process" onClick={closeMenu}>Process</Link></li>
           <li><Link href="/faq" onClick={closeMenu}>FAQ</Link></li>
           <li><Link href="/blog" onClick={closeMenu}>Blog</Link></li>
+          <li><Link href="/boutique" onClick={closeMenu} style={{ color: "var(--red,#A01414)", fontWeight: 700 }}>Boutique</Link></li>
           <li><a href="/contact" onClick={closeMenu}>Contact</a></li>
         </ul>
 
