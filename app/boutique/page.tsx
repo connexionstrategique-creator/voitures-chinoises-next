@@ -25,64 +25,86 @@ const CATEGORY_LABELS: Record<string, string> = {
   autre:       "Autres pièces",
 };
 
+// Prices sourced from Taobao/JD.com — 1 RMB = 100 FCFA — transport excluded
 const DEMO_PARTS: import("@/data/types").SparePart[] = [
   {
-    id: "demo-1", name: "Filtre à huile moteur", slug: "filtre-huile-moteur",
-    reference: "CHN-FLT-001", category: "filtration",
-    description: "Filtre à huile d'origine haute filtration. Remplacement recommandé tous les 5 000 km ou lors de chaque vidange.",
-    compatibleCars: [
-      { id: "car-9",  brand: "Jetour", model: "TRAVELER T2 — 5 Places" },
-      { id: "car-10", brand: "Jetour", model: "TRAVELER T2 — 7 Places" },
-      { id: "car-4",  brand: "Changan", model: "CS75 PLUS ULTRA" },
-    ],
-    photos: [], price: 12000, inStock: true, featured: true,
-  },
-  {
-    id: "demo-2", name: "Plaquettes de frein avant", slug: "plaquettes-frein-avant",
-    reference: "CHN-FRN-012", category: "freinage",
-    description: "Plaquettes de frein avant céramique haute performance. Longue durée de vie, faible bruit.",
-    compatibleCars: [
-      { id: "car-9",  brand: "Jetour", model: "TRAVELER T2 — 5 Places" },
-      { id: "car-10", brand: "Jetour", model: "TRAVELER T2 — 7 Places" },
-    ],
-    photos: [], price: 35000, inStock: true, featured: false,
-  },
-  {
-    id: "demo-3", name: "Filtre à air habitacle", slug: "filtre-air-habitacle",
-    reference: "CHN-FLT-008", category: "filtration",
-    description: "Filtre à air de l'habitacle avec couche anti-bactérienne et anti-pollen. Change tous les 15 000 km.",
-    compatibleCars: [
-      { id: "car-7",  brand: "Changan", model: "CS55" },
-      { id: "car-4",  brand: "Changan", model: "CS75 PLUS ULTRA" },
-      { id: "car-3",  brand: "Changan", model: "UNI-K" },
-    ],
-    photos: [], price: 8500, inStock: true, featured: false,
-  },
-  {
-    id: "demo-4", name: "Kit courroie de distribution", slug: "kit-courroie-distribution",
-    reference: "CHN-MOT-034", category: "moteur",
-    description: "Kit complet courroie de distribution avec tendeur et galet. Pièce critique — remplacement obligatoire tous les 60 000 km.",
-    compatibleCars: [
-      { id: "car-4",  brand: "Changan", model: "CS75 PLUS ULTRA" },
-      { id: "car-3",  brand: "Changan", model: "UNI-K" },
-    ],
-    photos: [], price: 95000, inStock: false, featured: false,
-  },
-  {
-    id: "demo-5", name: "Amortisseurs avant (paire)", slug: "amortisseurs-avant",
-    reference: "CHN-SUS-021", category: "suspension",
-    description: "Amortisseurs avant d'origine, renforcés pour les routes africaines. Vendus par paire.",
+    id: "demo-1", name: "Filtre à huile moteur — Jetour X70 / T2 (1.5T)", slug: "filtre-huile-moteur-jetour",
+    reference: "JT-1.5T-OFH", category: "filtration",
+    description: "Filtre à huile compatible moteur 1.5T turbo. Remplacement recommandé tous les 5 000 km ou à chaque vidange. Pièce de rechange standard.",
     compatibleCars: [
       { id: "car-9",  brand: "Jetour", model: "TRAVELER T2 — 5 Places" },
       { id: "car-10", brand: "Jetour", model: "TRAVELER T2 — 7 Places" },
       { id: "car-11", brand: "Jetour", model: "TRAVELER T2 — 7 Places Premium" },
     ],
-    photos: [], price: 185000, inStock: true, featured: false,
+    photos: [], price: 2000, inStock: true, featured: false,
   },
   {
-    id: "demo-6", name: "Batterie 12V 70Ah", slug: "batterie-12v-70ah",
-    reference: "CHN-ELC-005", category: "electricite",
-    description: "Batterie de démarrage 12V 70Ah AGM. Haute performance en climat chaud. Garantie 2 ans.",
+    id: "demo-2", name: "Filtre à huile moteur — Changan UNI-K (2.0T)", slug: "filtre-huile-moteur-changan-unik",
+    reference: "CA-2.0T-OFH", category: "filtration",
+    description: "Filtre à huile pour moteur Changan 2.0T Blue Whale. Remplacement recommandé tous les 5 000 km. Compatible UNI-K et CS75 Plus.",
+    compatibleCars: [
+      { id: "car-3",  brand: "Changan", model: "UNI-K" },
+      { id: "car-4",  brand: "Changan", model: "CS75 PLUS ULTRA" },
+    ],
+    photos: [], price: 3500, inStock: true, featured: false,
+  },
+  {
+    id: "demo-3", name: "Filtre à air moteur", slug: "filtre-air-moteur",
+    reference: "CHN-AFH-STD", category: "filtration",
+    description: "Filtre à air moteur haute filtration. Remplacement tous les 15 000–20 000 km. Compatible plusieurs modèles.",
+    compatibleCars: [
+      { id: "car-9",  brand: "Jetour", model: "TRAVELER T2 — 5 Places" },
+      { id: "car-7",  brand: "Changan", model: "CS55" },
+      { id: "car-4",  brand: "Changan", model: "CS75 PLUS ULTRA" },
+    ],
+    photos: [], price: 3000, inStock: true, featured: false,
+  },
+  {
+    id: "demo-4", name: "Plaquettes de frein avant (paire) — Jetour", slug: "plaquettes-frein-avant-jetour",
+    reference: "JT-BPF-C01", category: "freinage",
+    description: "Plaquettes de frein avant semi-métalliques, marque TianHe (天合). Bonne résistance thermique pour usage intensif en ville et piste africaine. Vendues par paire.",
+    compatibleCars: [
+      { id: "car-9",  brand: "Jetour", model: "TRAVELER T2 — 5 Places" },
+      { id: "car-10", brand: "Jetour", model: "TRAVELER T2 — 7 Places" },
+      { id: "car-11", brand: "Jetour", model: "TRAVELER T2 — 7 Places Premium" },
+    ],
+    photos: [], price: 20000, inStock: true, featured: true,
+  },
+  {
+    id: "demo-5", name: "Kit vidange complet — Jetour (huile 5W-30 + filtre)", slug: "kit-vidange-jetour",
+    reference: "JT-VID-KIT1", category: "entretien",
+    description: "Kit vidange complet : 4L d'huile moteur synthétique 5W-30 + filtre à huile. Idéal pour l'entretien régulier. Économique par rapport au passage en atelier.",
+    compatibleCars: [
+      { id: "car-9",  brand: "Jetour", model: "TRAVELER T2 — 5 Places" },
+      { id: "car-10", brand: "Jetour", model: "TRAVELER T2 — 7 Places" },
+    ],
+    photos: [], price: 17000, inStock: true, featured: true,
+  },
+  {
+    id: "demo-6", name: "Disques de frein avant (paire) — Changan", slug: "disques-frein-avant-changan",
+    reference: "CA-DFV-001", category: "freinage",
+    description: "Disques de frein avant ventilés d'origine. Résistance thermique optimale. À remplacer avec les plaquettes pour une sécurité maximale. Vendus par paire.",
+    compatibleCars: [
+      { id: "car-3",  brand: "Changan", model: "UNI-K" },
+      { id: "car-4",  brand: "Changan", model: "CS75 PLUS ULTRA" },
+    ],
+    photos: [], price: 45000, inStock: true, featured: false,
+  },
+  {
+    id: "demo-7", name: "Amortisseurs avant (paire) — Jetour", slug: "amortisseurs-avant-jetour",
+    reference: "JT-AMO-AVT", category: "suspension",
+    description: "Amortisseurs avant d'origine. Adaptés aux routes africaines. Vendus par paire. Remplacement recommandé tous les 80 000 km ou en cas de fuites.",
+    compatibleCars: [
+      { id: "car-9",  brand: "Jetour", model: "TRAVELER T2 — 5 Places" },
+      { id: "car-10", brand: "Jetour", model: "TRAVELER T2 — 7 Places" },
+      { id: "car-11", brand: "Jetour", model: "TRAVELER T2 — 7 Places Premium" },
+    ],
+    photos: [], price: 185000, inStock: false, featured: false,
+  },
+  {
+    id: "demo-8", name: "Batterie 12V 70Ah AGM", slug: "batterie-12v-70ah",
+    reference: "CHN-BAT-70A", category: "electricite",
+    description: "Batterie de démarrage 12V 70Ah AGM. Haute performance en climat chaud. Résistante aux vibrations. Durée de vie estimée 4–5 ans.",
     compatibleCars: [
       { id: "car-7",  brand: "Changan", model: "CS55" },
       { id: "car-4",  brand: "Changan", model: "CS75 PLUS ULTRA" },
@@ -91,64 +113,74 @@ const DEMO_PARTS: import("@/data/types").SparePart[] = [
     photos: [], price: 75000, inStock: true, featured: false,
   },
   {
-    id: "demo-7", name: "Disques de frein avant (paire)", slug: "disques-frein-avant",
-    reference: "CHN-FRN-019", category: "freinage",
-    description: "Disques de frein avant ventilés d'origine. Résistance thermique optimale. À changer avec les plaquettes.",
-    compatibleCars: [
-      { id: "car-3",  brand: "Changan", model: "UNI-K" },
-      { id: "car-4",  brand: "Changan", model: "CS75 PLUS ULTRA" },
-    ],
-    photos: [], price: 58000, inStock: true, featured: false,
-  },
-  {
-    id: "demo-8", name: "Kit entretien 10 000 km", slug: "kit-entretien-10000km",
-    reference: "CHN-ENT-KIT1", category: "entretien",
-    description: "Kit complet : filtre à huile + filtre à air moteur + filtre habitacle + 5L d'huile moteur 5W-30. Économique.",
-    compatibleCars: [
-      { id: "car-9",  brand: "Jetour", model: "TRAVELER T2 — 5 Places" },
-      { id: "car-7",  brand: "Changan", model: "CS55" },
-    ],
-    photos: [], price: 48000, inStock: true, featured: true,
-  },
-  {
-    id: "demo-9", name: "Tapis de sol sur-mesure (jeu de 4)", slug: "tapis-sol-sur-mesure",
-    reference: "ACC-TPS-001", category: "accessoires",
-    description: "Tapis de sol en caoutchouc 3D sur-mesure, bords relevés anti-déversement. Faciles à nettoyer, protège la moquette d'origine.",
+    id: "demo-9", name: "Tapis de sol TPE sur-mesure — Jetour T2 (jeu de 4)", slug: "tapis-sol-jetour-t2",
+    reference: "ACC-TPS-JT2-TPE", category: "accessoires",
+    description: "Tapis de sol en TPE (caoutchouc thermoplastique) moulés sur-mesure pour Jetour Traveler T2. Bords relevés anti-déversement, faciles à nettoyer à grande eau. Protège la moquette d'origine.",
     compatibleCars: [
       { id: "car-9",  brand: "Jetour", model: "TRAVELER T2 — 5 Places" },
       { id: "car-10", brand: "Jetour", model: "TRAVELER T2 — 7 Places" },
-      { id: "car-4",  brand: "Changan", model: "CS75 PLUS ULTRA" },
     ],
-    photos: [], price: 22000, inStock: true, featured: false,
+    photos: [], price: 13000, inStock: true, featured: false,
   },
   {
-    id: "demo-10", name: "Couvre-volant cuir premium", slug: "couvre-volant-cuir",
-    reference: "ACC-VLT-003", category: "accessoires",
-    description: "Couvre-volant en cuir véritable, coutures contrastées. Améliore la prise en main et protège le volant d'origine.",
+    id: "demo-10", name: "Tapis de sol TPE sur-mesure — Changan UNI-K (jeu de 4)", slug: "tapis-sol-changan-unik",
+    reference: "ACC-TPS-CA-UNIK", category: "accessoires",
+    description: "Tapis de sol en TPE moulés sur-mesure pour Changan UNI-K. Bords surélevés, antidérapant, lavable. Protection complète du plancher.",
+    compatibleCars: [
+      { id: "car-3",  brand: "Changan", model: "UNI-K" },
+    ],
+    photos: [], price: 12000, inStock: true, featured: false,
+  },
+  {
+    id: "demo-11", name: "Couvre-volant cuir premium (universel)", slug: "couvre-volant-cuir",
+    reference: "ACC-VLT-CU38", category: "accessoires",
+    description: "Couvre-volant en cuir véritable, coutures contrastées. Diamètre 38 cm (universel). Améliore la prise en main et protège le volant d'origine contre l'usure.",
     compatibleCars: [],
-    photos: [], price: 15000, inStock: true, featured: false,
+    photos: [], price: 10000, inStock: true, featured: false,
   },
   {
-    id: "demo-11", name: "Porte-clé Jetour métal", slug: "porte-cle-jetour",
-    reference: "ACC-PCL-JT1", category: "accessoires",
-    description: "Porte-clé en métal gravé logo Jetour. Finition chromée. Livré en boîte cadeau.",
+    id: "demo-12", name: "Porte-clé métal — Jetour", slug: "porte-cle-jetour",
+    reference: "ACC-PCL-JT-M", category: "accessoires",
+    description: "Porte-clé en métal gravé au laser logo Jetour (捷途). Finition chromée brossée. Livré en boîte cadeau. Idéal comme cadeau ou souvenir.",
     compatibleCars: [
       { id: "car-9",  brand: "Jetour", model: "TRAVELER T2 — 5 Places" },
       { id: "car-10", brand: "Jetour", model: "TRAVELER T2 — 7 Places" },
       { id: "car-11", brand: "Jetour", model: "TRAVELER T2 — 7 Places Premium" },
     ],
-    photos: [], price: 5000, inStock: true, featured: false,
+    photos: [], price: 4000, inStock: true, featured: false,
   },
   {
-    id: "demo-12", name: "Protège-clé cuir (housse télécommande)", slug: "protege-cle-cuir",
-    reference: "ACC-PCL-CV1", category: "accessoires",
-    description: "Housse de protection en cuir pour télécommande de véhicule. Protège contre les rayures et l'usure. Compatible clés 3 boutons.",
+    id: "demo-13", name: "Porte-clé métal — Changan", slug: "porte-cle-changan",
+    reference: "ACC-PCL-CA-M", category: "accessoires",
+    description: "Porte-clé en métal gravé logo Changan (长安). Finition chromée. Livré en boîte cadeau. Compatible avec toute la gamme Changan.",
     compatibleCars: [
+      { id: "car-3",  brand: "Changan", model: "UNI-K" },
       { id: "car-4",  brand: "Changan", model: "CS75 PLUS ULTRA" },
       { id: "car-7",  brand: "Changan", model: "CS55" },
-      { id: "car-3",  brand: "Changan", model: "UNI-K" },
     ],
-    photos: [], price: 7500, inStock: true, featured: false,
+    photos: [], price: 3500, inStock: true, featured: false,
+  },
+  {
+    id: "demo-14", name: "Protège-clé cuir — Jetour Traveler T2", slug: "protege-cle-jetour-t2",
+    reference: "ACC-PKC-JT2-L", category: "accessoires",
+    description: "Housse de protection en cuir pour télécommande Jetour Traveler T2. Protège contre les rayures et l'usure. Coupe précise pour clé 4 boutons.",
+    compatibleCars: [
+      { id: "car-9",  brand: "Jetour", model: "TRAVELER T2 — 5 Places" },
+      { id: "car-10", brand: "Jetour", model: "TRAVELER T2 — 7 Places" },
+      { id: "car-11", brand: "Jetour", model: "TRAVELER T2 — 7 Places Premium" },
+    ],
+    photos: [], price: 4500, inStock: true, featured: false,
+  },
+  {
+    id: "demo-15", name: "Protège-clé cuir — Changan (UNI-K / CS75)", slug: "protege-cle-changan",
+    reference: "ACC-PKC-CA-L", category: "accessoires",
+    description: "Housse de protection en cuir pour télécommande Changan. Compatible clés 3 boutons. Protège contre les rayures et l'usure quotidienne.",
+    compatibleCars: [
+      { id: "car-3",  brand: "Changan", model: "UNI-K" },
+      { id: "car-4",  brand: "Changan", model: "CS75 PLUS ULTRA" },
+      { id: "car-7",  brand: "Changan", model: "CS55" },
+    ],
+    photos: [], price: 4500, inStock: true, featured: false,
   },
 ];
 
@@ -186,8 +218,8 @@ export default async function BoutiquePage() {
               Pièces &amp; <em className="blog-page-hero-em">accessoires</em>
             </h1>
             <p style={{ fontSize: "clamp(14px,2vw,17px)", color: "rgba(255,255,255,0.6)", maxWidth: 580, lineHeight: 1.6, marginBottom: 40 }}>
-              Pièces de rechange d&apos;origine et accessoires pour les véhicules de notre catalogue.
-              Tout est disponible sur commande — prix de référence, livraison directe via WhatsApp.
+              Pièces de rechange et accessoires pour les véhicules de notre catalogue.
+              Tout est disponible sur commande. Prix hors transport — précisez le mode souhaité (avion ou bateau) lors de votre commande.
             </p>
 
             {/* Stats catégories */}
@@ -247,7 +279,7 @@ export default async function BoutiquePage() {
           <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 32 }}>
             {[
               { icon: "🏭", title: "Pièces d'origine",   body: "Directement sourcées auprès des fournisseurs agréés en Chine." },
-              { icon: "📦", title: "Livraison groupée",   body: "Combinez vos pièces avec votre commande de véhicule pour optimiser les frais de port." },
+              { icon: "✈️", title: "Avion ou bateau",    body: "Précisez votre mode de transport à la commande. Transport calculé séparément selon le mode choisi." },
               { icon: "💬", title: "Devis sous 48h",      body: "Envoyez-nous votre demande sur WhatsApp, nous vous répondons rapidement." },
               { icon: "🛡️",  title: "Pièces garanties",   body: "Chaque pièce est vérifiée avant expédition. Garantie qualité constructeur." },
             ].map((item) => (

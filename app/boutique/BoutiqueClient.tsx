@@ -78,7 +78,8 @@ export default function BoutiqueClient({
       `Bonjour, je souhaite commander la pièce suivante :\n\n` +
       `📦 ${part.name}${part.reference ? ` (Réf. ${part.reference})` : ""}\n` +
       `🚗 Compatible : ${compatibles || "—"}\n` +
-      `💰 Prix de référence : ${formatPrice(part.price)}\n\n` +
+      `💰 Prix de référence : ${formatPrice(part.price)} (hors transport)\n\n` +
+      `🚚 Mode de transport souhaité : ✈️ Avion / 🚢 Bateau\n\n` +
       `🔗 ${boutiqueUrl}\n\n` +
       `Merci de confirmer la disponibilité et les délais.`
     );
@@ -322,7 +323,10 @@ function PartCard({
               {formatPrice(part.price)}
             </div>
             <div style={{ fontSize: 11, color: "#A01414", fontWeight: 600, marginTop: 4, letterSpacing: "0.04em" }}>
-              Disponible sur commande
+              Disponible sur commande · hors transport
+            </div>
+            <div style={{ fontSize: 11, color: "#888", marginTop: 3 }}>
+              Précisez : ✈️ avion ou 🚢 bateau
             </div>
           </div>
 
