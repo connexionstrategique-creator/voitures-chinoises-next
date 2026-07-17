@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import type { CarPhoto, CarColorGroup } from "@/data/types";
 
@@ -154,25 +155,25 @@ export default function CarPhotoCarousel({
         )}
       </div>
 
-      {lightbox && (
+      {lightbox && typeof document !== "undefined" && createPortal(
         <div
           onClick={() => setLightbox(false)}
           style={{
-            position: "fixed", inset: 0, zIndex: 9999,
+            position: "fixed", inset: 0, zIndex: 99999,
             background: "rgba(0,0,0,0.95)",
             display: "flex", alignItems: "center", justifyContent: "center",
             cursor: "zoom-out",
           }}
         >
-          <div style={{ position: "absolute", top: 0, left: 0, right: 0, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 24px", zIndex: 11 }}>
+          <div style={{ position: "absolute", top: 0, left: 0, right: 0, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "calc(18px + env(safe-area-inset-top, 0px)) 24px 18px", zIndex: 11 }}>
             <span style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(15px,3vw,20px)", fontWeight: 700, color: "rgba(255,255,255,0.85)", letterSpacing: "0.01em" }}>
               {alt}
             </span>
             <button
               onClick={(e) => { e.stopPropagation(); setLightbox(false); }}
-              style={{ background: "none", border: "none", color: "rgba(255,255,255,0.6)", fontSize: 28, fontWeight: 300, cursor: "pointer", lineHeight: 1, width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", transition: "color .2s, background .2s" }}
-              onMouseEnter={e => { (e.target as HTMLButtonElement).style.color = "#fff"; (e.target as HTMLButtonElement).style.background = "rgba(255,255,255,0.08)"; }}
-              onMouseLeave={e => { (e.target as HTMLButtonElement).style.color = "rgba(255,255,255,0.6)"; (e.target as HTMLButtonElement).style.background = "none"; }}
+              style={{ background: "rgba(255,255,255,0.15)", border: "1.5px solid rgba(255,255,255,0.35)", color: "#fff", fontSize: 22, fontWeight: 400, cursor: "pointer", lineHeight: 1, width: 48, height: 48, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", transition: "background .2s" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.3)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.15)"; }}
             >✕</button>
           </div>
 
@@ -205,7 +206,8 @@ export default function CarPhotoCarousel({
               {photoIdx + 1} / {displayedPhotos.length}
             </span>
           )}
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
