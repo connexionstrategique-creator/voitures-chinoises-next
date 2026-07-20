@@ -4415,19 +4415,21 @@ html, body { overflow-x:clip; max-width:100%; }
 .sim-breadcrumb a { color: rgba(255,255,255,0.4); text-decoration: none; }
 .sim-breadcrumb a:hover { color: #fff; }
 .sim-title {
-  font-family: Syne, sans-serif;
-  font-size: clamp(28px,4vw,48px);
-  font-weight: 800;
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 300;
   color: #fff;
-  line-height: 1.1;
+  line-height: 1.05;
   margin-bottom: 16px;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 .sim-subtitle {
+  font-family: 'DM Sans', sans-serif;
   font-size: 15px;
   color: rgba(255,255,255,0.5);
-  line-height: 1.6;
+  line-height: 1.7;
   margin: 0;
+  max-width: 520px;
 }
 
 .sim-body {
