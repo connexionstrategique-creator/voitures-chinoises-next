@@ -209,14 +209,32 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
 
   const handleSearch = useCallback((val: string) => setSearch(val), []);
 
-  // Sync search to URL with a debounce so typing stays smooth (no navigation per keystroke).
-  // Skip the initial mount so this component (also rendered on the homepage) doesn't
-  // navigate to /catalogue on load.
-  const skipFirstSync = useRef(true);
+  const prevSearch = useRef(search);
+
+  // Restore all filter state from URL on back/forward navigation.
+  // React bails out of re-renders when setter receives the same value,
+  // so this is a no-op when the URL change came from our own filter clicks.
+  // prevSearch guards against re-triggering the URL-sync effect below.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (skipFirstSync.current) { skipFirstSync.current = false; return; }
-    const t = setTimeout(() => updateURL({ q: search.trim() }), 300);
-    return () => clearTimeout(t);
+    setActiveFilter(searchParams.get("f") ?? "all");
+    setActiveBudget(searchParams.get("b") ?? "all");
+    setSort(searchParams.get("s") ?? "default");
+    const q = searchParams.get("q") ?? "";
+    if (q !== prevSearch.current) {
+      prevSearch.current = q;
+      setSearch(q);
+    }
+  }, [searchParams]);
+
+  // Sync search to URL immediately (no debounce so the URL is always current
+  // before the user navigates away to a car detail page).
+  // Only fires when `search` content changes — not when `updateURL` is
+  // recreated after a route change, which prevents redirect loops.
+  useEffect(() => {
+    if (search === prevSearch.current) return;
+    prevSearch.current = search;
+    updateURL({ q: search.trim() });
   }, [search, updateURL]);
 
   const handleFilter = (f: string) => { setActiveFilter(f); updateURL({ f }); };

@@ -9,7 +9,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Boutique Pièces & Accessoires | Voitures Chinoises",
   description:
-    "Pièces de rechange et accessoires pour vos voitures chinoises : filtres, freins, tapis de sol, couvre-volant, porte-clé et plus. Prix de référence · Commande sur WhatsApp.",
+    "Boutique pièces & accessoires pour voitures chinoises — en cours de sourcing. Contactez-nous sur WhatsApp pour toute demande.",
   alternates: { canonical: "https://www.voitureschinoises.com/boutique" },
 };
 
@@ -190,8 +190,7 @@ export default async function BoutiquePage() {
   const phoneDisplay = settings?.phoneDisplay ?? "+229 01 41 76 53 41";
   const phoneCN = settings?.phoneCN ?? "+86 195 8743 9774";
 
-  // Use demo data when Sanity is empty (preview mode)
-  const parts = sanityParts.length > 0 ? sanityParts : DEMO_PARTS;
+  const parts = sanityParts;
 
   // Category breakdown for the header
   const categoryCounts = parts.reduce<Record<string, number>>((acc, p) => {
@@ -219,7 +218,7 @@ export default async function BoutiquePage() {
             </h1>
             <p style={{ fontSize: "clamp(14px,2vw,17px)", color: "rgba(255,255,255,0.6)", maxWidth: 580, lineHeight: 1.6, marginBottom: 40 }}>
               Pièces de rechange et accessoires pour les véhicules de notre catalogue.
-              Tout est disponible sur commande. Prix hors transport — précisez le mode souhaité (avion ou bateau) lors de votre commande.
+              Notre équipe est en train de sélectionner et de sourcer les meilleures références — disponible très prochainement.
             </p>
 
             {/* Stats catégories */}
@@ -247,11 +246,11 @@ export default async function BoutiquePage() {
         <section style={{ background: "#fff", padding: "48px 0 80px" }}>
           {parts.length === 0 ? (
             <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(16px,4vw,48px)", textAlign: "center", paddingTop: 60 }}>
-              <div style={{ fontSize: 48, marginBottom: 20 }}>🔩</div>
-              <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 12 }}>Catalogue en cours de préparation</h2>
+              <div style={{ fontSize: 48, marginBottom: 20 }}>⏳</div>
+              <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 12 }}>En cours de sourcing</h2>
               <p style={{ color: "#666", fontSize: 15, marginBottom: 32 }}>
-                Les pièces de rechange seront disponibles très prochainement.<br />
-                Contactez-nous sur WhatsApp pour toute demande urgente.
+                Notre équipe sélectionne actuellement les meilleures pièces et accessoires auprès de nos fournisseurs en Chine.<br />
+                Pour toute demande urgente, contactez-nous directement sur WhatsApp.
               </p>
               <a
                 href={`https://wa.me/${waNumber}?text=${encodeURIComponent("Bonjour, je cherche une pièce de rechange pour mon véhicule. Pouvez-vous m'aider ?")}`}

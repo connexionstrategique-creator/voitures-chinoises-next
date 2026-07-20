@@ -17,7 +17,7 @@ export default async function Home() {
   let settings;
 
   try {
-    const [sanityCars, newestCars, s] = await Promise.all([getCars(), getNewestCars(8), getSiteSettings()]);
+    const [sanityCars, newestCars, s] = await Promise.all([getCars(), getNewestCars(10), getSiteSettings()]);
     if (sanityCars && sanityCars.length > 0) cars = sanityCars;
     newest = newestCars;
     settings = s;
