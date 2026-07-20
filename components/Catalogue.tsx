@@ -247,8 +247,11 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
     );
   }, []);
 
-  const filtered = useMemo(() => {
+  useEffect(() => {
     setPage(1);
+  }, [activeFilter, activeBudget, search, sort]);
+
+  const filtered = useMemo(() => {
     let result = cars.filter((c) => {
       const catOk =
         activeFilter === "all" ||

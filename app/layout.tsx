@@ -26,9 +26,6 @@ export const metadata: Metadata = {
   authors: [{ name: "Connexion Stratégique" }],
   robots: "index, follow",
   metadataBase: new URL("https://www.voitureschinoises.com"),
-  alternates: {
-    canonical: "https://www.voitureschinoises.com/",
-  },
   openGraph: {
     type: "website",
     title: "Voitures Chinoises Neuves — Prix Usine CIF Afrique",

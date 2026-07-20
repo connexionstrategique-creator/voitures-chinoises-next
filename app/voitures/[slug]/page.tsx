@@ -186,7 +186,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (c) car = c;
   } catch {}
   if (!car) return {};
-  const slug2 = `${car.brand.toLowerCase().replace(/\s+/g, "-")}-${car.model.toLowerCase().replace(/\s+/g, "-")}`;
   return {
     title: `${car.brand} ${car.model} ${car.year} — Prix CIF Afrique | Voitures Chinoises`,
     description: `${car.brand} ${car.model} ${car.year} neuf 0km. Prix CIF ${car.price} FCFA livré Cotonou, Lomé, Abidjan, Dakar. ${car.desc?.slice(0, 100) || "Importation directe Chine."}`,

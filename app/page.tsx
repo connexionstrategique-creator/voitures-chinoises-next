@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import BrandMarquee from "@/components/BrandMarquee";
@@ -8,6 +9,10 @@ import SchemaOrg from "@/components/SchemaOrg";
 import { Suspense } from "react";
 import { CARS } from "@/data/cars";
 import { getCars, getSiteSettings, getNewestCars } from "@/sanity/queries";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "https://www.voitureschinoises.com/" },
+};
 
 export const revalidate = 10;
 

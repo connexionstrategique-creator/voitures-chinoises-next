@@ -229,8 +229,9 @@ const CAT_LABELS: Record<string, string> = {
 };
 
 export async function getPosts(category?: string): Promise<BlogPost[]> {
-  const filter = category && category !== "all"
-    ? `_type == "post" && category == "${category}"`
+  const hasCategory = category && category !== "all";
+  const filter = hasCategory
+    ? `_type == "post" && category == $category`
     : `_type == "post"`;
   const raw = await sanityClient.fetch(
     `*[${filter}] | order(orderRank asc, publishedAt desc) {
@@ -240,7 +241,7 @@ export async function getPosts(category?: string): Promise<BlogPost[]> {
       "imageAlt": mainImage.alt,
       publishedAt, category, excerpt
     }`,
-    {},
+    hasCategory ? { category } : {},
     { next: { revalidate: 60 } }
   );
   return (raw || []).map((r: any) => ({ ...r, categoryLabel: CAT_LABELS[r.category] || r.category }));
