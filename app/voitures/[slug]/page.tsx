@@ -298,7 +298,8 @@ export default async function VoiturePage({ params, searchParams }: { params: Pr
                 {car!.price} <span style={{ fontSize: 16, fontWeight: 400, opacity: 0.4 }}>FCFA</span>
               </div>
               <div style={{ marginBottom: 24 }}>
-                <div style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", marginBottom: 10, letterSpacing: "0.02em" }}>CIF · Coût + Assurance + Fret inclus</div>
+                <div style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", marginBottom: 4, letterSpacing: "0.02em" }}>CIF · Coût + Assurance + Fret inclus</div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: "0.04em", marginBottom: 10 }}>Expédition en conteneur 20 pieds depuis la Chine</div>
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: "0.04em", marginBottom: 4 }}>LIVRAISON VERS</div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 10px", lineHeight: 1.5 }}>
                   {[
