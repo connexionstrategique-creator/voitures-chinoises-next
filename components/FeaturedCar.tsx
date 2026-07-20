@@ -1,6 +1,5 @@
 import type { Car } from "@/data/types";
 import { carSlug } from "@/lib/slug";
-import Image from "next/image";
 import Link from "next/link";
 
 interface Props {
@@ -46,13 +45,11 @@ export default function FeaturedCar({ car, waNumber }: Props) {
           <div className="fdm-photo-box">
             <span className="fdm-badge">En vedette</span>
             {photo ? (
-              <Image
+              <img
                 src={photo}
                 alt={`${car.brand} ${car.model} ${car.year}`}
-                fill
-                style={{ objectFit: "contain", objectPosition: "center bottom", padding: "20px" }}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
+                loading="eager"
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", objectPosition: "center bottom", padding: "20px" }}
               />
             ) : (
               <div className="fdm-photo-placeholder">

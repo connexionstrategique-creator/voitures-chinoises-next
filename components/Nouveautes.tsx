@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Car } from "@/data/types";
 import { carSlug } from "@/lib/slug";
 
@@ -22,12 +21,11 @@ export default function Nouveautes({ cars }: { cars: Car[] }) {
               <Link key={car.id} href={`/voitures/${slug}`} className="nouveaute-card">
                 <div className="nouveaute-img-wrap">
                   {photo ? (
-                    <Image
+                    <img
                       src={photo}
                       alt={`${car.brand} ${car.model}`}
-                      fill
-                      style={{ objectFit: "cover" }}
-                      sizes="(max-width: 600px) 100vw, 280px"
+                      loading="lazy"
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
                     />
                   ) : (
                     <div className="nouveaute-img-placeholder" />

@@ -1,7 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
-import Image from "next/image";
 import type { CarPhoto, CarColorGroup } from "@/data/types";
 
 function CarSVG({ color }: { color: string }) {
@@ -120,14 +119,11 @@ export default function CarPhotoCarousel({
               style={{ flex: "0 0 100%", height: "100%", cursor: "zoom-in", padding: "6px", boxSizing: "border-box" }}
             >
               <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: 16, overflow: "hidden", border: "1.5px solid rgba(255,255,255,0.15)" }}>
-                <Image
+                <img
                   src={p.src}
                   alt={p.label || alt}
-                  fill
-                  style={{ objectFit: "cover" }}
-                  sizes="(max-width: 768px) 100vw, 55vw"
-                  loading="eager"
-                  priority={i === 0}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
                 />
                 {displayedPhotos.length > 1 && (
                   <span style={{ position: "absolute", top: 10, right: 14, fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: "0.15em" }}>
@@ -192,13 +188,10 @@ export default function CarPhotoCarousel({
           )}
 
           <div style={{ position: "relative", width: "90vw", height: "85vh", borderRadius: 20, overflow: "hidden" }} onClick={(e) => e.stopPropagation()}>
-            <Image
+            <img
               src={displayedPhotos[photoIdx]?.src || displayedPhotos[0].src}
               alt={displayedPhotos[photoIdx]?.label || alt}
-              fill
-              style={{ objectFit: "contain" }}
-              sizes="95vw"
-              priority
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain" }}
             />
           </div>
 

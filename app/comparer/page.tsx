@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { getCars } from "@/sanity/queries";
@@ -194,9 +193,9 @@ export default async function ComparerPage({
                   <div key={car.id} className="comparer-car-card">
                     <div className="comparer-car-photo-wrap">
                       {photo ? (
-                        <Image src={photo} alt={`${car.brand} ${car.model}`} fill
-                          style={{ objectFit: "contain", padding: "8px" }}
-                          sizes="(max-width: 600px) 45vw, 220px" />
+                        <img src={photo} alt={`${car.brand} ${car.model}`}
+                          loading="lazy"
+                          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", padding: "8px" }} />
                       ) : (
                         <div style={{ width: "100%", height: "100%", background: "#f0f0f0" }} />
                       )}

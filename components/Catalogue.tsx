@@ -1,7 +1,6 @@
 "use client";
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import Image from "next/image";
 import { getColorHex } from "@/data/types";
 import type { Car } from "@/data/types";
 import { carSlug } from "@/lib/slug";
@@ -247,12 +246,11 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                 >
                   <div className="car-img-wrap">
                     {photos.length > 0 ? (
-                      <Image
+                      <img
                         src={photos[0].src}
                         alt={`${car.brand} ${car.model}`}
-                        fill
-                        style={{ objectFit: "cover", opacity: 0.85 }}
-                        sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 400px"
+                        loading="lazy"
+                        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.85 }}
                       />
                     ) : (
                       <CarSVG color={car.color} />
