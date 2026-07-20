@@ -2,6 +2,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import CarViewTabs from "@/components/CarViewTabs";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
+import ConfigurateurForm from "@/components/ConfigurateurForm";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CARS } from "@/data/cars";
@@ -433,7 +434,20 @@ export default async function VoiturePage({ params, searchParams }: { params: Pr
             </div>
           )}
 
-          <div style={{ padding: "0 clamp(20px,5vw,48px) 48px", marginTop: 64 }}>
+          {/* Configurateur commande */}
+          <div style={{ padding: "0 clamp(20px,5vw,48px)", marginTop: 64 }}>
+            <ConfigurateurForm
+              brand={car!.brand}
+              model={car!.model}
+              year={car!.year}
+              price={car!.price}
+              colors={car!.colors}
+              carUrl={carUrl}
+              waNumber={waNumber}
+            />
+          </div>
+
+          <div style={{ padding: "0 clamp(20px,5vw,48px) 48px", marginTop: 40 }}>
             <div style={{ background: "var(--yellow, #f5f0e8)", borderRadius: 24, padding: "clamp(28px,5vw,48px)", textAlign: "center" }}>
               <h2 style={{ fontSize: 28, fontWeight: 800, marginBottom: 12 }}>
                 Intéressé par la {car!.brand} {car!.model} ?

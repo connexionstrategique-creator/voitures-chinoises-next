@@ -4393,3 +4393,350 @@ html, body { overflow-x:clip; max-width:100%; }
   .comparer-verdict-cards { flex-direction: column; gap: 12px; }
   .comparer-verdict-quote { font-size: 16px; }
 }
+
+/* ─── SIMULATEUR ─────────────────────────────────────────── */
+.simulateur-page { min-height: 80vh; }
+
+.sim-hero {
+  background: #0a0a0a;
+  padding: 72px 0 56px;
+}
+.sim-hero-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 clamp(20px,5vw,48px);
+}
+.sim-breadcrumb {
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.04em;
+  margin-bottom: 20px;
+}
+.sim-breadcrumb a { color: rgba(255,255,255,0.4); text-decoration: none; }
+.sim-breadcrumb a:hover { color: #fff; }
+.sim-title {
+  font-family: Syne, sans-serif;
+  font-size: clamp(28px,4vw,48px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+.sim-subtitle {
+  font-size: 15px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.sim-body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px clamp(20px,5vw,48px) 80px;
+}
+.sim-card {
+  background: #fff;
+  border: 1px solid #E0E0E0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Inputs */
+.sim-inputs {
+  padding: 36px 36px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.sim-field { display: flex; flex-direction: column; gap: 8px; }
+.sim-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: #A01414;
+  text-transform: uppercase;
+}
+.sim-input {
+  height: 52px;
+  border: 1.5px solid #E0E0E0;
+  border-radius: 8px;
+  padding: 0 16px;
+  font-size: 18px;
+  font-family: DM Sans, sans-serif;
+  font-weight: 600;
+  color: #0D0D0D;
+  outline: none;
+  transition: border-color 0.15s;
+  font-variant-numeric: tabular-nums;
+}
+.sim-input:focus { border-color: #A01414; }
+.sim-hint { font-size: 12px; color: #999; }
+.sim-hint-link { color: #A01414; text-decoration: none; }
+.sim-hint-link:hover { text-decoration: underline; }
+
+.sim-countries {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.sim-country-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 8px;
+  border: 1.5px solid #E0E0E0;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  font-family: DM Sans, sans-serif;
+}
+.sim-country-btn.active {
+  border-color: #A01414;
+  background: #fdf2f2;
+}
+.sim-country-flag { font-size: 22px; }
+.sim-country-name { font-size: 11px; font-weight: 600; color: #333; }
+
+/* Result */
+.sim-result {
+  padding: 32px 36px 36px;
+  margin-top: 28px;
+  border-top: 1px solid #E0E0E0;
+}
+.sim-result-head {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: #A01414;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.sim-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.sim-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 16px;
+  font-size: 13px;
+  border-bottom: 1px solid #F0F0F0;
+  background: #fff;
+}
+.sim-row:last-child { border-bottom: none; }
+.sim-row-base {
+  background: #F5F5F5;
+  font-weight: 600;
+  font-size: 14px;
+}
+.sim-row-plus { color: #555; }
+.sim-row-sub {
+  background: #F5F5F5;
+  font-weight: 600;
+  border-top: 1px solid #ddd;
+}
+.sim-row-total {
+  background: #0D0D0D;
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+  padding: 16px;
+  font-variant-numeric: tabular-nums;
+}
+.sim-section-label {
+  padding: 8px 16px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: #999;
+  text-transform: uppercase;
+  background: #FAFAFA;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.sim-tax-summary {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 24px;
+}
+.sim-cta {
+  display: block;
+  background: #A01414;
+  color: #fff;
+  text-align: center;
+  padding: 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  margin-bottom: 20px;
+  transition: background 0.15s;
+}
+.sim-cta:hover { background: #8a1010; }
+.sim-disclaimer {
+  font-size: 11px;
+  color: #999;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Empty state */
+.sim-empty {
+  padding: 48px 36px;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.sim-empty-icon { font-size: 40px; }
+
+@media (max-width: 600px) {
+  .sim-inputs { padding: 24px 20px 0; }
+  .sim-result { padding: 24px 20px 28px; }
+  .sim-countries { grid-template-columns: repeat(2, 1fr); }
+  .sim-empty { padding: 40px 20px; }
+}
+
+/* ─── CONFIGURATEUR ──────────────────────────────────────── */
+.config-section {
+  border: 1px solid #E0E0E0;
+  border-radius: 16px;
+  padding: clamp(24px,4vw,40px);
+  background: #FAFAFA;
+}
+.config-section-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #A01414;
+  font-weight: 700;
+  margin-bottom: 28px;
+}
+.config-field {
+  margin-bottom: 24px;
+}
+.config-field-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+.config-selected-val {
+  font-weight: 400;
+  color: #666;
+}
+
+/* Color buttons */
+.config-colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.config-color-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px 6px 8px;
+  border: 1.5px solid #E0E0E0;
+  border-radius: 100px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: DM Sans, sans-serif;
+  color: #333;
+  transition: border-color 0.15s, background 0.15s;
+}
+.config-color-btn.active {
+  border-color: #0D0D0D;
+  background: #fff;
+}
+.config-color-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.1);
+  flex-shrink: 0;
+  display: inline-block;
+}
+.config-color-name { font-size: 13px; }
+
+/* Port buttons */
+.config-ports {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.config-port-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 8px;
+  border: 1.5px solid #E0E0E0;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: DM Sans, sans-serif;
+  color: #333;
+  font-weight: 600;
+  transition: border-color 0.15s, background 0.15s;
+}
+.config-port-btn span:first-child { font-size: 20px; }
+.config-port-btn.active {
+  border-color: #0D0D0D;
+  background: #fff;
+}
+
+/* Textarea */
+.config-textarea {
+  width: 100%;
+  border: 1.5px solid #E0E0E0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 13px;
+  font-family: DM Sans, sans-serif;
+  color: #333;
+  resize: vertical;
+  outline: none;
+  background: #fff;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+.config-textarea:focus { border-color: #A01414; }
+
+/* CTA */
+.config-cta {
+  display: block;
+  background: #A01414;
+  color: #fff;
+  text-align: center;
+  padding: 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-top: 4px;
+  transition: background 0.15s;
+}
+.config-cta:hover { background: #8a1010; }
+
+@media (max-width: 600px) {
+  .config-ports { grid-template-columns: repeat(2, 1fr); }
+}
