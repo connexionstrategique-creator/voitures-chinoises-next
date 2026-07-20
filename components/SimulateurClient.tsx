@@ -3,8 +3,8 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 
 const COUNTRIES = [
-  { code: "bj", name: "Bénin",        flag: "🇧🇯", port: "Cotonou",  dd: 0.20, rs: 0.01, pcc: 0.005, pcs: 0.01, tva: 0.18, immat: 350_000 },
-  { code: "tg", name: "Togo",          flag: "🇹🇬", port: "Lomé",    dd: 0.20, rs: 0.01, pcc: 0.005, pcs: 0.01, tva: 0.18, immat: 280_000 },
+  { code: "bj", name: "Bénin",        flag: "🇧🇯", port: "Cotonou",  dd: 0,    rs: 0.01, pcc: 0.005, pcs: 0.01, tva: 0.18, immat: 350_000 },
+  { code: "tg", name: "Togo",          flag: "🇹🇬", port: "Lomé",    dd: 0,    rs: 0.01, pcc: 0.005, pcs: 0.01, tva: 0.18, immat: 280_000 },
   { code: "ci", name: "Côte d'Ivoire", flag: "🇨🇮", port: "Abidjan", dd: 0.20, rs: 0.01, pcc: 0.005, pcs: 0.01, tva: 0.18, immat: 400_000 },
   { code: "sn", name: "Sénégal",       flag: "🇸🇳", port: "Dakar",   dd: 0.20, rs: 0.01, pcc: 0.005, pcs: 0.01, tva: 0.18, immat: 300_000 },
 ];
