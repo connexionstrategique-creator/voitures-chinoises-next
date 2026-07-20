@@ -38,8 +38,6 @@ export default function CarViewTabs({
   photos, color, alt, colorGroups,
   sketchfabId, autohomeId, autohomeInteriorId, defaultTab,
 }: CarViewTabsProps) {
-  const [tab, setTab] = useState<Tab>(defaultTab ?? "photos");
-
   const extSrc = autohomeId
     ? `${AUTOHOME_BASE}${autohomeId}?bg=99&progress=1&spin=1&click=1&nocolor=1&carscale=1.2`
     : sketchfabId
@@ -49,6 +47,12 @@ export default function CarViewTabs({
   const intSrc = autohomeInteriorId
     ? `${AUTOHOME_BASE}${autohomeInteriorId}?bg=99&click=1`
     : null;
+
+  const [tab, setTab] = useState<Tab>(() => {
+    if (defaultTab === "exterior" && extSrc) return "exterior";
+    if (defaultTab === "interior" && intSrc) return "interior";
+    return "photos";
+  });
 
   const hasExt = !!extSrc;
   const hasInt = !!intSrc;

@@ -1040,12 +1040,12 @@ html, body { overflow-x:clip; max-width:100%; }
     display: grid;
     grid-template-columns: 54% 46%;
     align-items: start;
-    min-height: calc(100vh - 68px);
+    min-height: calc(100vh - 80px);
   }
   .car-detail-left {
     position: sticky;
-    top: 68px;
-    height: calc(100vh - 68px);
+    top: 80px;
+    height: calc(100vh - 80px);
     background: #111;
     display: flex;
     flex-direction: column;
@@ -3933,7 +3933,7 @@ html, body { overflow-x:clip; max-width:100%; }
 }
 .search-overlay {
   position: fixed;
-  top: 90px; left: 50%;
+  top: 88px; left: 50%;
   transform: translateX(-50%);
   width: min(92vw, 660px);
   background: #fff;

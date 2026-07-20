@@ -24,9 +24,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (b) brand = b;
   } catch {}
   if (!brand) return {};
+  const canonical = `https://www.voitureschinoises.com/marques/${slug}`;
   return {
     title: `${brand.name} — Voitures Chinoises | Connexion Stratégique`,
     description: `Tous les modèles ${brand.name} disponibles à la commande. ${brand.desc}. Prix CIF livraison Afrique francophone.`,
+    alternates: { canonical },
+    openGraph: {
+      title: `${brand.name} — Voitures Chinoises`,
+      description: `Tous les modèles ${brand.name} neufs 0km, prix CIF livré en Afrique francophone.`,
+      url: canonical,
+      type: "website",
+    },
   };
 }
 

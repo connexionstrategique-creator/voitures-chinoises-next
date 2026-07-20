@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     description: "Guides d'achat, comparatifs SUV, actualités BYD Changan Jetour et analyses marché auto africain.",
     url: "https://www.voitureschinoises.com/blog",
     type: "website",
+    images: [{ url: "https://res.cloudinary.com/daol8mzeg/image/upload/w_1200,h_630,c_fill/v1772665987/LOGO_VOITURES_CHINOISE_ROUGE_600x_pfafuh.png", width: 1200, height: 630 }],
   },
 };
 

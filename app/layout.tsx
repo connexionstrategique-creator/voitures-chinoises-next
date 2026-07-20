@@ -5,7 +5,7 @@ import "./globals.css";
 
 const syne = Syne({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
+  weight: ["300", "400", "600", "700"],
   variable: "--font-syne",
   display: "swap",
 });

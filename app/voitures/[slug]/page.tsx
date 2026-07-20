@@ -196,6 +196,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       images: car.photos?.[0]?.src ? [{ url: car.photos[0].src, width: 1200, height: 630 }] : [],
       type: "website",
     },
+    twitter: {
+      card: "summary_large_image",
+      title: `${car.brand} ${car.model} ${car.year} — ${car.price} FCFA CIF`,
+      description: `Véhicule neuf 0km livré CIF en Afrique francophone. Devis sous 48h.`,
+      images: car.photos?.[0]?.src ? [car.photos[0].src] : [],
+    },
   };
 }
 
@@ -239,7 +245,7 @@ export default async function VoiturePage({ params, searchParams }: { params: Pr
             "@type": "Car",
             "name": `${car!.brand} ${car!.model}`,
             "brand": { "@type": "Brand", "name": car!.brand },
-            "modelDate": car!.year,
+            "vehicleModelDate": car!.year,
             "offers": {
               "@type": "Offer",
               "price": car!.price.replace(/\s/g, ""),
@@ -247,7 +253,7 @@ export default async function VoiturePage({ params, searchParams }: { params: Pr
               "availability": "https://schema.org/InStock",
               "seller": { "@type": "Organization", "name": "Connexion Stratégique" },
             },
-            "image": photos[0]?.src || "",
+            "image": photos[0]?.src || undefined,
             "description": car!.desc,
             "url": `https://www.voitureschinoises.com/voitures/${slug}`,
           }),
