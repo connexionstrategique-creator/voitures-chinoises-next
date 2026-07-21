@@ -3422,6 +3422,15 @@ html, body { overflow-x:clip; max-width:100%; }
   to   { opacity: 0; transform: translateX(40px); }
 }
 
+@keyframes popup-rise {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes popup-sink {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(16px) scale(0.97); }
+}
+
 /* ── Featured car photo animation (Ken Burns) ───────────── */
 .fdm-car-photo-anim {
   animation: fdmKenBurns 6s ease-out both;
