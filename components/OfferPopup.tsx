@@ -7,7 +7,7 @@ const SESSION_KEY = "offer-cs55-jul26-seen";
 const OFFER_URL = "/offres/cs55-plus-premium-juillet-2026";
 const AFFICHE = "/affiche-cs55-juillet-2026.jpg";
 const DELAY_MS = 3000;
-const VISIBLE_MS = 7000;
+const VISIBLE_MS = 3000;
 
 export default function OfferPopup() {
   const [visible, setVisible] = useState(false);
@@ -109,11 +109,11 @@ export default function OfferPopup() {
           />
         </Link>
 
-        {/* Barre de progression */}
-        <div style={{ height: 3, background: "rgba(0,0,0,0.25)" }}>
+        {/* Barre de progression — remplit de gauche à droite */}
+        <div style={{ height: 4, background: "rgba(255,255,255,0.18)" }}>
           <div style={{
-            height: "100%", background: "#A01414",
-            width: `${progress}%`, transition: "width 0.1s linear",
+            height: "100%", background: "#fff",
+            width: `${100 - progress}%`, transition: "width 0.1s linear",
           }} />
         </div>
       </div>
