@@ -179,30 +179,8 @@ export default async function OffreCS55PlusPremium() {
                   </div>
                 )}
 
-                {/* Fiche technique */}
-                <div style={{ marginBottom: 48 }}>
-                  <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "#A01414", fontWeight: 700, marginBottom: 20 }}>FICHE TECHNIQUE</div>
-                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                    <tbody>
-                      {Object.entries(car.specs).map(([k, v], i) => (
-                        <tr key={k} style={{ background: i % 2 === 0 ? "#F5F5F5" : "#fff" }}>
-                          <td style={{ padding: "11px 14px", width: 36, textAlign: "center", fontSize: 17, lineHeight: 1, verticalAlign: "top" }}>
-                            {SPEC_ICONS[k] ?? "·"}
-                          </td>
-                          <td style={{ padding: "11px 8px 11px 0", fontSize: 13, fontWeight: 600, color: "#666", verticalAlign: "top", width: "38%" }}>
-                            {k}
-                          </td>
-                          <td style={{ padding: "11px 16px 11px 12px", fontSize: 14, fontWeight: 500, color: "#111", verticalAlign: "top", wordBreak: "break-word" }}>
-                            {v}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
                 {/* Détails offre groupage */}
-                <div style={{ marginBottom: 64 }}>
+                <div style={{ marginBottom: 48 }}>
                   <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "#A01414", fontWeight: 700, marginBottom: 20 }}>DÉTAILS DE L&apos;OFFRE GROUPAGE</div>
                   <table style={{ width: "100%", borderCollapse: "collapse" }}>
                     <tbody>
@@ -219,6 +197,28 @@ export default async function OffreCS55PlusPremium() {
                           <td style={{ padding: "11px 14px", width: 36, textAlign: "center", fontSize: 17, lineHeight: 1, verticalAlign: "top" }}>·</td>
                           <td style={{ padding: "11px 8px 11px 0", fontSize: 13, fontWeight: 600, color: "#666", verticalAlign: "top", width: "38%" }}>{k}</td>
                           <td style={{ padding: "11px 16px 11px 12px", fontSize: 14, fontWeight: 500, color: "#111", verticalAlign: "top", wordBreak: "break-word" }}>{v}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Fiche technique */}
+                <div style={{ marginBottom: 48 }}>
+                  <div style={{ fontSize: 11, letterSpacing: "0.18em", color: "#A01414", fontWeight: 700, marginBottom: 20 }}>FICHE TECHNIQUE</div>
+                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                    <tbody>
+                      {Object.entries(car.specs).map(([k, v], i) => (
+                        <tr key={k} style={{ background: i % 2 === 0 ? "#F5F5F5" : "#fff" }}>
+                          <td style={{ padding: "11px 14px", width: 36, textAlign: "center", fontSize: 17, lineHeight: 1, verticalAlign: "top" }}>
+                            {SPEC_ICONS[k] ?? "·"}
+                          </td>
+                          <td style={{ padding: "11px 8px 11px 0", fontSize: 13, fontWeight: 600, color: "#666", verticalAlign: "top", width: "38%" }}>
+                            {k}
+                          </td>
+                          <td style={{ padding: "11px 16px 11px 12px", fontSize: 14, fontWeight: 500, color: "#111", verticalAlign: "top", wordBreak: "break-word" }}>
+                            {v}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
