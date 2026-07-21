@@ -83,21 +83,31 @@ export default function OfferPopup() {
             : "popup-rise 0.38s cubic-bezier(0.16,1,0.3,1) forwards",
         }}
       >
-        {/* Close button */}
-        <button
-          onClick={dismiss}
-          aria-label="Fermer"
-          style={{
-            position: "absolute", top: 10, right: 10, zIndex: 2,
-            width: 28, height: 28, borderRadius: "50%",
-            background: "rgba(0,0,0,0.55)", border: "none",
-            color: "#fff", fontSize: 13, cursor: "pointer",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            backdropFilter: "blur(4px)",
-          }}
-        >
-          ✕
-        </button>
+        {/* Bandeau supérieur : Publicité + fermer */}
+        <div style={{
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          background: "#1a1a1a", padding: "6px 10px 6px 14px",
+        }}>
+          <span style={{
+            fontSize: 10, fontWeight: 600, letterSpacing: "0.14em",
+            textTransform: "uppercase", color: "rgba(255,255,255,0.4)",
+            fontFamily: "DM Sans, sans-serif",
+          }}>
+            Publicité
+          </span>
+          <button
+            onClick={dismiss}
+            aria-label="Fermer"
+            style={{
+              width: 24, height: 24, borderRadius: "50%",
+              background: "rgba(255,255,255,0.1)", border: "none",
+              color: "rgba(255,255,255,0.6)", fontSize: 12, cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}
+          >
+            ✕
+          </button>
+        </div>
 
         {/* Affiche cliquable */}
         <Link href={OFFER_URL} style={{ display: "block" }}>
@@ -110,9 +120,9 @@ export default function OfferPopup() {
         </Link>
 
         {/* Barre de progression — remplit de gauche à droite */}
-        <div style={{ height: 4, background: "rgba(255,255,255,0.18)" }}>
+        <div style={{ height: 6, background: "#1a1a1a" }}>
           <div style={{
-            height: "100%", background: "#fff",
+            height: "100%", background: "#A01414",
             width: `${100 - progress}%`, transition: "width 0.1s linear",
           }} />
         </div>
