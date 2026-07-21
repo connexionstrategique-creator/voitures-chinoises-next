@@ -121,15 +121,32 @@ export default async function OffreCS55PlusPremium() {
               </div>
 
               <div style={{ marginBottom: 24 }}>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 10 }}>
+                <div style={{ fontSize: 10, color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 10 }}>
                   Tout inclus dans le prix
                 </div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 8px", marginBottom: 14 }}>
-                  {["Achat véhicule", "Licence export", "Transport maritime", "Dédouanement", "Immatriculation", "Mutation"].map((item) => (
-                    <span key={item} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 4, padding: "5px 10px" }}>
-                      <span style={{ color: "#4CAF50", fontSize: 11, lineHeight: 1 }}>✓</span>
-                      <span style={{ fontSize: 12, color: "rgba(255,255,255,0.75)", fontWeight: 500, letterSpacing: "0.02em" }}>{item}</span>
-                    </span>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6, marginBottom: 16 }}>
+                  {[
+                    { icon: "🛡️", label: "Achat véhicule" },
+                    { icon: "📋", label: "Licence export" },
+                    { icon: "🚢", label: "Transport maritime" },
+                    { icon: "🛃", label: "Dédouanement" },
+                    { icon: "📄", label: "Immatriculation" },
+                    { icon: "🤝", label: "Mutation" },
+                  ].map(({ icon, label }) => (
+                    <div key={label} style={{
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      borderRadius: 8,
+                      padding: "14px 6px 10px",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      gap: 7,
+                      textAlign: "center",
+                    }}>
+                      <span style={{ fontSize: 22, lineHeight: 1 }}>{icon}</span>
+                      <span style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", lineHeight: 1.4 }}>{label}</span>
+                    </div>
                   ))}
                 </div>
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: "0.04em", marginBottom: 10 }}>
