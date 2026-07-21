@@ -80,11 +80,12 @@ export default function OfferPopup() {
         {/* Bandeau : Publicité + bouton ✕ avec anneau décompte */}
         <div style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
-          background: "#1a1a1a", padding: "5px 10px 5px 14px",
+          background: "#fff", padding: "5px 10px 5px 14px",
+          borderBottom: "1px solid #eee",
         }}>
           <span style={{
             fontSize: 10, fontWeight: 600, letterSpacing: "0.14em",
-            textTransform: "uppercase", color: "rgba(255,255,255,0.4)",
+            textTransform: "uppercase", color: "#aaa",
             fontFamily: "DM Sans, sans-serif",
           }}>
             Publicité
@@ -119,7 +120,7 @@ export default function OfferPopup() {
                 position: "absolute", top: 4, left: 4,
                 width: 24, height: 24, borderRadius: "50%",
                 background: "transparent", border: "none",
-                color: "rgba(255,255,255,0.55)", fontSize: 11,
+                color: "#888", fontSize: 11,
                 cursor: "pointer",
                 display: "flex", alignItems: "center", justifyContent: "center",
               }}
