@@ -33,6 +33,7 @@ export default async function OffreCS55PlusPremium() {
   if (!car) return null;
 
   const photos = car.photos || [];
+  const daysLeft = Math.max(0, Math.ceil((new Date("2026-08-07").getTime() - Date.now()) / 86400000));
 
   return (
     <>
@@ -213,7 +214,14 @@ export default async function OffreCS55PlusPremium() {
                         <tr key={k} style={{ background: i % 2 === 0 ? "#F5F5F5" : "#fff" }}>
                           <td style={{ padding: "11px 14px", width: 36, textAlign: "center", fontSize: 17, lineHeight: 1, verticalAlign: "top" }}>·</td>
                           <td style={{ padding: "11px 8px 11px 0", fontSize: 13, fontWeight: 600, color: "#666", verticalAlign: "top", width: "38%" }}>{k}</td>
-                          <td style={{ padding: "11px 16px 11px 12px", fontSize: 14, fontWeight: 500, color: "#111", verticalAlign: "top", wordBreak: "break-word" }}>{v}</td>
+                          <td style={{ padding: "11px 16px 11px 12px", fontSize: 14, fontWeight: 500, color: "#111", verticalAlign: "top", wordBreak: "break-word" }}>
+                            {v}
+                            {k === "Date limite de paiement" && daysLeft > 0 && (
+                              <span style={{ display: "inline-block", marginLeft: 8, background: "#A01414", color: "#fff", fontSize: 10, fontWeight: 700, letterSpacing: "0.06em", padding: "2px 8px", borderRadius: 3, verticalAlign: "middle" }}>
+                                J-{daysLeft}
+                              </span>
+                            )}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
