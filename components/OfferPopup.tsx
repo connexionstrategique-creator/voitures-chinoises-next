@@ -8,19 +8,20 @@ const OFFER_URL = "/offres/cs55-plus-premium-juillet-2026";
 const AFFICHE = "/affiche-cs55-juillet-2026.jpg";
 const DELAY_MS = 3000;
 const VISIBLE_MS = 3000;
+const R = 13;
+const CIRC = 2 * Math.PI * R; // ≈ 81.68
 
 export default function OfferPopup() {
   const [visible, setVisible] = useState(false);
   const [leaving, setLeaving] = useState(false);
-  const [progress, setProgress] = useState(100);
   const pathname = usePathname();
   const dismissedRef = useRef(false);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const dismissTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const dismiss = () => {
     if (dismissedRef.current) return;
     dismissedRef.current = true;
-    if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null; }
+    if (dismissTimerRef.current) { clearTimeout(dismissTimerRef.current); dismissTimerRef.current = null; }
     setLeaving(true);
     try { sessionStorage.setItem(SESSION_KEY, "1"); } catch {}
     setTimeout(() => setVisible(false), 360);
@@ -36,19 +37,12 @@ export default function OfferPopup() {
       if (dismissedRef.current) return;
       setVisible(true);
       setLeaving(false);
-      setProgress(100);
-
-      const start = Date.now();
-      intervalRef.current = setInterval(() => {
-        const pct = Math.max(0, 100 - ((Date.now() - start) / VISIBLE_MS) * 100);
-        setProgress(pct);
-        if (pct <= 0) dismiss();
-      }, 100);
+      dismissTimerRef.current = setTimeout(dismiss, VISIBLE_MS);
     }, DELAY_MS);
 
     return () => {
       clearTimeout(showTimer);
-      if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null; }
+      if (dismissTimerRef.current) { clearTimeout(dismissTimerRef.current); dismissTimerRef.current = null; }
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
@@ -67,7 +61,7 @@ export default function OfferPopup() {
         }}
       />
 
-      {/* Affiche container */}
+      {/* Popup */}
       <div
         style={{
           position: "fixed",
@@ -83,10 +77,10 @@ export default function OfferPopup() {
             : "popup-rise 0.38s cubic-bezier(0.16,1,0.3,1) forwards",
         }}
       >
-        {/* Bandeau supérieur : Publicité + fermer */}
+        {/* Bandeau : Publicité + bouton ✕ avec anneau décompte */}
         <div style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
-          background: "#1a1a1a", padding: "6px 10px 6px 14px",
+          background: "#1a1a1a", padding: "5px 10px 5px 14px",
         }}>
           <span style={{
             fontSize: 10, fontWeight: 600, letterSpacing: "0.14em",
@@ -95,18 +89,44 @@ export default function OfferPopup() {
           }}>
             Publicité
           </span>
-          <button
+
+          {/* Anneau SVG + bouton ✕ */}
+          <div
             onClick={dismiss}
-            aria-label="Fermer"
-            style={{
-              width: 24, height: 24, borderRadius: "50%",
-              background: "rgba(255,255,255,0.1)", border: "none",
-              color: "rgba(255,255,255,0.6)", fontSize: 12, cursor: "pointer",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}
+            style={{ position: "relative", width: 32, height: 32, cursor: "pointer", flexShrink: 0 }}
           >
-            ✕
-          </button>
+            <svg
+              width="32" height="32"
+              style={{ position: "absolute", top: 0, left: 0, transform: "rotate(-90deg)" }}
+            >
+              {/* Piste grise */}
+              <circle cx="16" cy="16" r={R} fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="2" />
+              {/* Arc rouge qui se vide en VISIBLE_MS */}
+              <circle
+                cx="16" cy="16" r={R}
+                fill="none"
+                stroke="#A01414"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeDasharray={CIRC}
+                strokeDashoffset={0}
+                style={{ animation: `countdown-ring ${VISIBLE_MS}ms linear forwards` }}
+              />
+            </svg>
+            <button
+              aria-label="Fermer"
+              style={{
+                position: "absolute", top: 4, left: 4,
+                width: 24, height: 24, borderRadius: "50%",
+                background: "transparent", border: "none",
+                color: "rgba(255,255,255,0.55)", fontSize: 11,
+                cursor: "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}
+            >
+              ✕
+            </button>
+          </div>
         </div>
 
         {/* Affiche cliquable */}
@@ -118,14 +138,6 @@ export default function OfferPopup() {
             style={{ display: "block", width: "100%", height: "auto" }}
           />
         </Link>
-
-        {/* Barre de progression — remplit de gauche à droite */}
-        <div style={{ height: 6, background: "#1a1a1a" }}>
-          <div style={{
-            height: "100%", background: "#A01414",
-            width: `${100 - progress}%`, transition: "width 0.1s linear",
-          }} />
-        </div>
       </div>
     </>
   );

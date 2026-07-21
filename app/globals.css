@@ -3438,6 +3438,10 @@ html, body { overflow-x:clip; max-width:100%; }
   from { opacity: 1; }
   to   { opacity: 0; }
 }
+@keyframes countdown-ring {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: 81.68; }
+}
 
 /* ── Featured car photo animation (Ken Burns) ───────────── */
 .fdm-car-photo-anim {
