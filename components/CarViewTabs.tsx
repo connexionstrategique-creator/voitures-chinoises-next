@@ -39,13 +39,13 @@ export default function CarViewTabs({
   sketchfabId, autohomeId, autohomeInteriorId, defaultTab,
 }: CarViewTabsProps) {
   const extSrc = autohomeId
-    ? `${AUTOHOME_BASE}${autohomeId}?bg=99&progress=1&spin=1&click=1&nocolor=1&carscale=1.2`
+    ? `${AUTOHOME_BASE}${autohomeId}?bg=99&progress=1&spin=1&click=1&nocolor=1&carscale=1.2&pure=1`
     : sketchfabId
     ? `${SKETCHFAB_BASE}${sketchfabId}/embed?autostart=1&preload=1&ui_controls=1&ui_infos=0&ui_watermark=1&ui_vr=0&ui_fullscreen=1&ui_help=0&ui_settings=0&ui_annotations=0`
     : null;
 
   const intSrc = autohomeInteriorId
-    ? `${AUTOHOME_BASE}${autohomeInteriorId}?bg=99&click=1`
+    ? `${AUTOHOME_BASE}${autohomeInteriorId}?bg=99&click=1&pure=1`
     : null;
 
   const [tab, setTab] = useState<Tab>(() => {
