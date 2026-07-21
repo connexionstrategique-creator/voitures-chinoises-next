@@ -77,52 +77,32 @@ export default function OfferPopup() {
             : "popup-rise 0.38s cubic-bezier(0.16,1,0.3,1) forwards",
         }}
       >
-        {/* Bandeau : Publicité + bouton ✕ avec anneau décompte */}
-        <div style={{
-          display: "flex", alignItems: "center", justifyContent: "space-between",
-          background: "#fff", padding: "5px 10px 5px 14px",
-          borderBottom: "1px solid #eee",
-        }}>
-          <span style={{
-            fontSize: 10, fontWeight: 600, letterSpacing: "0.14em",
-            textTransform: "uppercase", color: "#aaa",
-            fontFamily: "DM Sans, sans-serif",
-          }}>
-            Publicité
-          </span>
-
-          {/* Anneau SVG + bouton ✕ */}
-          <div
-            onClick={dismiss}
-            style={{ position: "relative", width: 32, height: 32, cursor: "pointer", flexShrink: 0 }}
-          >
-            <svg
-              width="32" height="32"
-              style={{ position: "absolute", top: 0, left: 0, transform: "rotate(-90deg)" }}
-            >
-              {/* Piste grise */}
-              <circle cx="16" cy="16" r={R} fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="2" />
-              {/* Arc rouge qui se vide en VISIBLE_MS */}
-              <circle
-                cx="16" cy="16" r={R}
-                fill="none"
-                stroke="#A01414"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeDasharray={CIRC}
-                strokeDashoffset={0}
-                style={{ animation: `countdown-ring ${VISIBLE_MS}ms linear forwards` }}
-              />
-            </svg>
+        {/* Bandeau : Publicité + barre décompte + bouton ✕ */}
+        <div style={{ position: "relative", overflow: "hidden", background: "#fff", borderBottom: "1px solid #eee" }}>
+          {/* Remplissage rouge animé de gauche à droite */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "rgba(160,20,20,0.1)",
+            transformOrigin: "left",
+            animation: `fill-header ${VISIBLE_MS}ms linear forwards`,
+          }} />
+          <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "7px 10px 7px 14px" }}>
+            <span style={{
+              fontSize: 10, fontWeight: 600, letterSpacing: "0.14em",
+              textTransform: "uppercase", color: "#aaa",
+              fontFamily: "DM Sans, sans-serif",
+            }}>
+              Publicité
+            </span>
             <button
+              onClick={dismiss}
               aria-label="Fermer"
               style={{
-                position: "absolute", top: 4, left: 4,
                 width: 24, height: 24, borderRadius: "50%",
-                background: "transparent", border: "none",
-                color: "#888", fontSize: 11,
-                cursor: "pointer",
+                background: "rgba(0,0,0,0.08)", border: "none",
+                color: "#888", fontSize: 11, cursor: "pointer",
                 display: "flex", alignItems: "center", justifyContent: "center",
+                flexShrink: 0,
               }}
             >
               ✕

@@ -3442,6 +3442,10 @@ html, body { overflow-x:clip; max-width:100%; }
   from { stroke-dashoffset: 0; }
   to   { stroke-dashoffset: 81.68; }
 }
+@keyframes fill-header {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
 
 /* ── Featured car photo animation (Ken Burns) ───────────── */
 .fdm-car-photo-anim {
