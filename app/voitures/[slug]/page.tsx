@@ -4,6 +4,7 @@ import CarViewTabs from "@/components/CarViewTabs";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
 import ConfigurateurForm from "@/components/ConfigurateurForm";
 import Link from "next/link";
+import BackButton from "@/components/BackButton";
 import { notFound } from "next/navigation";
 import { CARS } from "@/data/cars";
 import { getColorHex } from "@/data/types";
@@ -266,9 +267,7 @@ export default async function VoiturePage({ params, searchParams }: { params: Pr
           {/* LEFT — carousel sticky */}
           <div className="car-detail-left">
             <div style={{ padding: "20px 24px 8px" }}>
-              <Link href="/catalogue" style={{ textDecoration: "none", fontSize: 15, color: "rgba(255,255,255,0.6)", display: "inline-block", letterSpacing: "0.06em" }}>
-                ← retour
-              </Link>
+              <BackButton />
             </div>
             <div className="car-detail-left-title">
               <div style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(18px,2vw,26px)", fontWeight: 700, color: "#fff", letterSpacing: "-0.01em", lineHeight: 1.15 }}>
