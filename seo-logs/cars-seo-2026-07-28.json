@@ -1,0 +1,57 @@
+[
+  {
+    "_id": "car-byd-atto3-510-leader",
+    "brand": "BYD",
+    "model": "ATTO 3 PLUS — 510 km Édition Leader",
+    "seo": {
+      "seoTitle": "BYD ATTO 3 PLUS 510 km Leader 2025 – Prix FCFA Afrique",
+      "seoDescription": "SUV électrique BYD ATTO 3 PLUS 510 km Édition Leader, 204 ch, dès 13 970 000 FCFA CIF. Livraison Cotonou, Lomé, Abidjan, Dakar. Contactez-nous sur WhatsApp."
+    },
+    "reason": "desc vide (0 mots)",
+    "published": true
+  },
+  {
+    "_id": "car-byd-yuanup-401-prestige",
+    "brand": "BYD",
+    "model": "Yuan Up — 401 km Édition Prestige",
+    "seo": {
+      "seoTitle": "BYD Yuan Up 401 km Prestige 2025 – Prix FCFA Afrique",
+      "seoDescription": "SUV électrique BYD Yuan Up 401 km Édition Prestige, 177 ch, dès 13 480 000 FCFA CIF. Livraison Cotonou, Lomé, Abidjan, Dakar. WhatsApp 24h/24."
+    },
+    "reason": "desc vide (0 mots)",
+    "published": true
+  },
+  {
+    "_id": "car-cs55plus-advanced",
+    "brand": "Changan",
+    "model": "CS55 PLUS Advanced",
+    "seo": {
+      "seoTitle": "Changan CS55 PLUS Advanced 2026 – Prix FCFA Afrique",
+      "seoDescription": "Changan CS55 PLUS Advanced 2026, SUV compact 1.5T 192 ch, dès 9 850 000 FCFA CIF. Livraison Cotonou, Lomé, Abidjan, Dakar. Contactez-nous."
+    },
+    "reason": "seoTitle, seoDescription et desc absents ; cat/year manquants (complétés)",
+    "published": true
+  },
+  {
+    "_id": "car-cs55plus-elite",
+    "brand": "Changan",
+    "model": "CS55 PLUS Élite",
+    "seo": {
+      "seoTitle": "Changan CS55 PLUS Élite 2026 – Prix FCFA Afrique",
+      "seoDescription": "Changan CS55 PLUS Élite 2026, SUV compact 1.5T 192 ch, dès 9 600 000 FCFA CIF. Livraison Cotonou, Lomé, Abidjan, Dakar. WhatsApp 24h/24."
+    },
+    "reason": "seoTitle, seoDescription et desc absents ; cat/year manquants (complétés)",
+    "published": true
+  },
+  {
+    "_id": "car-warrior-m817-maxplus",
+    "brand": "Warrior",
+    "model": "M817 2025 — Max+",
+    "seo": {
+      "seoTitle": "Warrior M817 2025 Max+ – Grand SUV PHEV FCFA",
+      "seoDescription": "Warrior M817 2025 Max+, grand SUV hybride rechargeable 551 ch, 4x4, dès 40 410 000 FCFA CIF. Livraison Cotonou, Lomé, Abidjan, Dakar."
+    },
+    "reason": "seoTitle, seoDescription et desc absents",
+    "published": true
+  }
+]
