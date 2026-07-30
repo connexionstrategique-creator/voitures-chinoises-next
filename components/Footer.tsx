@@ -16,28 +16,6 @@ export default function Footer({
 
   return (
     <>
-      {/* Sourcing Banner */}
-      {!minimal && (
-        <section className="sourcing-banner" id="contact">
-          <div className="sourcing-inner">
-            <h2 className="sourcing-title">Vous n&apos;avez pas trouvé<br /><em>ce que vous cherchez ?</em></h2>
-            <p className="sourcing-desc">
-              Pas de problème — on vous trouve la voiture. Dites-nous la marque, le modèle, votre budget et votre destination.<br />
-              Nous vous faisons un devis personnalisé sous 48h ouvrées.
-            </p>
-            <div className="sourcing-actions">
-              <a
-                href={`https://wa.me/${waNumber}?text=${waDevis}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="sourcing-btn-primary"
-              >
-                DEMANDER UN DEVIS SPÉCIFIQUE →
-              </a>
-            </div>
-          </div>
-        </section>
-      )}
 
 
       {/* Footer */}
