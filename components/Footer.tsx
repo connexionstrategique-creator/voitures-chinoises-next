@@ -39,25 +39,6 @@ export default function Footer({
         </section>
       )}
 
-      {/* SAV */}
-      {!minimal && (
-        <section className="section" style={{ background: "var(--yellow)", paddingTop: 0, paddingBottom: 80 }}>
-          <div className="section-inner">
-            <div className="sav-box">
-              <div className="sav-col">
-                <h4>✅ Véhicule neuf, jamais immatriculé</h4>
-                <p>Chaque véhicule est livré <strong>neuf, 0 km, sorti directement d&apos;usine</strong>. Vous repartez avec un véhicule en parfait état, documenté et conforme aux standards de la marque.</p>
-                <p>Pour l&apos;entretien courant, nous vous orientons vers les <strong>ateliers spécialisés en véhicules chinois</strong> présents au Bénin et dans la sous-région.</p>
-              </div>
-              <div className="sav-col">
-                <h4>📦 Pièces détachées depuis la Chine</h4>
-                <p>Besoin d&apos;une pièce spécifique ? Nous <em>commandons toute pièce détachée directement auprès des fabricants chinois</em>, à prix d&apos;usine.</p>
-                <p>Pièces d&apos;origine garanties, <strong>délai rapide depuis la Chine</strong>. Transmettez-nous la référence ou une description — retour sous 48h.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Footer */}
       <div className="footer-top">
