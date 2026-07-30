@@ -1149,6 +1149,11 @@ html, body { overflow-x:clip; max-width:100%; }
     color: rgba(255,255,255,.35);
     font-family:'DM Sans',sans-serif; font-size:12px; letter-spacing:.06em;
   }
+  .footer-privacy-link {
+    color:rgba(255,255,255,.35); text-decoration:none; font-family:'DM Sans',sans-serif;
+    font-size:12px; letter-spacing:.06em; transition:color .2s;
+  }
+  .footer-privacy-link:hover { color:var(--red); }
   .footer-txt {
     font-family:'DM Sans',sans-serif; font-size:12px;
     color:rgba(255,255,255,.2); letter-spacing:.06em;

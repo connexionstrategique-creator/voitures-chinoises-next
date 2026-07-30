@@ -114,6 +114,7 @@ export default function Footer({
       </div>
       <footer>
         <span>© 2026 Voitures Chinoises — Tous droits réservés</span>
+        <a href="https://www.voitureschinoises.com/politique-confidentialite" className="footer-privacy-link">Politique de confidentialité</a>
       </footer>
     </>
   );
