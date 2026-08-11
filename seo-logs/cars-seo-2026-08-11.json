@@ -1,0 +1,47 @@
+[
+  {
+    "_id": "car-cs75pro",
+    "brand": "Changan",
+    "model": "CS75 PRO 2026",
+    "seo": {
+      "seoTitle": "Changan CS75 PRO 2026 7 Places SUV Neuf – 9,9M FCFA CIF",
+      "seoDescription": "Changan CS75 PRO 2026 : SUV 7 places, 1.5T 192ch, neuf 0km à 9 900 000 FCFA. Livraison CIF à Cotonou, Lomé, Abidjan, Dakar. Paiement 70%+30%, commandez !"
+    }
+  },
+  {
+    "_id": "car-jetour-t1",
+    "brand": "Jetour",
+    "model": "T1 Explorer 2025",
+    "seo": {
+      "seoTitle": "Jetour T1 Explorer 2025 SUV Aventure Neuf – 13,5M FCFA CIF",
+      "seoDescription": "Jetour T1 Explorer 2025 : SUV baroudeur 1.5T 184ch, neuf 0km à 13 500 000 FCFA. Livraison CIF Cotonou, Lomé, Abidjan, Dakar. Paiement 70%+30%, réservez !"
+    }
+  },
+  {
+    "_id": "car-jetour-t1-discovery",
+    "brand": "Jetour",
+    "model": "T1 Discovery 2025",
+    "seo": {
+      "seoTitle": "Jetour T1 Discovery 2025 SUV L2 ADAS – 14,4M FCFA CIF Neuf",
+      "seoDescription": "Jetour T1 Discovery 2025 : SUV L2 ADAS, 1.5T 184ch, neuf 0km à 14 400 000 FCFA. Livraison CIF Cotonou, Lomé, Abidjan, Dakar. Paiement 70%+30% facile."
+    }
+  },
+  {
+    "_id": "car-gac-gs3-2026",
+    "brand": "GAC",
+    "model": "GS3 2026 — Shadow Speed 270T · Édition Dynamique",
+    "seo": {
+      "seoTitle": "GAC GS3 2026 Shadow Speed 270T Dynamique – 7,7M FCFA CIF",
+      "seoDescription": "GAC GS3 2026 Shadow Speed 270T : mini SUV 177ch, neuf 0km à 7 700 000 FCFA. Livraison CIF Cotonou, Lomé, Abidjan, Dakar. Paiement 70%+30%, commandez !"
+    }
+  },
+  {
+    "_id": "car-gac-gs3-2026-excellence",
+    "brand": "GAC",
+    "model": "GS3 2026 — Shadow Speed 270T · Édition Excellence",
+    "seo": {
+      "seoTitle": "GAC GS3 2026 Shadow Speed 270T Excellence – 8,4M FCFA CIF",
+      "seoDescription": "GAC GS3 2026 Shadow Speed 270T Excellence : mini SUV 177ch, neuf 0km à 8 400 000 FCFA. Livraison CIF Cotonou, Lomé, Abidjan, Dakar. Paiement 70%+30%."
+    }
+  }
+]
