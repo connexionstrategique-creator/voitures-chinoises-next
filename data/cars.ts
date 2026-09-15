@@ -42,14 +42,6 @@ export const CARS: Car[] = [
     desc: "Le Changan Uni-Z est le SUV compact nouvelle génération de Changan. Design coupé sportif, habitacle technologique et motorisation essence économique. Sortie d'usine 2026, livré neuf 0km vers Cotonou, Lomé, Abidjan et Dakar.",
   },
   {
-    id: 6, brand: "Changan", model: "X5 PLUS", year: "2026", cat: "suv", badge: "pop", badgeText: "Populaire",
-    price: "8 976 150", color: "#2A4A6E", autohomeId: "extseries/70461",
-    colors: ["Blanc", "Gris", "Noir", "Bleu", "Argent"],
-    specs: { Moteur: "Essence", Places: "5 places", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
-    mini: { v1: "5", k1: "places", v2: "Essence", k2: "motorisation", v3: "0", k3: "kilomètre" },
-    desc: "Le Changan X5 Plus 2026 est le SUV compact accessible de Changan. Rapport qualité-prix exceptionnel, fiabilité reconnue et design moderne. Prix CIF compétitif livré vers tous les ports d'Afrique francophone — idéal pour les familles.",
-  },
-  {
     id: 7, brand: "Changan", model: "CS55", year: "2026", cat: "suv", badge: "new", badgeText: "Nouveau",
     price: "10 000 000", color: "#3A5C1A", autohomeId: "ext/45924",
     colors: ["Blanc", "Gris Fluorite", "Noir", "Rouge", "Bleu"],
