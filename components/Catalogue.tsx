@@ -136,7 +136,11 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
 
   const brands = useMemo(() => {
     const set = new Set(cars.map(c => c.brand));
-    return Array.from(set).sort();
+    const PRIORITY = ["Changan", "Jetour"];
+    const all = Array.from(set);
+    const pinned = PRIORITY.filter(b => all.includes(b));
+    const rest = all.filter(b => !PRIORITY.includes(b)).sort();
+    return [...pinned, ...rest];
   }, [cars]);
 
   const filtered = useMemo(() => {
