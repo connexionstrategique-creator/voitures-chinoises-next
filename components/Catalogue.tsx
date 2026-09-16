@@ -73,8 +73,9 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
   const searchParams = useSearchParams();
   const [activeFilter, setActiveFilter] = useState(() => searchParams.get("f") ?? "all");
   const [activeBudget, setActiveBudget] = useState(() => searchParams.get("b") ?? "all");
-  const [sort, setSort] = useState(() => searchParams.get("s") ?? "default");
+  const [sort, setSort] = useState(() => searchParams.get("s") ?? "price-asc");
   const [search, setSearch] = useState(() => searchParams.get("q") ?? "");
+  const [activeBrand, setActiveBrand] = useState(() => searchParams.get("br") ?? "all");
   const [compareList, setCompareList] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 9;
@@ -99,7 +100,8 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
   useEffect(() => {
     setActiveFilter(searchParams.get("f") ?? "all");
     setActiveBudget(searchParams.get("b") ?? "all");
-    setSort(searchParams.get("s") ?? "default");
+    setActiveBrand(searchParams.get("br") ?? "all");
+    setSort(searchParams.get("s") ?? "price-asc");
     const q = searchParams.get("q") ?? "";
     if (q !== prevSearch.current) {
       prevSearch.current = q;
@@ -119,6 +121,7 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
 
   const handleFilter = (f: string) => { setActiveFilter(f); updateURL({ f }); };
   const handleBudget = (b: string) => { setActiveBudget(b); updateURL({ b }); };
+  const handleBrand = (br: string) => { setActiveBrand(br); updateURL({ br }); };
   const handleSort = (s: string) => { setSort(s); updateURL({ s }); };
 
   const toggleCompare = useCallback((id: string) => {
@@ -129,7 +132,12 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
 
   useEffect(() => {
     setPage(1);
-  }, [activeFilter, activeBudget, search, sort]);
+  }, [activeFilter, activeBudget, activeBrand, search, sort]);
+
+  const brands = useMemo(() => {
+    const set = new Set(cars.map(c => c.brand));
+    return Array.from(set).sort();
+  }, [cars]);
 
   const filtered = useMemo(() => {
     let result = cars.filter((c) => {
@@ -139,10 +147,11 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
         (activeFilter === "7places" && c.specs.Places?.includes("7")) ||
         (activeFilter === "5places" && c.specs.Places?.includes("5") && !c.specs.Places?.includes("7"));
       const budOk = budgetMatch(c, activeBudget);
+      const brandOk = activeBrand === "all" || c.brand === activeBrand;
       const haystack = `${c.brand} ${c.model}`.toLowerCase();
       const terms = search.toLowerCase().trim().split(/\s+/).filter(Boolean);
       const srchOk = terms.every((t) => haystack.includes(t));
-      return catOk && budOk && srchOk;
+      return catOk && budOk && brandOk && srchOk;
     });
     if (sort === "price-asc") result = [...result].sort((a, b) => priceNum(a.price) - priceNum(b.price));
     if (sort === "price-desc") result = [...result].sort((a, b) => priceNum(b.price) - priceNum(a.price));
@@ -171,6 +180,28 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                   </button>
                 ))}
               </div>
+            </div>
+          </div>
+
+          {/* Brand filters */}
+          <div style={{ marginBottom: 20 }}>
+            <span className="filter-label">Marque</span>
+            <div className="filters brand-filters">
+              <button
+                className={`filter-btn${activeBrand === "all" ? " active" : ""}`}
+                onClick={() => handleBrand("all")}
+              >
+                Toutes
+              </button>
+              {brands.map((b) => (
+                <button
+                  key={b}
+                  className={`filter-btn${activeBrand === b ? " active" : ""}`}
+                  onClick={() => handleBrand(b)}
+                >
+                  {b}
+                </button>
+              ))}
             </div>
           </div>
 
