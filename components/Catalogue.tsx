@@ -156,7 +156,7 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
     if (sort === "price-asc") result = [...result].sort((a, b) => priceNum(a.price) - priceNum(b.price));
     if (sort === "price-desc") result = [...result].sort((a, b) => priceNum(b.price) - priceNum(a.price));
     return result;
-  }, [activeFilter, activeBudget, search, sort, cars]);
+  }, [activeFilter, activeBudget, activeBrand, search, sort, cars]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
