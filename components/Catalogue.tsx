@@ -78,7 +78,7 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
   const [activeBrand, setActiveBrand] = useState(() => searchParams.get("br") ?? "all");
   const [compareList, setCompareList] = useState<string[]>([]);
   const [page, setPage] = useState(1);
-  const PAGE_SIZE = 24;
+  const PAGE_SIZE = 18;
 
   const updateURL = useCallback((updates: Record<string, string>) => {
     const params = new URLSearchParams(searchParams.toString());
