@@ -390,16 +390,16 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginTop: 48, paddingBottom: 8 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginTop: 48, paddingBottom: 8, overflowX: "auto", flexWrap: "nowrap", padding: "0 8px 8px" }}>
               <button
                 onClick={() => { setPage(p => p - 1); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                 disabled={page === 1}
                 style={{
-                  width: 40, height: 40, borderRadius: "50%",
+                  width: 36, height: 36, minWidth: 36, borderRadius: "50%",
                   border: "1px solid #E0E0E0",
                   background: page === 1 ? "#F5F5F5" : "#fff",
                   color: page === 1 ? "#ccc" : "#0D0D0D",
-                  display: "flex", alignItems: "center", justifyContent: "center",
+                  display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
                   fontSize: 18, cursor: page === 1 ? "not-allowed" : "pointer",
                   transition: "all .2s",
                 }}
@@ -410,12 +410,13 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                   key={p}
                   onClick={() => { setPage(p); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                   style={{
-                    width: 40, height: 40, borderRadius: "50%",
+                    width: 36, height: 36, minWidth: 36, borderRadius: "50%",
                     border: p === page ? "1px solid #A01414" : "1px solid #E0E0E0",
                     background: p === page ? "#A01414" : "#fff",
                     color: p === page ? "#fff" : "#555",
                     fontFamily: "DM Sans, sans-serif", fontWeight: p === page ? 700 : 500,
                     fontSize: 13, cursor: "pointer", transition: "all .2s",
+                    display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
                   }}
                 >{p}</button>
               ))}
@@ -424,11 +425,11 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                 onClick={() => { setPage(p => p + 1); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                 disabled={page === totalPages}
                 style={{
-                  width: 40, height: 40, borderRadius: "50%",
+                  width: 36, height: 36, minWidth: 36, borderRadius: "50%",
                   border: "1px solid #E0E0E0",
                   background: page === totalPages ? "#F5F5F5" : "#fff",
                   color: page === totalPages ? "#ccc" : "#0D0D0D",
-                  display: "flex", alignItems: "center", justifyContent: "center",
+                  display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
                   fontSize: 18, cursor: page === totalPages ? "not-allowed" : "pointer",
                   transition: "all .2s",
                 }}
