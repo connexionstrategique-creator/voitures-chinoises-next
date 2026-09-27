@@ -2577,9 +2577,9 @@ html, body { overflow-x:clip; max-width:100%; }
     .specs-mini { display:none; }
     .price-cities { display:none; }
     .price-cif { display:none; }
-    .car-price-row { padding-top:2px; border-top:none; }
-    .car-price { font-size:13px; font-weight:600; color:var(--black); }
-    .car-price sup { font-size:8px; color:#888; }
+    .car-card .car-price { font-size:13px; font-weight:600; color:var(--black); }
+    .car-card .car-price sup { font-size:8px; color:#888; }
+    .car-card .car-price-row { padding-top:2px; border-top:none; }
     .card-actions { flex-direction:row; gap:4px; padding:6px 10px 10px; }
     .card-cta-red { font-size:9px; padding:7px 6px; flex:1; }
     .card-cta-wa { font-size:9px; padding:7px 8px; }
