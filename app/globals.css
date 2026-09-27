@@ -733,6 +733,11 @@ html, body { overflow-x:clip; max-width:100%; }
     display:flex; gap:2px; flex-wrap:wrap;
     background:var(--yellow-2);
   }
+  .brand-filters {
+    flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none;
+  }
+  .brand-filters::-webkit-scrollbar { display:none; }
+  .brand-filters .filter-btn { flex-shrink:0; }
   .filter-btn {
     background:var(--yellow); border:none; cursor:pointer;
     padding:10px 20px;
