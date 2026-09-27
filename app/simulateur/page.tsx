@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default async function SimulateurPage() {
   const settings = await getSiteSettings().catch(() => null);
-  const waNumber = settings?.whatsappNumber ?? "22941765341";
+  const waNumber = settings?.whatsappNumber ?? "8619587439774";
   return (
     <>
       <Nav />

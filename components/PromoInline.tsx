@@ -7,7 +7,7 @@ interface PromoInlineProps {
   label?: string;
 }
 
-const WA = "22941765341";
+const WA = "8619587439774";
 
 export default function PromoInline({
   imageUrl,

@@ -214,7 +214,7 @@ export default async function VoiturePage({ params, searchParams }: { params: Pr
   const staticCar = CARS.find((c) => carSlug(c.brand, c.model) === slug);
   let car = staticCar;
   let waNumber = "8619587439774";
-  let phoneDisplay = "+229 01 41 76 53 41";
+  let phoneDisplay = "+86 195 8743 9774";
   let phoneCN = "+86 195 8743 9774";
   try {
     const [c, settings] = await Promise.all([getCarBySlug(slug), getSiteSettings()]);

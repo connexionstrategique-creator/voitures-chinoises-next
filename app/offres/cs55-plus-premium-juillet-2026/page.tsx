@@ -23,7 +23,7 @@ const SPEC_ICONS: Record<string, string> = {
   Caméra: "📷", Airbags: "🛡️", Freins: "🔴", Année: "📅",
 };
 
-const WA_BENIN = "2290141765341";
+const WA_NUMBER = "8619587439774";
 const WA_MSG = encodeURIComponent(
   "Bonjour, je suis intéressé par l'offre groupage Changan CS55 PLUS PREMIUM 2026 à 12 500 000 FCFA TTC. Pouvez-vous me donner plus d'informations ?"
 );
@@ -167,7 +167,7 @@ export default async function OffreCS55PlusPremium() {
 
               <div className="car-cta-group">
                 <a
-                  href={`https://wa.me/${WA_BENIN}?text=${WA_MSG}`}
+                  href={`https://wa.me/${WA_NUMBER}?text=${WA_MSG}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="modal-cta-primary car-cta-wa"
@@ -262,7 +262,7 @@ export default async function OffreCS55PlusPremium() {
                     Contactez-nous sur WhatsApp pour réserver votre véhicule.
                   </p>
                   <a
-                    href={`https://wa.me/${WA_BENIN}?text=${WA_MSG}`}
+                    href={`https://wa.me/${WA_NUMBER}?text=${WA_MSG}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ display: "inline-block", background: "#A01414", color: "#fff", padding: "16px 40px", borderRadius: 2, fontFamily: "DM Sans, sans-serif", fontWeight: 700, fontSize: 14, letterSpacing: "0.06em", textDecoration: "none", textTransform: "uppercase" }}

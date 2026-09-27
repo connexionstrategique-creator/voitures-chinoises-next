@@ -32,7 +32,7 @@ export default function PolitiqueConfidentialite() {
               <li><strong>Siège :</strong> Cotonou, Bénin, Étoile Rouge, Bâtiment C955, rue avant la BOA en allant vers l&apos;Église Catholique Saint Jean / Guangzhou Baiyun, Chine</li>
               <li><strong>Site web :</strong> <a href="https://www.voitureschinoises.com" style={{ color: "#A01414" }}>voitureschinoises.com</a></li>
               <li><strong>Email :</strong> <a href="mailto:contact@connexionstrategique.com" style={{ color: "#A01414" }}>contact@connexionstrategique.com</a></li>
-              <li><strong>Téléphone :</strong> +229 01 41 76 53 41 (Bénin) · +86 195 8743 9774 (Chine)</li>
+              <li><strong>Téléphone :</strong> +86 195 8743 9774 (Chine)</li>
             </ul>
           </Section>
 
@@ -76,7 +76,7 @@ export default function PolitiqueConfidentialite() {
               <li><strong>Droit de suppression :</strong> demander l&apos;effacement de vos données.</li>
               <li><strong>Droit d&apos;opposition et de retrait du consentement :</strong> vous opposer au traitement de vos données ou cesser de recevoir nos communications commerciales.</li>
             </ul>
-            <p>Pour exercer ces droits, il vous suffit de nous écrire à <a href="mailto:contact@connexionstrategique.com" style={{ color: "#A01414" }}>contact@connexionstrategique.com</a> ou de nous appeler au <a href="tel:+22901417653241" style={{ color: "#A01414" }}>+229 01 41 76 53 41</a>. Nous répondrons à votre demande dans les meilleurs délais.</p>
+            <p>Pour exercer ces droits, il vous suffit de nous écrire à <a href="mailto:contact@connexionstrategique.com" style={{ color: "#A01414" }}>contact@connexionstrategique.com</a> ou de nous appeler au <a href="tel:+8619587439774" style={{ color: "#A01414" }}>+86 195 8743 9774</a>. Nous répondrons à votre demande dans les meilleurs délais.</p>
           </Section>
 
           <Section title="7. Cookies et technologies de suivi — Pixel Meta">
@@ -98,7 +98,7 @@ export default function PolitiqueConfidentialite() {
           <Section title="9. Nous contacter">
             <ul>
               <li><strong>Email :</strong> <a href="mailto:contact@connexionstrategique.com" style={{ color: "#A01414" }}>contact@connexionstrategique.com</a></li>
-              <li><strong>Téléphone :</strong> +229 01 41 76 53 41 (Bénin) · +86 195 8743 9774 (Chine)</li>
+              <li><strong>Téléphone :</strong> +86 195 8743 9774 (Chine)</li>
               <li><strong>Adresse :</strong> Cotonou, Bénin, Étoile Rouge, Bâtiment C955, rue avant la BOA en allant vers l&apos;Église Catholique Saint Jean / Guangzhou Baiyun, Chine</li>
             </ul>
           </Section>

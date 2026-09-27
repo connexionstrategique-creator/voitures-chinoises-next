@@ -13,8 +13,9 @@ export default async function ContactPage() {
   try { settings = await getSiteSettings(); } catch {}
 
   const wa = settings?.whatsappNumber ?? "8619587439774";
-  const phone = settings?.phoneDisplay ?? "+229 01 41 76 53 41";
+  const phone = settings?.phoneDisplay ?? "+86 195 8743 9774";
   const phoneCN = settings?.phoneCN ?? "+86 195 8743 9774";
+  const showPhoneCN = phoneCN.replace(/\s/g, "") !== phone.replace(/\s/g, "");
   const waMsg = encodeURIComponent("Bonjour, je souhaite obtenir des informations sur vos véhicules.");
 
   return (
@@ -43,13 +44,15 @@ export default async function ContactPage() {
               <span className="contact-card-arrow">→</span>
             </a>
 
-            <div className="contact-card">
-              <div className="contact-card-icon">📞</div>
-              <div>
-                <div className="contact-card-label">Bureau Chine</div>
-                <div className="contact-card-value">{phoneCN}</div>
+            {showPhoneCN && (
+              <div className="contact-card">
+                <div className="contact-card-icon">📞</div>
+                <div>
+                  <div className="contact-card-label">Bureau Chine</div>
+                  <div className="contact-card-value">{phoneCN}</div>
+                </div>
               </div>
-            </div>
+            )}
 
             <div className="contact-card">
               <div className="contact-card-icon">📍</div>

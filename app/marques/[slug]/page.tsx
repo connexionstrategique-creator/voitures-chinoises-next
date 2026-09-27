@@ -95,7 +95,7 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
               Nous vous répondons rapidement avec prix et disponibilité.
             </p>
             <a
-              href={`https://wa.me/22941765341?text=${encodeURIComponent(`Bonjour, je suis intéressé(e) par un modèle ${brand!.name}. Pouvez-vous me donner plus d'informations sur les modèles disponibles et les prix ?`)}`}
+              href={`https://wa.me/8619587439774?text=${encodeURIComponent(`Bonjour, je suis intéressé(e) par un modèle ${brand!.name}. Pouvez-vous me donner plus d'informations sur les modèles disponibles et les prix ?`)}`}
               target="_blank"
               rel="noopener noreferrer"
               style={{

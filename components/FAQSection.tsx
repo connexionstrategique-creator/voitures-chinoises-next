@@ -70,7 +70,7 @@ const FAQS = [
   {
     icon: "📞",
     q: "Comment vous contacter ?",
-    a: "<strong>Bureau Cotonou :</strong> +229 01 41 76 53 41<br><strong>Équipe Chine :</strong> +86 195 8743 9774<br>Nous répondons sous <strong>48h ouvrées</strong>.",
+    a: "<strong>Équipe Chine :</strong> +86 195 8743 9774<br>Nous répondons sous <strong>48h ouvrées</strong>.",
   },
 ];
 

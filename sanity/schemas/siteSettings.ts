@@ -52,14 +52,14 @@ export const siteSettingsSchema = defineType({
       type: "string",
       group: "contact",
       initialValue: "8619587439774",
-      description: "Ex : 22941765341 — utilisé pour tous les boutons WhatsApp du site.",
+      description: "Ex : 8619587439774 — utilisé pour tous les boutons WhatsApp du site.",
     }),
     defineField({
       name: "phoneDisplay",
       title: "Numéro affiché (formaté)",
       type: "string",
       group: "contact",
-      initialValue: "+229 01 41 76 53 41",
+      initialValue: "+86 195 8743 9774",
       description: "Version lisible affichée dans le footer.",
     }),
     defineField({

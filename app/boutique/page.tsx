@@ -187,7 +187,7 @@ const DEMO_PARTS: import("@/data/types").SparePart[] = [
 export default async function BoutiquePage() {
   const [sanityParts, settings] = await Promise.all([getSpareParts(), getSiteSettings()]);
   const waNumber = settings?.whatsappNumber ?? "8619587439774";
-  const phoneDisplay = settings?.phoneDisplay ?? "+229 01 41 76 53 41";
+  const phoneDisplay = settings?.phoneDisplay ?? "+86 195 8743 9774";
   const phoneCN = settings?.phoneCN ?? "+86 195 8743 9774";
 
   const parts = sanityParts;

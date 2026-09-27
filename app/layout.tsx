@@ -62,7 +62,7 @@ const localBusinessSchema = {
       "name": "Connexion Stratégique — Voitures Chinoises",
       "description": "Importateur officiel de voitures chinoises neuves 0km. Prix usine CIF livré Cotonou, Lomé, Abidjan, Dakar. BYD, Changan, Jetour, Geely et 20 marques.",
       "url": "https://www.voitureschinoises.com",
-      "telephone": "+22941765341",
+      "telephone": "+8619587439774",
       "email": "contact@voitureschinoises.com",
       "address": {
         "@type": "PostalAddress",

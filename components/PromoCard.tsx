@@ -13,7 +13,7 @@ interface PromoCardProps {
   whatsappMessage?: string;
 }
 
-const WA_NUMBER = "22941765341";
+const WA_NUMBER = "8619587439774";
 
 export default function PromoCard({
   vehicleName,

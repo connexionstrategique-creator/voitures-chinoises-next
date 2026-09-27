@@ -131,7 +131,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     heroLine3:       raw?.heroLine3       ?? "Direct Chine.",
     heroSubtitle:    raw?.heroSubtitle    ?? "Une commande. Un suivi. Un véhicule neuf livré CIF à votre port — jusqu'au dédouanement et à l'immatriculation. Pas de compromis, pas d'approximation — juste le travail bien fait.",
     whatsappNumber:  raw?.whatsappNumber  ?? "8619587439774",
-    phoneDisplay:    raw?.phoneDisplay    ?? "+229 01 41 76 53 41",
+    phoneDisplay:    raw?.phoneDisplay    ?? "+86 195 8743 9774",
     phoneCN:         raw?.phoneCN         ?? "+86 195 8743 9774",
   };
 }

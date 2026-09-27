@@ -7,12 +7,14 @@ interface FooterProps {
 
 export default function Footer({
   waNumber = "8619587439774",
-  phoneDisplay = "+229 01 41 76 53 41",
+  phoneDisplay = "+86 195 8743 9774",
   phoneCN = "+86 195 8743 9774",
   minimal = false,
 }: FooterProps) {
   const waMsg = encodeURIComponent("Bonjour, je souhaite obtenir des informations sur vos véhicules.");
   const waDevis = encodeURIComponent("Bonjour, je souhaite un devis sur mesure pour un véhicule spécifique.");
+  // N'affiche le numéro Chine que s'il diffère du numéro principal (évite le doublon)
+  const showPhoneCN = phoneCN.replace(/\s/g, "") !== phoneDisplay.replace(/\s/g, "");
 
   return (
     <>
@@ -38,7 +40,7 @@ export default function Footer({
                 📞 {phoneDisplay}
               </a>
             </li>
-            <li>📞 {phoneCN}</li>
+            {showPhoneCN && <li>📞 {phoneCN}</li>}
             <li><a href="https://share.google/HqE0ij0QAgsbYwo3H" target="_blank" rel="noopener noreferrer" style={{ color: "inherit" }}>📍 Cotonou, Étoile Rouge</a></li>
             <li>📍 Guangzhou Baiyun, Chine</li>
           </ul>

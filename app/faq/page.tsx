@@ -56,7 +56,7 @@ const faqSchema = {
     {
       "@type": "Question",
       "name": "Comment vous contacter ?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Bureau Cotonou : +229 01 41 76 53 41. Équipe Chine : +86 195 8743 9774. Nous répondons sous 48h ouvrées." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Équipe Chine : +86 195 8743 9774. Nous répondons sous 48h ouvrées." }
     }
   ]
 };
