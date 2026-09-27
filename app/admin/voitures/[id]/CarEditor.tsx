@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { CAR_CATEGORIES, normalizeCat } from "@/lib/categories";
 
 interface SpecRow { key: string; value: string; }
 
@@ -26,7 +27,7 @@ export default function CarEditor({ car }: { car: any }) {
   const [price, setPrice] = useState(car.price || "");
   const [desc, setDesc] = useState(car.desc || "");
   const [year, setYear] = useState(car.year || "");
-  const [cat, setCat] = useState(car.cat || "suv");
+  const [cat, setCat] = useState(normalizeCat(car.cat) || "suv");
   const [colors, setColors] = useState<string>((car.colors || []).join(", "));
   const [specs, setSpecs] = useState<SpecRow[]>(parseSpecs(car.specs));
   const [saving, setSaving] = useState(false);
@@ -191,12 +192,7 @@ export default function CarEditor({ car }: { car: any }) {
           <div>
             <span style={label}>Catégorie</span>
             <select style={inp} value={cat} onChange={e => setCat(e.target.value)}>
-              <option value="suv">SUV</option>
-              <option value="hybride">Hybride</option>
-              <option value="5places">5 Places</option>
-              <option value="7places">7 Places</option>
-              <option value="pickup">Pickup</option>
-              <option value="berline">Berline</option>
+              {CAR_CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.title}</option>)}
             </select>
           </div>
         </div>

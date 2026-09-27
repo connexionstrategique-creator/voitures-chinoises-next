@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { CAR_CATEGORIES } from "@/lib/categories";
 
 const ADMIN_PASSWORD = "vc2026";
 
@@ -183,10 +184,7 @@ export default function AdminImport() {
                   value={parsed.cat}
                   onChange={e => setParsed({ ...parsed, cat: e.target.value })}
                 >
-                  <option value="suv">SUV</option>
-                  <option value="hybride">Hybride</option>
-                  <option value="5places">5 Places</option>
-                  <option value="7places">7 Places</option>
+                  {CAR_CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.title}</option>)}
                 </select>
               </div>
             </div>

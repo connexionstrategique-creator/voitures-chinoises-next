@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { getColorHex } from "@/data/types";
 import type { Car } from "@/data/types";
 import { carSlug } from "@/lib/slug";
+import { TYPE_FILTERS, matchesTypeFilter } from "@/lib/categories";
 
 const WA_NUMBER = "8619587439774";
 
@@ -145,11 +146,7 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
 
   const filtered = useMemo(() => {
     let result = cars.filter((c) => {
-      const catOk =
-        activeFilter === "all" ||
-        c.cat === activeFilter ||
-        (activeFilter === "7places" && c.specs.Places?.includes("7")) ||
-        (activeFilter === "5places" && c.specs.Places?.includes("5") && !c.specs.Places?.includes("7"));
+      const catOk = matchesTypeFilter(c, activeFilter);
       const budOk = budgetMatch(c, activeBudget);
       const brandOk = activeBrand === "all" || c.brand === activeBrand;
       const haystack = `${c.brand} ${c.model}`.toLowerCase();
@@ -174,13 +171,13 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
             <div>
               <span className="filter-label">Type de véhicule</span>
               <div className="filters">
-                {["all", "suv", "pickup", "hybride", "5places", "7places"].map((f) => (
+                {TYPE_FILTERS.map(({ key, label }) => (
                   <button
-                    key={f}
-                    className={`filter-btn${activeFilter === f ? " active" : ""}`}
-                    onClick={() => handleFilter(f)}
+                    key={key}
+                    className={`filter-btn${activeFilter === key ? " active" : ""}`}
+                    onClick={() => handleFilter(key)}
                   >
-                    {f === "all" ? "Tous" : f === "suv" ? "SUV" : f === "pickup" ? "Pick-up" : f === "hybride" ? "Hybrides" : f === "5places" ? "5 Places" : "7 Places"}
+                    {label}
                   </button>
                 ))}
               </div>

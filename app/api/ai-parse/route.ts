@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
+import { CAR_CATEGORIES } from "@/lib/categories";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
@@ -49,7 +50,7 @@ Instructions :
 - "desc" : une phrase d'accroche courte qui commence par "Découvrez la ${brand} ${model}..."
 - "reasons" : exactement 5 objets {title, body}. Chaque raison = une vraie raison d'acheter cette voiture. title = titre court (3-5 mots), body = 1-2 phrases percutantes. Parle au client africain : rapport qualité-prix, fiabilité, confort, autonomie, livraison CIF.
 - "price" : prix en FCFA avec espaces si mentionné dans le texte (ex: "13 935 000"), sinon ""
-- "cat" : exactement une de ces valeurs : suv, hybride, 5places, 7places
+- "cat" : exactement une de ces valeurs : ${CAR_CATEGORIES.map(c => c.value).join(", ")} (carrosserie, suivie de -hybride pour un PHEV ou un prolongateur d'autonomie EREV, de -electrique pour un 100 % électrique)
 - "colors" : liste des couleurs disponibles si mentionnées, sinon []
 
 Réponds UNIQUEMENT avec le JSON valide, sans texte avant ou après, sans markdown.`;

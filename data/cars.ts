@@ -2,7 +2,7 @@ import type { Car, CarPhoto } from "./types";
 
 export const CARS: Car[] = [
   {
-    id: 1, brand: "BYD", model: "TITANIUM 7", year: "2026", cat: "hybride", badge: "new", badgeText: "Nouveau", featured: true,
+    id: 1, brand: "BYD", model: "TITANIUM 7", year: "2026", cat: "suv-hybride", badge: "new", badgeText: "Nouveau", featured: true,
     price: "24 900 000", color: "#1A3A5C",
     colors: ["Vert Paysage", "Argent Étoilé", "Bleu Matin", "Or Aurore", "Noir Obsidien"],
     specs: { Moteur: "2.0 Turbo Hybride Plug-in", Type: "Hybride rechargeable PHEV", Places: "5 places", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
@@ -10,7 +10,7 @@ export const CARS: Car[] = [
     desc: "Le BYD Titanium 7 incarne le haut de gamme hybride rechargeable de BYD. Motorisation 2.0 Turbo PHEV alliant performance et économie de carburant, finitions premium et technologies embarquées de pointe. Sorti directement d'usine, livré neuf en Afrique francophone.",
   },
   {
-    id: 2, brand: "BYD", model: "LÉOPARD 8", year: "2026", cat: "hybride", badge: "new", badgeText: "Full Option",
+    id: 2, brand: "BYD", model: "LÉOPARD 8", year: "2026", cat: "suv-hybride", badge: "new", badgeText: "Full Option",
     price: "36 900 000", color: "#2A2A2A", autohomeId: "ext/75359",
     colors: ["Noir", "Blanc", "Gris", "Bleu Nuit", "Argent"],
     specs: { Moteur: "2.0 Turbo Hybride Plug-in", Type: "Hybride rechargeable PHEV", Places: "5 places", Finition: "Full Option", Année: "2026", Kilométrage: "0 km — Neuf" },
@@ -99,7 +99,7 @@ export const CARS: Car[] = [
     desc: "Le Jetour X70 Plus 7 places 2026 est le SUV familial spacieux de Jetour. Trois rangées de sièges, motorisation essence fiable et finitions modernes. Le rapport espace-prix le plus compétitif du marché, livré neuf vers tous les ports d'Afrique francophone.",
   },
   {
-    id: 13, brand: "GAC Motor", model: "S7", year: "2026", cat: "hybride", badge: "new", badgeText: "Full Option",
+    id: 13, brand: "GAC Motor", model: "S7", year: "2026", cat: "suv-hybride", badge: "new", badgeText: "Full Option",
     price: "15 700 000", color: "#1A2A5C", autohomeId: "ext/71237",
     colors: ["Blanc Ivoire", "Gris Graphène", "Bleu Lac de Sel", "Argent Superstar"],
     specs: { Moteur: "1.5T Hybride", Places: "7 places", Finition: "Full Option", Année: "2026", Kilométrage: "0 km — Neuf", Transmission: "Automatique" },
@@ -123,7 +123,7 @@ export const CARS: Car[] = [
     desc: "Le Livan X3 Pro 2026 est le SUV compact le plus accessible du catalogue. Motorisation 1.5T, transmission automatique, toit ouvrant de série et finitions soignées. Le meilleur point d'entrée pour accéder à un véhicule neuf chinois 0km.",
   },
   {
-    id: 16, brand: "G700", model: "IIIC FULL OPTION", year: "2026", cat: "suv", badge: "new", badgeText: "Haut de Gamme", featured: false,
+    id: 16, brand: "G700", model: "IIIC FULL OPTION", year: "2026", cat: "suv-hybride", badge: "new", badgeText: "Haut de Gamme", featured: false,
     price: "38 234 000", color: "#1A1A1A",
     colors: ["Blanc", "Gris", "Noir", "Bleu"],
     specs: { Moteur: "2.0 Turbo Essence", Places: "6 places premium", Traction: "4×4 — Différentiels AV+AR verrouillables", Suspension: "Pneumatique adaptative", Autonomie_L2: "AEB, ACC, LKA, Angle mort", Caméra: "360° + 12 radars", Jantes: "20 pouces", Écran_arrière: "17.3 pouces", Climatisation: "Tri-zone" },

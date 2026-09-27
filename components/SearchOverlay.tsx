@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
+import { catLabel, normalizeCat } from "@/lib/categories";
 
 interface CarResult {
   type: "car";
@@ -21,15 +22,12 @@ interface PostResult {
   thumb: string | null;
 }
 
-const CAT_LABEL: Record<string, string> = {
-  suv: "SUV",
-  hybride: "Hybride",
-  elec: "Électrique",
-  "SUV hybride": "Hybride",
-  "Berline hybride": "Hybride",
-  "Citadine électrique": "Électrique",
-  "SUV électrique": "Électrique",
-};
+function catClass(cat: string) {
+  const parts = normalizeCat(cat).split("-");
+  if (parts.includes("hybride")) return " search-cat-hybride";
+  if (parts.includes("electrique")) return " search-cat-elec";
+  return "";
+}
 
 const POST_CAT_LABEL: Record<string, string> = {
   actualites: "Actualités",
@@ -74,7 +72,7 @@ export default function SearchOverlay({ onClose }: { onClose: () => void }) {
         c.brand.toLowerCase().includes(q) ||
         c.model.toLowerCase().includes(q) ||
         `${c.brand} ${c.model}`.toLowerCase().includes(q) ||
-        (c.cat && (CAT_LABEL[c.cat]?.toLowerCase().includes(q) || c.cat.toLowerCase().includes(q)))
+        (c.cat && (catLabel(c.cat).toLowerCase().includes(q) || c.cat.toLowerCase().includes(q)))
       )
     : cars;
 
@@ -148,8 +146,8 @@ export default function SearchOverlay({ onClose }: { onClose: () => void }) {
                       <span className="search-result-model">{car.model}</span>
                       <span className="search-result-price">{car.price} <span style={{opacity:.6}}>FCFA</span></span>
                     </div>
-                    <span className={`search-result-cat search-cat-${car.cat}`}>
-                      {CAT_LABEL[car.cat] ?? car.cat}
+                    <span className={`search-result-cat${catClass(car.cat)}`}>
+                      {catLabel(car.cat)}
                     </span>
                   </Link>
                 ))}

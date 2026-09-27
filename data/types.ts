@@ -42,7 +42,7 @@ export interface Car {
   brand: string;
   model: string;
   year: string;
-  cat: "suv" | "hybride";
+  cat: string; // see CAR_CATEGORIES in lib/categories.ts
   badge: "new" | "pop" | "elec" | "promo";
   badgeText: string;
   featured?: boolean;

@@ -1,5 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
+import { CAR_CATEGORIES } from "../../lib/categories";
 
 export const carSchema = defineType({
   name: "car",
@@ -43,15 +44,12 @@ export const carSchema = defineType({
     defineField({
       name: "cat", title: "Catégorie", type: "string",
       group: "identite",
+      description: "Carrosserie + énergie. Hybride = PHEV ou prolongateur d'autonomie (EREV) ; électrique = 100 % électrique. Détermine les filtres du catalogue (le nombre de places est lu dans la fiche technique).",
       options: {
-        list: [
-          { title: "SUV", value: "suv" },
-          { title: "Hybride / PHEV", value: "hybride" },
-          { title: "5 Places", value: "5places" },
-          { title: "7 Places", value: "7places" },
-        ],
-        layout: "radio",
+        list: CAR_CATEGORIES,
+        layout: "dropdown",
       },
+      validation: (r) => r.required(),
     }),
     defineField({
       name: "desc", title: "Accroche courte", type: "text",
