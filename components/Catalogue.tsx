@@ -286,7 +286,7 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                         src={thumbSrc}
                         alt={`${car.brand} ${car.model}`}
                         loading="lazy"
-                        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.85 }}
+                        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
                       />
                     ) : (
                       <CarSVG color={car.color} />
