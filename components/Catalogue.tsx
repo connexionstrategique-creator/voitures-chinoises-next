@@ -273,6 +273,7 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
           <div className="cars-grid">
             {paginated.map((car) => {
               const photos = car.photos || [];
+              const thumbSrc = photos[0]?.src || car.colorGroups?.[0]?.photos?.[0]?.src || null;
               return (
                 <div
                   key={car.id}
@@ -280,9 +281,9 @@ export default function Catalogue({ cars }: { cars: Car[] }) {
                   onClick={() => router.push(`/voitures/${carSlug(car.brand, car.model)}`)}
                 >
                   <div className="car-img-wrap">
-                    {photos.length > 0 ? (
+                    {thumbSrc ? (
                       <img
-                        src={photos[0].src}
+                        src={thumbSrc}
                         alt={`${car.brand} ${car.model}`}
                         loading="lazy"
                         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.85 }}
