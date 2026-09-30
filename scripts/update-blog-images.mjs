@@ -8,7 +8,7 @@ import { createClient } from "@sanity/client";
 import https from "https";
 import http from "http";
 
-const TOKEN = "skyztPiIY9B6QnGxPk1LGpDi4AbqNDaoHoPCDmSxsvBhzLFCjt198UNt8b3Hp7lq7eWIMWsJ9PVsYfDlE";
+const TOKEN = process.env.SANITY_TOKEN;
 const PROJECT_ID = "t3ow1rmc";
 const DATASET = "production";
 

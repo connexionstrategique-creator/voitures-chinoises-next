@@ -8,7 +8,7 @@ import { createClient } from "@sanity/client";
 import https from "https";
 import http from "http";
 
-const TOKEN = "skyztPiIY9B6QnGxPk1LGpDi4AbqNDaoHoPCDmSxsvBhzLFCjt198UNt8b3Hp7lq7eWIMWsJ9PVsYfDlE";
+const TOKEN = process.env.SANITY_TOKEN;
 const client = createClient({ projectId: "t3ow1rmc", dataset: "production", apiVersion: "2024-01-01", useCdn: false, token: TOKEN });
 
 function downloadBuffer(url) {

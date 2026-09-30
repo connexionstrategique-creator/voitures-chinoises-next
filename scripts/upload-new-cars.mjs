@@ -9,17 +9,15 @@ import { readFileSync } from "fs";
 
 const PROJECT_ID = "t3ow1rmc";
 const DATASET = "production";
-const TOKEN = "skyztPiIY9B6QnGxPk1LGpDi4AbqNDaoHoPCDmSxsvBhzLFCjt198UNt8b3Hp7lq7eWIMWsJ9PVsYfDlE";
-const PHOTOS_BASE = "/Users/apple/Documents/Dossier photos voitures chinoises";
+const TOKEN = process.env.SANITY_TOKEN;
+const PHOTOS_BASE = "/Users/apple/Documents/Dossier photos voitures chinoises/Voitures à importer 200726 2";
 const API_BASE = `https://${PROJECT_ID}.api.sanity.io/v2021-06-07`;
 
-// One folder can target multiple cars (e.g. CVT + Manuel same body)
+// New cars from "Voitures à importer 200726 2" — use prepared/ subfolder
 const FOLDER_MAP = [
-  { folder: "Geely Coolray",               cars: ["car-19", "car-20"] },
-  { folder: "JETOUR X70 L 2026",            cars: ["car-21"] },
-  { folder: "Changan CS55 PLUS PHEV 2026",  cars: ["car-24"] },
-  { folder: "Roewe i5",                     cars: ["car-28"] },
-  { folder: "MG5",                          cars: ["car-29"] },
+  { folder: "Changan Eado Plus 2026/prepared", cars: ["car-changan-eado-plus-2026"] },
+  { folder: "Wuling Gen 4th/prepared",         cars: ["car-wuling-miniev-4th"] },
+  { folder: "MG5 2026/prepared",               cars: ["car-mg5-2026"] },
 ];
 
 const IMAGE_MIMES = {
@@ -118,6 +116,14 @@ async function main() {
       try {
         await patchCarPhotos(carId, assetIds);
         console.log(`  ✓ Patched ${carId}`);
+        // Publish after patching
+        const pubRes = await fetch(`${API_BASE}/data/mutate/${DATASET}`, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${TOKEN}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ mutations: [{ publish: { id: carId } }] }),
+        });
+        if (pubRes.ok) console.log(`  ✓ Published ${carId}`);
+        else console.warn(`  ⚠️  Publish ${carId}: ${pubRes.status}`);
       } catch (err) {
         console.error(`  ✗ Patch error for ${carId}: ${err.message}`);
       }

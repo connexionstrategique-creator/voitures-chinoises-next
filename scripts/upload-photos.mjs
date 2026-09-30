@@ -14,7 +14,7 @@ import { readFileSync } from "fs";
 // ─── Config ───────────────────────────────────────────────────────────────────
 const PROJECT_ID = "t3ow1rmc";
 const DATASET = "production";
-const TOKEN = "skyztPiIY9B6QnGxPk1LGpDi4AbqNDaoHoPCDmSxsvBhzLFCjt198UNt8b3Hp7lq7eWIMWsJ9PVsYfDlE";
+const TOKEN = process.env.SANITY_TOKEN;
 const PHOTOS_BASE = "/Users/apple/Documents/Dossier photos voitures chinoises";
 const API_BASE = `https://${PROJECT_ID}.api.sanity.io/v2021-06-07`;
 

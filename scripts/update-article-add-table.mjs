@@ -4,7 +4,7 @@
  */
 import { createClient } from "@sanity/client";
 
-const TOKEN = "skyztPiIY9B6QnGxPk1LGpDi4AbqNDaoHoPCDmSxsvBhzLFCjt198UNt8b3Hp7lq7eWIMWsJ9PVsYfDlE";
+const TOKEN = process.env.SANITY_TOKEN;
 const client = createClient({ projectId: "t3ow1rmc", dataset: "production", apiVersion: "2024-01-01", useCdn: false, token: TOKEN });
 
 const key = () => Math.random().toString(36).slice(2, 10);
