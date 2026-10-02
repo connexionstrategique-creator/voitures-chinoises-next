@@ -36,6 +36,18 @@ const POST_CAT_LABEL: Record<string, string> = {
   marche: "Marché",
 };
 
+// Noms alternatifs/anglais pour chaque marque
+const BRAND_ALIASES: Record<string, string[]> = {
+  fangchengbao: ["leopard", "bao", "方程豹"],
+  byd: ["build your dreams", "比亚迪"],
+  changan: ["长安"],
+  geely: ["吉利"],
+  jetour: ["奇瑞捷途"],
+  chery: ["奇瑞"],
+  haval: ["哈弗"],
+  kaiyi: ["凯翼"],
+};
+
 export default function SearchOverlay({ onClose }: { onClose: () => void }) {
   const [query, setQuery] = useState("");
   const [cars, setCars] = useState<CarResult[]>([]);
@@ -68,12 +80,17 @@ export default function SearchOverlay({ onClose }: { onClose: () => void }) {
   const q = query.toLowerCase().trim();
 
   const filteredCars = q
-    ? cars.filter((c) =>
-        c.brand.toLowerCase().includes(q) ||
-        c.model.toLowerCase().includes(q) ||
-        `${c.brand} ${c.model}`.toLowerCase().includes(q) ||
-        (c.cat && (catLabel(c.cat).toLowerCase().includes(q) || c.cat.toLowerCase().includes(q)))
-      )
+    ? cars.filter((c) => {
+        const brandKey = c.brand.toLowerCase();
+        const aliases = BRAND_ALIASES[brandKey] ?? [];
+        return (
+          brandKey.includes(q) ||
+          c.model.toLowerCase().includes(q) ||
+          `${c.brand} ${c.model}`.toLowerCase().includes(q) ||
+          aliases.some((a) => a.includes(q) || q.includes(a)) ||
+          (c.cat && (catLabel(c.cat).toLowerCase().includes(q) || c.cat.toLowerCase().includes(q)))
+        );
+      })
     : cars;
 
   const filteredPosts = q
