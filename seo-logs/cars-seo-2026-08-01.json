@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "car-byd-atto3-510-prestige",
+    "brand": "BYD",
+    "model": "ATTO 3 PLUS — 510 km Édition Prestige",
+    "seo": {
+      "seoTitle": "BYD Atto 3 510 km Édition Prestige : prix FCFA Afrique",
+      "seoDescription": "BYD Atto 3 Plus 510 km Édition Prestige, SUV 100% électrique dès 15 020 000 FCFA CIF. Livraison Cotonou, Lomé, Abidjan, Dakar. Devis WhatsApp sous 24h.",
+      "desc": "(voir document Sanity — 226 mots)"
+    }
+  },
+  {
+    "_id": "car-dongfeng-paladin-essence",
+    "brand": "Dongfeng",
+    "model": "Paladin — 2.0T 8AT 4×4 Essence",
+    "seo": {
+      "seoTitle": "Dongfeng Paladin 2.0T 4x4 Essence : prix FCFA Afrique",
+      "seoDescription": "Dongfeng Paladin 2.0T 8AT 4x4 essence, pick-up robuste dès 18 170 000 FCFA CIF. Livraison Cotonou, Lomé, Abidjan, Dakar. Devis personnalisé WhatsApp 24h.",
+      "desc": "(voir document Sanity — 215 mots)"
+    }
+  },
+  {
+    "_id": "car-dongfeng-paladin-diesel",
+    "brand": "Dongfeng",
+    "model": "Paladin — 2.3T 8AT 4×4 Diesel",
+    "seo": {
+      "seoTitle": "Dongfeng Paladin 2.3T 4x4 Diesel : prix FCFA Afrique",
+      "seoDescription": "Dongfeng Paladin 2.3T 8AT 4x4 diesel, pick-up puissant dès 20 210 000 FCFA CIF. Livraison Cotonou, Lomé, Abidjan, Dakar. Devis personnalisé WhatsApp 24h.",
+      "desc": "(voir document Sanity — 217 mots)"
+    }
+  },
+  {
+    "_id": "car-mercedes-vito-2024",
+    "brand": "Mercedes-Benz",
+    "model": "Vito 2024",
+    "seo": {
+      "seoTitle": "Mercedes-Benz Vito 2024 : prix FCFA et livraison Afrique",
+      "seoDescription": "Mercedes-Benz Vito 2024, utilitaire spacieux et fiable dès 46 320 000 FCFA CIF. Livraison Cotonou, Lomé, Abidjan, Dakar. Devis WhatsApp sous 24h.",
+      "desc": "(voir document Sanity — 210 mots)"
+    }
+  }
+]
